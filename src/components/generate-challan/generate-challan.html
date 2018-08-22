@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Generate Challan</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <form>
+        <ion-item-group>
+
+            <ion-item-divider color="success">Violenter Details</ion-item-divider>
+            <div class="block">
+            <ion-item>
+                <ion-label floating>Driving License</ion-label>
+                <ion-input type="text" [(ngModel)]="dl" name="dl"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Registration Certificate</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Vehicle Number</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+          </div>
+        </ion-item-group>
+        <button ion-button full color="primary" (click)="getInfo()">Check</button>
+
+        <div *ngIf="violenter">
+            <ion-card>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-4>
+                      <img [src]="violenter.image"/>
+                  </ion-col>
+                  <ion-col col-8 class="grid">
+                    <div>
+                        Name: {{ violenter.name }}
+                    </div>
+                    <div>
+                        DOB: {{ violenter.dob }}
+                    </div>
+                   <div>
+                     RC: {{ violenter.register_certificate }}
+                   </div>
+                   <div>
+                     Vehicle No:  {{ violenter.vehicle_no }}
+                   </div>
+                   <div>
+                      Previous Violations:  {{ violenter.previous_violation_count }}
+                    </div>
+                  </ion-col>
+                  <ion-col col-12>
+                    <!-- <ion-badge>Previous Violations</ion-badge> -->
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <div padding-left padding-right>
+                    <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
+                      <ion-icon name='star'></ion-icon>
+                      View Previous Violations
+                    </button>
+                  </div>
+              </ion-card>
+        </div>
+
+        <div *ngIf="needManualDetails">
+          enter details
+        </div>
+
+        <div padding>
+          <button ion-button center round class="center" [disabled]="!violenter">Add Violation</button>
+        </div>
+    </form> 
+    <!-- {{  }} -->
+  </ion-content>
+  
