@@ -19,11 +19,25 @@
   </ion-header>
   
   <ion-content>
-
+      <div id="violents_piechart" margin-bottom></div>
+      
     <ion-list>
         <ion-item *ngIf="violenter">
           {{ violenter.name }}
+          <br>
+          <p>Driving License: {{ violenter.driving_license }}</p>
         </ion-item>
-
+        <ion-item>
+            <ion-label>Filter Violents</ion-label>
+            <ion-select [(ngModel)]="violent" [selectOptions]="violentOpts" multiple="true" cancelText="Cancel" okText="Ok">
+              <ion-option>All</ion-option>
+              <ion-option>Red Signal</ion-option>
+              <ion-option>No Paper</ion-option>
+              <ion-option>Overspeeding</ion-option>
+              <ion-option>Rash Driving</ion-option>
+              <ion-option>Hit and Run</ion-option>
+              <ion-option (select)="stpSelect()">Stone Temple Pilots</ion-option>
+            </ion-select>
+          </ion-item>
     </ion-list>
   </ion-content>

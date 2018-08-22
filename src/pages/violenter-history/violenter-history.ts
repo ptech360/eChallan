@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavParams } from 'ionic-angular';
+import { ChartProvider } from '../../providers/chart/chart';
 
+declare var google: any;
 /**
  * Generated class for the ViolenterHistoryPage page.
  *
@@ -13,19 +15,37 @@ import { IonicPage, ViewController, NavParams } from 'ionic-angular';
   selector: 'page-violenter-history',
   templateUrl: 'violenter-history.html',
 })
-export class ViolenterHistoryPage {
+export class ViolenterHistoryPage implements OnInit {
 
   public violenter;
-  
-  constructor(public viewCtrl: ViewController, public navParams:NavParams) {
+  violents: string;
+  violentOpts: { title: string, subTitle: string };
+
+  constructor(public viewCtrl: ViewController, public navParams:NavParams,
+              public chartService:ChartProvider
+  ) {
+  }
+
+  ngOnInit() {
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(this.chartService.violstionChart);
+
+    this.violentOpts = {
+      title: 'Violents Made',
+      subTitle: 'Select violents to display'
+    };
   }
 
   ionViewDidLoad() {
       this.violenter = this.navParams.get('data')
-      
   }
+
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  stpSelect() {
+    console.log('STP selected');
   }
 
 }

@@ -17,6 +17,7 @@ import { FeaturesProvider } from '../providers/features/features';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { PeopleProvider } from '../providers/people/people';
 import { ViolenterHistoryPage } from '../pages/violenter-history/violenter-history';
+import { ChartProvider } from '../providers/chart/chart';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { ViolenterHistoryPage } from '../pages/violenter-history/violenter-histo
     LoginProvider,
     FeaturesProvider,
     PeopleProvider,
+    ChartProvider,
   ]
 })
 export class AppModule {}
