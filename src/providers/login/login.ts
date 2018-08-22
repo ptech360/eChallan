@@ -27,7 +27,6 @@ export class LoginProvider {
   currentUser: User
 
   constructor() {
-    console.log('Hello LoginProvider Provider')
   }
 
   login(credentials){
