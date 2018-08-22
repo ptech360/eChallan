@@ -1,2 +1,13 @@
 page-home {
+    .home{
+        ion-row{
+                ion-col{
+                    border:1px solid gray;
+                    img{
+                        width:50%;
+                    }
+                    font-weight:bold;
+                }
+        }
+    }
 }
