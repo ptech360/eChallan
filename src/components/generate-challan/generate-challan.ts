@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { PeopleProvider } from '../../providers/people/people';
+import { ModalController } from 'ionic-angular';
+import { ViolenterHistoryPage } from '../../pages/violenter-history/violenter-history';
 
 /**
  * Generated class for the GenerateChallanComponent component.
@@ -21,7 +23,9 @@ export class GenerateChallanComponent {
   needManualDetails:boolean = false;
 
 
-  constructor(public people:PeopleProvider) {
+  constructor(public people:PeopleProvider,
+              public modalCtrl:ModalController  
+  ) {
     this.text = 'Hello World';
   }
 
@@ -33,6 +37,7 @@ export class GenerateChallanComponent {
   }
 
   viewViolations(){
-  
+    const violenterModal = this.modalCtrl.create(ViolenterHistoryPage,{ data: this.violenter })
+    violenterModal.present()
   }
 }

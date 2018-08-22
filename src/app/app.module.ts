@@ -16,6 +16,8 @@ import { GenerateChallanComponent } from '../components/generate-challan/generat
 import { FeaturesProvider } from '../providers/features/features';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { PeopleProvider } from '../providers/people/people';
+import { ViolenterHistoryPage } from '../pages/violenter-history/violenter-history';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { PeopleProvider } from '../providers/people/people';
     HomePage,
     TabsPage,
     LoginComponent,
-    GenerateChallanComponent
+    GenerateChallanComponent,
+    ViolenterHistoryPage,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { PeopleProvider } from '../providers/people/people';
     HomePage,
     TabsPage,
     LoginComponent,
-    GenerateChallanComponent
+    GenerateChallanComponent,
+    ViolenterHistoryPage
   ],
   providers: [
     StatusBar,
