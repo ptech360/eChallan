@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login';
 import { GenerateChallanComponent } from './generate-challan/generate-challan';
+import { AddViolationComponent } from './add-violation/add-violation';
 
 @NgModule({
 	declarations: [LoginComponent,
-    GenerateChallanComponent],
+    GenerateChallanComponent,
+    AddViolationComponent],
 	imports: [],
 	exports: [LoginComponent,
-    GenerateChallanComponent,]
+    GenerateChallanComponent,
+    AddViolationComponent,]
 })
 export class ComponentsModule {}

@@ -25,11 +25,111 @@ export class PeopleProvider {
           code: '001',
           date_of_violation: '14/06/2017',
           time_of_violation: '13:20',
-          charge_person: 'Gaitonde',
+          charge_person: 'Malay Gaitonde',
           location: 'Bani Square Junction',
+          city:'Gurugram',
+          charge_filed: '100',
+          currency: 'Rupee'
+        },
+        {
+          name: 'Crossed Red Light',
+          code: '002',
+          date_of_violation: '19/07/2017',
+          time_of_violation: '11:33',
+          charge_person: 'Laxman Singh',
+          location: 'NSP',
+          city:'Delhi',
           charge_filed: '50',
           currency: 'Rupee'
-        }
+        },
+        {
+          name: 'No Helmet',
+          code: '003',
+          date_of_violation: '30/09/2017',
+          time_of_violation: '15:26',
+          charge_person: 'Chankey Pandey',
+          location: 'Pitampura Square',
+          city:'Delhi',
+          charge_filed: '150',
+          currency: 'Rupee'
+        },
+        {
+          name: 'Rash Driving',
+          code: '004',
+          date_of_violation: '10/10/2017',
+          time_of_violation: '13:23',
+          charge_person: 'Dayalal Singh',
+          location: 'Pitampura Square',
+          city:'Delhi',
+          charge_filed: '150',
+          currency: 'Rupee'
+        },
+        {
+          name: 'Hit & Run',
+          code: '005',
+          date_of_violation: '20/01/2018',
+          time_of_violation: '1:20',
+          charge_person: 'Rajkumar Gaitonde',
+          location: 'Rohtak-Delhi Highway',
+          city:'Delhi',
+          charge_filed: '1500',
+          currency: 'Rupee'
+        },
+        {
+          name: 'No Helmet',
+          code: '001',
+          date_of_violation: '14/06/2017',
+          time_of_violation: '13:20',
+          charge_person: 'Malay Gaitonde',
+          location: 'Bani Square Junction',
+          city:'Gurugram',
+          charge_filed: '100',
+          currency: 'Rupee'
+        },
+        {
+          name: 'Crossed Red Light',
+          code: '002',
+          date_of_violation: '19/07/2017',
+          time_of_violation: '11:33',
+          charge_person: 'Laxman Singh',
+          location: 'NSP',
+          city:'Delhi',
+          charge_filed: '50',
+          currency: 'Rupee'
+        },
+        {
+          name: 'No Helmet',
+          code: '003',
+          date_of_violation: '30/09/2017',
+          time_of_violation: '15:26',
+          charge_person: 'Chankey Pandey',
+          location: 'Pitampura Square',
+          city:'Delhi',
+          charge_filed: '150',
+          currency: 'Rupee'
+        },
+        {
+          name: 'Rash Driving',
+          code: '004',
+          date_of_violation: '10/10/2017',
+          time_of_violation: '13:23',
+          charge_person: 'Dayalal Singh',
+          location: 'Pitampura Square',
+          city:'Delhi',
+          charge_filed: '150',
+          currency: 'Rupee'
+        },
+        {
+          name: 'Hit & Run',
+          code: '005',
+          date_of_violation: '20/01/2018',
+          time_of_violation: '1:20',
+          charge_person: 'Rajkumar Gaitonde',
+          location: 'Rohtak-Delhi Highway',
+          city:'Delhi',
+          charge_filed: '1500',
+          currency: 'Rupee'
+        }, 
       ],
     },
     {
@@ -48,6 +148,7 @@ export class PeopleProvider {
           time_of_violation: '18:20',
           charge_person: 'Gaitonde',
           location: 'Bani Square Junction',
+          city:'Gurugram',
           charge_filed: '50',
           currency: 'Rupee'
         }

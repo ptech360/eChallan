@@ -18,10 +18,10 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
+  <ion-content class="gray-back">
       <div id="violents_piechart" margin-bottom></div>
       
-    <ion-list>
+    <ion-list class="top-list-header">
         <ion-item *ngIf="violenter">
           {{ violenter.name }}
           <br>
@@ -30,14 +30,40 @@
         <ion-item>
             <ion-label>Filter Violents</ion-label>
             <ion-select [(ngModel)]="violent" [selectOptions]="violentOpts" multiple="true" cancelText="Cancel" okText="Ok">
-              <ion-option>All</ion-option>
+              <ion-option >All</ion-option>
               <ion-option>Red Signal</ion-option>
               <ion-option>No Paper</ion-option>
               <ion-option>Overspeeding</ion-option>
               <ion-option>Rash Driving</ion-option>
-              <ion-option>Hit and Run</ion-option>
-              <ion-option (select)="stpSelect()">Stone Temple Pilots</ion-option>
-            </ion-select>
+              <ion-option (select)="stpSelect()">Hit and Run</ion-option>
+            </ion-select> 
           </ion-item>
     </ion-list>
+
+    <div *ngIf="violenter">
+    <div class="violation-timeline" *ngFor="let violetion of violenter.violations">
+        <div class="pin">
+          <div class="location">
+          {{ violetion.location }}
+          </div>
+          <div class="city">
+            {{ violetion.city }}
+          </div>
+        </div>
+        <div class="violation">
+          <div class="name">
+              {{ violetion.name }}
+          </div>
+          <div class="incharge">
+              <b>Incharge: {{ violetion.charge_person }}</b>
+            </div>
+          <div class="date">
+              {{ violetion.date_of_violation }}
+              <span class="time">
+                  | {{ violetion.time_of_violation }}
+                </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </ion-content>

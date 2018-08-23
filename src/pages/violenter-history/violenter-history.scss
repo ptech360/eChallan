@@ -1,3 +1,55 @@
 page-violenter-history {
-
+    .top-list-header{
+        position: sticky;
+        top: -2px;
+        background:white;
+        z-index: 1;
+    }
+    .violation-timeline{
+        font-family: sans-serif;
+        display:flex;
+        .pin{
+          width:35%;
+          text-align:right;
+          padding:20px 10px;
+            position:relative;
+          .location{
+            font-weight:bold;
+            font-size:13px;
+          }
+          .city{
+              font-size:10px;
+              color:gray;
+          }
+          &:after{
+            position:absolute;
+            content:'';
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            right:-8px;
+            background:white;
+            border:2px solid orange;
+            top:50%;
+            transform:translateY(-50%)
+          }
+        }
+        .violation{
+          width:65%;
+          padding:20px 10px;
+          border-left:2px solid orange;
+          .name{
+            font-size:13px;
+            font-weight:bold;
+          }
+          .date, .time{
+            font-size:12px;
+            color:gray;
+          }
+          .incharge{
+            font-size:12px;
+            color:gray;
+          }
+        }
+      }
 }
