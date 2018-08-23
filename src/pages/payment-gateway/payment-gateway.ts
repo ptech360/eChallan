@@ -25,7 +25,6 @@ export class PaymentGatewayPage {
   ) {
     this.currenViolations = this.navParams.get('data')
     this.charge = this.navParams.get('charge')
-    console.log(this.currenViolations)
   }
 
   ionViewDidLoad() {

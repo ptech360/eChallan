@@ -1,0 +1,37 @@
+<!--
+  Generated template for the SeizePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary"> 
+    <ion-title>Seize</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="gray-back">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <div class="btn">
+        <img src="assets/imgs/document.png"  (click)="seize('document')" />
+        <div>
+          Seize Document
+        </div>
+      </div>
+      </ion-col>
+      <ion-col col-12>
+          <div class="btn">
+          <img src="assets/imgs/vehicle.png" (click)="seize('vehicle')" />
+          <div>
+              Seize Vehicle
+          </div>
+          </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

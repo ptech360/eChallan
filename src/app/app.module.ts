@@ -21,6 +21,7 @@ import { ChartProvider } from '../providers/chart/chart';
 import { AddViolationComponent } from '../components/add-violation/add-violation';
 import { ViolentsProvider } from '../providers/violents/violents';
 import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
+import { SeizePage } from '../pages/seize/seize';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
     GenerateChallanComponent,
     ViolenterHistoryPage,
     AddViolationComponent,
-    PaymentGatewayPage
+    PaymentGatewayPage,
+    SeizePage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
     GenerateChallanComponent,
     ViolenterHistoryPage,
     AddViolationComponent,
-    PaymentGatewayPage
+    PaymentGatewayPage,
+    SeizePage
   ],
   providers: [
     StatusBar,

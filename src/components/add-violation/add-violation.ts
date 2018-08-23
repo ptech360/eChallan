@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { NavController } from 'ionic-angular';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
+import { SeizePage } from '../../pages/seize/seize';
 
 /**
  * Generated class for the AddViolationComponent component.
@@ -37,6 +38,10 @@ export class AddViolationComponent {
 
   payment(){
     this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge })
+  }
+
+  seize(){
+    this.navCtrl.push(SeizePage)
   }
 
 }
