@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AddViolationComponent } from '../../components/add-violation/add-violation';
+import { GenerateChallanComponent } from '../../components/generate-challan/generate-challan';
 
 /**
  * Generated class for the PaymentGatewayPage page.
@@ -40,13 +41,13 @@ export class PaymentGatewayPage {
           text: 'Error',
           role: 'cancel',
           handler: () => {
-            
+            this.navCtrl.popTo(AddViolationComponent)
           }
         },
         {
           text: 'Success',
           handler: () => {
-            this.navCtrl.popTo(AddViolationComponent)
+            this.navCtrl.popToRoot
           }
         }
       ]
