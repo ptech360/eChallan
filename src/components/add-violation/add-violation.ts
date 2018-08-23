@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ViolentsProvider } from '../../providers/violents/violents';
 
 /**
  * Generated class for the AddViolationComponent component.
@@ -15,11 +16,20 @@ export class AddViolationComponent {
   text: string;
   totalCharge:number = 0.0;
   violentOpts: { title: string, subTitle: string };
-  violent:any;
-  
-  constructor() {
-    console.log('Hello AddViolationComponent Component');
-    this.text = 'Hello World';
+  currentViolents:any;
+  violentsList:any;
+
+  constructor(public violent:ViolentsProvider) {
+    
+    this.violentsList = this.violent.getViolents();
+    console.log(this.violentsList)
   }
+
+  subTotal(){
+    for(let i=0;i<this.currentViolents.length;i++){
+      this.totalCharge += Number(this.currentViolents[i].charge);
+    }
+  }
+
 
 }

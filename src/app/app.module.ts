@@ -19,6 +19,7 @@ import { PeopleProvider } from '../providers/people/people';
 import { ViolenterHistoryPage } from '../pages/violenter-history/violenter-history';
 import { ChartProvider } from '../providers/chart/chart';
 import { AddViolationComponent } from '../components/add-violation/add-violation';
+import { ViolentsProvider } from '../providers/violents/violents';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { AddViolationComponent } from '../components/add-violation/add-violation
     FeaturesProvider,
     PeopleProvider,
     ChartProvider,
+    ViolentsProvider,
   ]
 })
 export class AppModule {}
