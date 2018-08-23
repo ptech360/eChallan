@@ -18,6 +18,7 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
 import { PeopleProvider } from '../providers/people/people';
 import { ViolenterHistoryPage } from '../pages/violenter-history/violenter-history';
 import { ChartProvider } from '../providers/chart/chart';
+import { AddViolationComponent } from '../components/add-violation/add-violation';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ChartProvider } from '../providers/chart/chart';
     LoginComponent,
     GenerateChallanComponent,
     ViolenterHistoryPage,
+    AddViolationComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { ChartProvider } from '../providers/chart/chart';
     TabsPage,
     LoginComponent,
     GenerateChallanComponent,
-    ViolenterHistoryPage
+    ViolenterHistoryPage,
+    AddViolationComponent
   ],
   providers: [
     StatusBar,
