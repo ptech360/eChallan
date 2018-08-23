@@ -15,7 +15,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PaymentGatewayPage {
 
+  public currenViolations;
+  public charge;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.currenViolations = this.navParams.get('data')
+    this.charge = this.navParams.get('charge')
+    console.log(this.currenViolations)
   }
 
   ionViewDidLoad() {

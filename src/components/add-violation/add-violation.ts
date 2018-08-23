@@ -36,7 +36,7 @@ export class AddViolationComponent {
   }
 
   payment(){
-    this.navCtrl.push(PaymentGatewayPage)
+    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge })
   }
 
 }

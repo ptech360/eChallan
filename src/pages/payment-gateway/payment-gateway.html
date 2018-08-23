@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="gray-back">
     <ion-list radio-group>
         <ion-item>
           <ion-label>Credit/Debit Card</ion-label>
@@ -29,8 +29,21 @@
         </ion-item>
       </ion-list>
 
-      <ion-card>
-        <h6>Details</h6>
-        
+      <ion-card *ngIf="currenViolations">
+        <ion-card-header text-right><b>Details</b></ion-card-header>
+        <ion-item *ngFor="let violation of currenViolations">
+          {{ violation.name }}
+          <div item-right>₹ {{ violation.charge }}</div>
+        </ion-item>
       </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col no-padding class="totalCharge">
+        ₹ {{ charge }}
+    </ion-col>
+    <ion-col col-6>
+      <button ion-button full>Continue</button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
