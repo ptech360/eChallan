@@ -1,3 +1,28 @@
 add-violation {
+    .total-charge{
+        background:white;
+        box-shadow:0 0 2px 2px rgba(0, 0, 0, 0.23137254901960785);
+        border-radius:3px;
+        display: -webkit-inline-box;
+        position: relative;
+        margin: 15px 0;
+        left: 50%;
+        transform: translatex(-50%);
+        padding: 5px 15px 10px 15px;
+        place-content: center;
+        font-size: 30px;
+        text-align:center;
+        small{
+            font-size: 10px;
+            display:block;
+        }
+    }
+    .violation_details{
+        .title{
 
+        }
+        .charge{
+            text-align: right;
+        }
+    }
 }

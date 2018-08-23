@@ -13,7 +13,10 @@ import { Component } from '@angular/core';
 export class AddViolationComponent {
 
   text: string;
-
+  totalCharge:number = 0.0;
+  violentOpts: { title: string, subTitle: string };
+  violent:any;
+  
   constructor() {
     console.log('Hello AddViolationComponent Component');
     this.text = 'Hello World';

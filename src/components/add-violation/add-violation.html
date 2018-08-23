@@ -1,4 +1,68 @@
 <!-- Generated template for the AddViolationComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>
+        Add Violation
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content class="gray-back">
+    <div class="total-charge">
+      <div class="inner-box">
+          <small>Rupees</small>
+          {{ totalCharge }}
+      </div>
+    </div>
+
+    <ion-card>
+        <ion-item>
+            <ion-label>Select Violation</ion-label>
+            <ion-select [(ngModel)]="violent" multiple="true" cancelText="Cancel" okText="Ok">
+              <ion-option >All</ion-option>
+              <ion-option>Red Signal</ion-option>
+              <ion-option>No Paper</ion-option>
+              <ion-option>Overspeeding</ion-option>
+              <ion-option>Rash Driving</ion-option>
+              <ion-option (select)="stpSelect()">Hit and Run</ion-option>
+            </ion-select> 
+          </ion-item>
+    </ion-card>
+
+    <ion-list class="violation_details">
+
+      <ion-item>
+        <ion-row>
+          <ion-col col-8 class="title" no-padding>
+            No Helmet
+          </ion-col>
+          <ion-col col-4 class="charge" no-padding>
+            $30
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item>
+          <ion-row>
+            <ion-col col-8 class="title" no-padding>
+              Over speed
+            </ion-col>
+            <ion-col col-4 class="charge" no-padding>
+              $30
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item >
+            <ion-row>
+              <ion-col col-8 class="title" no-padding>
+                Hit & Run
+              </ion-col>
+              <ion-col col-4 class="charge" no-padding>
+                $30
+              </ion-col>
+            </ion-row>
+          </ion-item>
+    </ion-list>
+    <button ion-button full>Continue to Pay</button>
+    <button ion-button full clear>Unable to pay</button>
+  </ion-content>
+  
