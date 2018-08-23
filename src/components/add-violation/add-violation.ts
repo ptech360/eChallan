@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ViolentsProvider } from '../../providers/violents/violents';
+import { NavController } from 'ionic-angular';
+import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 
 /**
  * Generated class for the AddViolationComponent component.
@@ -19,7 +21,9 @@ export class AddViolationComponent {
   currentViolents:any;
   violentsList:any;
 
-  constructor(public violent:ViolentsProvider) {
+  constructor(public violent:ViolentsProvider,
+              public navCtrl:NavController
+  ) {
     
     this.violentsList = this.violent.getViolents();
     console.log(this.violentsList)
@@ -31,5 +35,8 @@ export class AddViolationComponent {
     }
   }
 
+  payment(){
+    this.navCtrl.push(PaymentGatewayPage)
+  }
 
 }

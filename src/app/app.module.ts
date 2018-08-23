@@ -20,6 +20,7 @@ import { ViolenterHistoryPage } from '../pages/violenter-history/violenter-histo
 import { ChartProvider } from '../providers/chart/chart';
 import { AddViolationComponent } from '../components/add-violation/add-violation';
 import { ViolentsProvider } from '../providers/violents/violents';
+import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ViolentsProvider } from '../providers/violents/violents';
     LoginComponent,
     GenerateChallanComponent,
     ViolenterHistoryPage,
-    AddViolationComponent
+    AddViolationComponent,
+    PaymentGatewayPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { ViolentsProvider } from '../providers/violents/violents';
     LoginComponent,
     GenerateChallanComponent,
     ViolenterHistoryPage,
-    AddViolationComponent
+    AddViolationComponent,
+    PaymentGatewayPage
   ],
   providers: [
     StatusBar,
