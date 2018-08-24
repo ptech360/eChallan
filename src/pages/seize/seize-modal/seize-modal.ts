@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { NavParams, ViewController } from "ionic-angular";
+import { NavParams, ViewController, NavController } from "ionic-angular";
+import { ReceiptPage } from "../../receipt/receipt";
 
 @Component({
     selector: 'page-seize',
@@ -11,7 +12,8 @@ import { NavParams, ViewController } from "ionic-angular";
     vehicleType:any;
 
     constructor(public navParams:NavParams,
-                public viewCtrl:ViewController
+                public viewCtrl:ViewController,
+                public navCtrl:NavController
     ){}
 
     ionViewDidLoad() {
@@ -21,5 +23,9 @@ import { NavParams, ViewController } from "ionic-angular";
     dismiss() {
         this.viewCtrl.dismiss();
       }
-  
+      
+      print(){
+          this.navCtrl.push(ReceiptPage)
+      }
+
   }

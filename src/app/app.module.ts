@@ -23,6 +23,7 @@ import { ViolentsProvider } from '../providers/violents/violents';
 import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../pages/seize/seize';
 import { SeizeModal } from '../pages/seize/seize-modal/seize-modal';
+import { ReceiptPage } from '../pages/receipt/receipt';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { SeizeModal } from '../pages/seize/seize-modal/seize-modal';
     AddViolationComponent,
     PaymentGatewayPage,
     SeizePage,
-    SeizeModal
+    SeizeModal,
+    ReceiptPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { SeizeModal } from '../pages/seize/seize-modal/seize-modal';
     AddViolationComponent,
     PaymentGatewayPage,
     SeizePage,
-    SeizeModal
+    SeizeModal,
+    ReceiptPage
   ],
   providers: [
     StatusBar,
