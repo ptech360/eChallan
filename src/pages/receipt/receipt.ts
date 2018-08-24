@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ReceiptPage page.
@@ -15,11 +15,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ReceiptPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public alertCtrl: AlertController
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptPage');
+  }
+
+  response(){
+    const alert = this.alertCtrl.create({
+      title: 'Success',
+      subTitle: 'Challan submitted successfully, Printing...',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
