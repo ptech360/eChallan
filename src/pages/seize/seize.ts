@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { SeizeModal } from './seize-modal/seize-modal';
 
 /**
  * Generated class for the SeizePage page.
@@ -15,11 +16,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SeizePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+          public modalCtrl:ModalController
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SeizePage');
   }
 
+  seize(object){
+    const modal = this.modalCtrl.create(SeizeModal,{ data : object });
+    modal.present()
+  }
+
 }
+

@@ -1,0 +1,81 @@
+<ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>
+            Seize {{ object }}
+          </ion-title>
+          <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+              <span ion-text color="primary" showWhen="ios">Cancel</span>
+              <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      
+      <ion-content class="gray-back">
+
+        <!-- for document -->
+        <div *ngIf="object=='document'">
+            <ion-card>
+                   <form>
+                       <ion-item>
+                            <ion-icon name="copy" color="primary" item-start></ion-icon>
+                            <ion-label stacked color="primary">Name</ion-label>
+                            <ion-input type="text" value="" placeholder="eg: License"></ion-input>
+                       </ion-item>
+                       <ion-item>
+                            <ion-icon name="copy" color="primary" item-start></ion-icon>
+                            <ion-label stacked color="primary">ID</ion-label>
+                            <ion-input type="text" value="" placeholder="eg: 253746356273"></ion-input>
+                       </ion-item>
+                       <button ion-button full icon-start small><ion-icon name="camera"></ion-icon>Add Image</button>
+                   </form> 
+            </ion-card>
+            <button ion-button float-right small outline round margin-right>+ Add Document</button>
+        </div>
+
+
+        <!-- for vehicle -->
+        <div *ngIf="object=='vehicle'">
+            <ion-card>
+                <form>
+                    <ion-item>
+                            <ion-icon name="car" color="primary" item-start></ion-icon>
+                            <ion-label stacked color="primary">Name</ion-label>
+                            <ion-input type="text" value="" placeholder="eg: Honda City"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                            <ion-icon name="car" color="primary" item-start></ion-icon>
+                                    <ion-label>Type</ion-label>
+                                    <ion-select [(ngModel)]="vehicleType" name="vehicleType" interface="popover">
+                                      <ion-option value="nes">Car</ion-option>
+                                      <ion-option value="n64">Bike</ion-option>
+                                      <ion-option value="ps">Scooter without gear</ion-option>
+                                      <ion-option value="genesis">Scooter with gear</ion-option>
+                                      <ion-option value="saturn">Truck</ion-option>
+                                      <ion-option value="snes">Loader</ion-option>
+                                      <ion-option>Other</ion-option>
+                                    </ion-select>
+                    </ion-item>
+                    <ion-item>
+                            <ion-icon name="car" color="primary" item-start></ion-icon>
+                            <ion-label stacked color="primary">Color</ion-label>
+                            <ion-input type="text" value="" placeholder="eg: Silver"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                            <ion-icon name="car" color="primary" item-start></ion-icon>
+                            <ion-label stacked color="primary">Number</ion-label>
+                            <ion-input type="text" value="" placeholder="eg: HR 61 C 8438"></ion-input>
+                    </ion-item>
+                </form>
+            </ion-card>
+            <div padding>
+            <button ion-button round  class="center" icon-start><ion-icon name="camera"></ion-icon> Add Image</button>
+            </div>
+        </div>
+
+        </ion-content>
+
+        <ion-footer>
+            <button full ion-button>Seize</button>
+        </ion-footer>
