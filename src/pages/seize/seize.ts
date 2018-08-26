@@ -16,17 +16,25 @@ import { SeizeModal } from './seize-modal/seize-modal';
 })
 export class SeizePage {
 
+  public currentViolents;
+  public charge;
+  public violenter;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
           public modalCtrl:ModalController
   ) {
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SeizePage');
+  ionViewDidLoad() {   
+    this.currentViolents = this.navParams.get('data')
+  this.charge = this.navParams.get('charge')
+  this.violenter = this.navParams.get('violenter')
+  console.log(this.currentViolents,this.charge,this.violenter)
   }
 
   seize(object){
-    const modal = this.modalCtrl.create(SeizeModal,{ data : object });
+    const modal = this.modalCtrl.create(SeizeModal,{ data : object ,currentViolents: this.currentViolents, charge:this.charge, violenter: this.violenter});
     modal.present()
   }
 

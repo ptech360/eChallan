@@ -19,12 +19,14 @@ export class PaymentGatewayPage {
 
   public currenViolations;
   public charge;
+  public violenter;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl:AlertController
   ) {
     this.currenViolations = this.navParams.get('data')
     this.charge = this.navParams.get('charge')
+    this.violenter = this.navParams.get('violenter')
   }
 
   ionViewDidLoad() {

@@ -32,3 +32,12 @@
     display:block;
     margin:auto;
 }
+
+ion-card {
+    margin: 10px 5px !important;
+    border-radius: 10px !important;
+    width: calc(100% - 10px) !important;
+}
+h6{
+    color:color($colors,primary);
+}

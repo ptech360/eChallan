@@ -24,6 +24,8 @@ export class GenerateChallanComponent {
   needManualDetails:boolean = false;
 
 
+
+
   constructor(public people:PeopleProvider,
               public modalCtrl:ModalController,
               public navCtrl:NavController
@@ -33,9 +35,10 @@ export class GenerateChallanComponent {
 
   getInfo(){
     this.violenter = this.people.getPerson('driving_license',this.dl);
-    if(this.violenter == null){
-      this.needManualDetails = true;
-    }
+    if(this.violenter == null)
+      this.needManualDetails = true
+    else  
+      this.needManualDetails = false
   }
 
   viewViolations(){
@@ -44,6 +47,6 @@ export class GenerateChallanComponent {
   }
 
   addViolation(){
-    this.navCtrl.push(AddViolationComponent)
+    this.navCtrl.push(AddViolationComponent,{ name: this.violenter })
   }
 }

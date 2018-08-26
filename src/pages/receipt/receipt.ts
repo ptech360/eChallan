@@ -14,14 +14,25 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   templateUrl: 'receipt.html',
 })
 export class ReceiptPage {
-
+  
+  object:any;
+  public currentViolents;
+  public charge;
+  public violenter;
+  public date = new Date()
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl: AlertController
   ) {
+    this.object = this.navParams.get('data')  
+    this.currentViolents = this.navParams.get('currentViolents')  
+    this.charge = this.navParams.get('charge')  
+    this.violenter = this.navParams.get('violenter') 
+    console.log(this.currentViolents, this.charge,this.violenter)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReceiptPage');
+
+    
   }
 
   response(){
@@ -32,5 +43,4 @@ export class ReceiptPage {
     });
     alert.present();
   }
-
 }

@@ -10,6 +10,9 @@ import { ReceiptPage } from "../../receipt/receipt";
 
     object:any;
     vehicleType:any;
+    public currentViolents;
+    public charge;
+    public violenter;
 
     constructor(public navParams:NavParams,
                 public viewCtrl:ViewController,
@@ -18,6 +21,10 @@ import { ReceiptPage } from "../../receipt/receipt";
 
     ionViewDidLoad() {
         this.object = this.navParams.get('data')  
+        this.currentViolents = this.navParams.get('currentViolents')  
+        this.charge = this.navParams.get('charge')  
+        this.violenter = this.navParams.get('violenter') 
+        console.log(this.currentViolents, this.charge,this.violenter)
     }
 
     dismiss() {
@@ -25,7 +32,7 @@ import { ReceiptPage } from "../../receipt/receipt";
       }
       
       print(){
-          this.navCtrl.push(ReceiptPage)
+          this.navCtrl.push(ReceiptPage,{ data : this.object ,currentViolents: this.currentViolents, charge:this.charge, violenter: this.violenter} )
       }
 
   }

@@ -29,8 +29,8 @@
         </ion-item>
       </ion-list>
 
+      <h6 padding-left><b>Details</b></h6>
       <ion-card *ngIf="currenViolations">
-        <ion-card-header text-right><b>Details</b></ion-card-header>
         <ion-item *ngFor="let violation of currenViolations">
           {{ violation.name }}
           <div item-right>₹ {{ violation.charge }}</div>

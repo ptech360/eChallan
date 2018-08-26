@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViolentsProvider } from '../../providers/violents/violents';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
 
@@ -18,16 +18,22 @@ export class AddViolationComponent {
 
   text: string;
   totalCharge:number = 0.0;
+  violenter;
   violentOpts: { title: string, subTitle: string };
   currentViolents:any;
   violentsList:any;
 
   constructor(public violent:ViolentsProvider,
-              public navCtrl:NavController
+              public navCtrl:NavController,
+              public navParam:NavParams
   ) {
     
     this.violentsList = this.violent.getViolents();
-    console.log(this.violentsList)
+  }
+
+  ionViewDidLoad() {
+    this.violenter = this.navParam.get('name')
+    console.log(this.violenter, this.totalCharge, this.currentViolents)
   }
 
   subTotal(){
@@ -37,11 +43,11 @@ export class AddViolationComponent {
   }
 
   payment(){
-    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge })
+    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter })
   }
 
   seize(){
-    this.navCtrl.push(SeizePage)
+    this.navCtrl.push(SeizePage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter })
   }
 
 }

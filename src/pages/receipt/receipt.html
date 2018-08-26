@@ -14,67 +14,63 @@
 
 
 <ion-content class="gray-back">
-  <ion-card padding>
-      <h4>Basic Details</h4>
+    <h6 padding-left>Basic Details</h6>
+  <ion-card>
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <b>Name:</b>Akash Gupta
+          <b>Name: </b> {{ violenter.name }}
         </ion-col>
         <ion-col col-12>
-            <b>Vehicle No:</b>HR M 8928
+            <b>Vehicle No: </b> {{ violenter.vehicle_no }}
         </ion-col>
         <ion-col col-6>
-          <b>DL:</b>192847486
+          <b>DL: </b> {{ violenter.driving_license }}
         </ion-col>
         <ion-col col-6 text-right>
-            <b>RC:</b>192847486
+            <b>RC: </b> {{ violenter.register_certificate }}
         </ion-col>
         <ion-col col-6>
-            <b>Date:</b>14/06/1992
+            <b>Date: </b> {{ date | date}}
           </ion-col>
           <ion-col col-6 text-right>
-            <b>Time:</b>12:30
+            <b>Time: </b> {{ date | date:'shortTime' }}
           </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
 
-  <ion-card padding>
-    <h4>Violations</h4>
+  <h6 padding-left>Violations</h6>
+  <ion-card >
     <ion-grid>
-      <ion-row>
+      <ion-row *ngFor="let violent of currentViolents"> 
         <ion-col col-9>
-          <b>Name</b>
+        {{ violent.name }}
         </ion-col>
         <ion-col col-3 text-right>
-          <b>Charge</b>
+          {{ violent.charge }}
         </ion-col>
       </ion-row>
-      <ion-row>
-          <ion-col col-9> No Helmet</ion-col>
-          <ion-col col-3 text-right>100 </ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-9> No Helmet</ion-col>
-          <ion-col col-3 text-right>100 </ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-9> No Helmet</ion-col>
-          <ion-col col-3 text-right>100 </ion-col>
+      <ion-row> 
+        <ion-col col-9>
+          <b>Total</b>
+        </ion-col>
+        <ion-col col-3 text-right>
+          <b>{{ charge }}</b>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
 
-  <ion-card padding>
-    <h4>Actions</h4>
+  <h6 padding-left>Actions</h6>
+  <ion-card>
     <ion-grid>
       <ul>
         <li>Seized License <span>(192826347)</span></li>
         <li>Seized Vehicle Papers <span>(HR C 8273)</span></li>
       </ul>
     </ion-grid>
-    <h4>Collection Process:</h4>
+    <h4 padding-left>Collection Process:</h4>
     <ul>
       <li>
           Contact: +91 98927387466

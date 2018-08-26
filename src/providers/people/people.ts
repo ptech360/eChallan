@@ -19,6 +19,7 @@ export class PeopleProvider {
       dob: '14/06/1992',
       image: 'https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg',
       previous_violation_count: '2',
+      phone: '+919783746433',
       violations: [
         {
           name: 'No Helmet',
@@ -140,6 +141,7 @@ export class PeopleProvider {
       dob: '24/09/1992',
       image: 'https://metron-group.com/metron-wp/wp-content/uploads/2016/10/person-to-person-business.jpg',
       previous_violation_count: '1',
+      phone: '+91923412654',
       violations: [
         {
           name: 'Crossed Red Light',
