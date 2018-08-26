@@ -65,9 +65,15 @@
   <h6 padding-left>Actions</h6>
   <ion-card>
     <ion-grid>
-      <ul>
-        <li>Seized License <span>(192826347)</span></li>
-        <li>Seized Vehicle Papers <span>(HR C 8273)</span></li>
+      <ul *ngIf="object=='document'">
+        <li>Seized {{ seizeData.documentName }} <span>({{ seizeData.documentId }})</span></li>
+      </ul>
+      <ul *ngIf="object=='vehicle'">
+        <li>Seized Vehicle</li>
+        <li>Name: {{ seizeData.vehicleName }}</li>
+        <li>Type: {{ seizeData.vehicleType }}</li>
+        <li>Color: {{ seizeData.vehicleColor }}</li>
+        <li>Number: {{ seizeData.vehicleNumber }}</li>
       </ul>
     </ion-grid>
     <h4 padding-left>Collection Process:</h4>

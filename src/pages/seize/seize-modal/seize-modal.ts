@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { NavParams, ViewController, NavController } from "ionic-angular";
 import { ReceiptPage } from "../../receipt/receipt";
 
+
+
 @Component({
     selector: 'page-seize',
     templateUrl: 'seize-modal.html',
@@ -13,6 +15,11 @@ import { ReceiptPage } from "../../receipt/receipt";
     public currentViolents;
     public charge;
     public violenter;
+    public documentName;
+    public documentID;
+    public vehicleName;
+    public vehicleColor;
+    public  vehicleNumber
 
     constructor(public navParams:NavParams,
                 public viewCtrl:ViewController,
@@ -24,7 +31,7 @@ import { ReceiptPage } from "../../receipt/receipt";
         this.currentViolents = this.navParams.get('currentViolents')  
         this.charge = this.navParams.get('charge')  
         this.violenter = this.navParams.get('violenter') 
-        console.log(this.currentViolents, this.charge,this.violenter)
+        
     }
 
     dismiss() {
@@ -32,7 +39,28 @@ import { ReceiptPage } from "../../receipt/receipt";
       }
       
       print(){
-          this.navCtrl.push(ReceiptPage,{ data : this.object ,currentViolents: this.currentViolents, charge:this.charge, violenter: this.violenter} )
+          var seizeData;
+          if(this.object == 'document'){
+              seizeData = {
+                  documentName : this.documentName,
+                  documentID : this.documentID
+              }
+          }
+          else if(this.object == 'vehicle'){
+              seizeData = {
+                  vehicleName : this.vehicleName,
+                  vehicleColor: this.vehicleColor,
+                  vehicleNumber: this.vehicleNumber,
+                  vehicleType: this.vehicleType
+
+              }
+          }
+          this.navCtrl.push(ReceiptPage,{ data : this.object ,currentViolents: this.currentViolents, charge:this.charge, violenter: this.violenter, seizeData: seizeData} )
       }
 
   }
+
+interface Document{
+    name:string,
+    id:string
+}

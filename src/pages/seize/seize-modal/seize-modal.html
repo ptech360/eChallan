@@ -21,12 +21,12 @@
                        <ion-item>
                             <ion-icon name="copy" color="primary" item-start></ion-icon>
                             <ion-label stacked color="primary">Name</ion-label>
-                            <ion-input type="text" value="" placeholder="eg: License"></ion-input>
+                            <ion-input type="text" value="" [(ngModel)]="documentName" name="documentSeize" placeholder="eg: License"></ion-input>
                        </ion-item>
                        <ion-item>
                             <ion-icon name="copy" color="primary" item-start></ion-icon>
                             <ion-label stacked color="primary">ID</ion-label>
-                            <ion-input type="text" value="" placeholder="eg: 253746356273"></ion-input>
+                            <ion-input type="text" value="" [(ngModel)]="documentID" name="documentID" placeholder="eg: 253746356273"></ion-input>
                        </ion-item>
                        <button ion-button full icon-start small><ion-icon name="camera"></ion-icon>Add Image</button>
                    </form> 
@@ -42,30 +42,30 @@
                     <ion-item>
                             <ion-icon name="car" color="primary" item-start></ion-icon>
                             <ion-label stacked color="primary">Name</ion-label>
-                            <ion-input type="text" value="" placeholder="eg: Honda City"></ion-input>
+                            <ion-input type="text" value="" [(ngModel)]="vehicleName" name="vehicleName" placeholder="eg: Honda City"></ion-input>
                     </ion-item>
                     <ion-item>
                             <ion-icon name="car" color="primary" item-start></ion-icon>
                                     <ion-label>Type</ion-label>
                                     <ion-select [(ngModel)]="vehicleType" name="vehicleType" interface="popover">
-                                      <ion-option value="nes">Car</ion-option>
-                                      <ion-option value="n64">Bike</ion-option>
-                                      <ion-option value="ps">Scooter without gear</ion-option>
-                                      <ion-option value="genesis">Scooter with gear</ion-option>
-                                      <ion-option value="saturn">Truck</ion-option>
-                                      <ion-option value="snes">Loader</ion-option>
+                                      <ion-option >Car</ion-option>
+                                      <ion-option >Bike</ion-option>
+                                      <ion-option >Scooter without gear</ion-option>
+                                      <ion-option >Scooter with gear</ion-option>
+                                      <ion-option >Truck</ion-option>
+                                      <ion-option >Loader</ion-option>
                                       <ion-option>Other</ion-option>
                                     </ion-select>
                     </ion-item>
                     <ion-item>
                             <ion-icon name="car" color="primary" item-start></ion-icon>
                             <ion-label stacked color="primary">Color</ion-label>
-                            <ion-input type="text" value="" placeholder="eg: Silver"></ion-input>
+                            <ion-input type="text" value="" [(ngModel)]="vehicleColor" name="vehicleColor" placeholder="eg: Silver"></ion-input>
                     </ion-item>
                     <ion-item>
                             <ion-icon name="car" color="primary" item-start></ion-icon>
                             <ion-label stacked color="primary">Number</ion-label>
-                            <ion-input type="text" value="" placeholder="eg: HR 61 C 8438"></ion-input>
+                            <ion-input type="text" value="" [(ngModel)]="vehicleNumber" name="vehicleNumber" placeholder="eg: HR 61 C 8438"></ion-input>
                     </ion-item>
                 </form>
             </ion-card>

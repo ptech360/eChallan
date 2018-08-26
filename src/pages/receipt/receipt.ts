@@ -19,7 +19,9 @@ export class ReceiptPage {
   public currentViolents;
   public charge;
   public violenter;
+  public seizeData;
   public date = new Date()
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl: AlertController
   ) {
@@ -27,7 +29,8 @@ export class ReceiptPage {
     this.currentViolents = this.navParams.get('currentViolents')  
     this.charge = this.navParams.get('charge')  
     this.violenter = this.navParams.get('violenter') 
-    console.log(this.currentViolents, this.charge,this.violenter)
+    this.seizeData = this.navParams.get('seizeData') 
+    console.log(this.object)
   }
 
   ionViewDidLoad() {

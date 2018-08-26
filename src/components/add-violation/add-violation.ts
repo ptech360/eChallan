@@ -33,7 +33,7 @@ export class AddViolationComponent {
 
   ionViewDidLoad() {
     this.violenter = this.navParam.get('name')
-    console.log(this.violenter, this.totalCharge, this.currentViolents)
+    
   }
 
   subTotal(){
