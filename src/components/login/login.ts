@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Loading, LoadingController, NavController, AlertController } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { TabsPage } from '../../pages/tabs/tabs';
+import { NoRecordsComponent } from '../no-records/no-records';
 
 /**
  * Generated class for the LoginComponent component.
@@ -52,5 +53,9 @@ export class LoginComponent {
       buttons: ['OK']
     })
     alert.present();
+  }
+
+  forget(){
+    this.nav.push(NoRecordsComponent)
   }
 }
