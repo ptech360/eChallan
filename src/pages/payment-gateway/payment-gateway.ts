@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AddViolationComponent } from '../../components/add-violation/add-violation';
 import { GenerateChallanComponent } from '../../components/generate-challan/generate-challan';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the PaymentGatewayPage page.
@@ -48,7 +49,7 @@ export class PaymentGatewayPage {
         {
           text: 'Success',
           handler: () => {
-            this.navCtrl.popToRoot
+            this.navCtrl.popToRoot();
           }
         }
       ]
