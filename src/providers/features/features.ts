@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenerateChallanComponent } from '../../components/generate-challan/generate-challan';
+import { ProfileComponent } from '../../components/profile/profile';
+import { NoRecordsComponent } from '../../components/no-records/no-records';
 
 /*
   Generated class for the FeaturesProvider provider.
@@ -19,37 +21,37 @@ export class FeaturesProvider {
     {
       name: 'Profile',
       img: 'assets/imgs/traffic_police.png',
-      component: 'GenerateChallanComponent',
+      component: ProfileComponent,
     },
     {
       name: 'other',
-      img: 'https://www.freeiconspng.com/uploads/team-icon-21.png',
-      component: 'GenerateChallanComponent',
+      img: 'assets/imgs/other.png',
+      component: NoRecordsComponent,
     },
     {
       name: 'other',
-      img: 'https://www.freeiconspng.com/uploads/team-icon-21.png',
-      component: 'GenerateChallanComponent',
+      img: 'assets/imgs/other.png',
+      component: NoRecordsComponent,
     },
     {
       name: 'other',
-      img: 'https://www.freeiconspng.com/uploads/team-icon-21.png',
-      component: 'GenerateChallanComponent',
+      img: 'assets/imgs/other.png',
+      component: NoRecordsComponent,
     },
     {
       name: 'other',
-      img: 'https://www.freeiconspng.com/uploads/team-icon-21.png',
-      component: 'GenerateChallanComponent',
+      img: 'assets/imgs/other.png',
+      component: NoRecordsComponent,
     },
     {
       name: 'other',
-      img: 'https://www.freeiconspng.com/uploads/team-icon-21.png',
-      component: 'GenerateChallanComponent',
+      img: 'assets/imgs/other.png',
+      component: NoRecordsComponent,
     },
     {
       name: 'other',
-      img: 'https://www.freeiconspng.com/uploads/team-icon-21.png',
-      component: 'GenerateChallanComponent',
+      img: 'assets/imgs/other.png',
+      component: NoRecordsComponent,
     }
   ]
   constructor(public http: HttpClient) {
