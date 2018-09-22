@@ -96,6 +96,10 @@ export class Api {
         this.showError('Session Expired');
         this.events.publish("session:expired");
         break;
+      
+      case 0:
+        this.showError('You don\'t seem to have an active internet connection. Please connect and try again.' )
+        break;
     
       default:
         this.showError('Somthing went wrong');
@@ -104,10 +108,6 @@ export class Api {
     err.status = errorResponse.error
       ? errorResponse.error.status
       : errorResponse.status;
-    if(errorResponse.status === 401) { 
-      
-      
-    }
     err.message = errorResponse.error
       ? errorResponse.error.message
         ? errorResponse.error.message
