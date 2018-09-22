@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login';
 import { GenerateChallanComponent } from './generate-challan/generate-challan';
 import { AddViolationComponent } from './add-violation/add-violation';
@@ -6,16 +7,20 @@ import { ProfileComponent } from './profile/profile';
 import { NoRecordsComponent } from './no-records/no-records';
 
 @NgModule({
-	declarations: [LoginComponent,
+  declarations: [
+    LoginComponent,
     GenerateChallanComponent,
     AddViolationComponent,
     ProfileComponent,
-    NoRecordsComponent],
-	imports: [],
-	exports: [LoginComponent,
+    NoRecordsComponent
+  ],
+  imports: [CommonModule],
+  exports: [
+    LoginComponent,
     GenerateChallanComponent,
     AddViolationComponent,
     ProfileComponent,
-    NoRecordsComponent,]
+    NoRecordsComponent
+  ]
 })
 export class ComponentsModule {}

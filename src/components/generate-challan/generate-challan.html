@@ -23,7 +23,7 @@
             <ion-item>
                 <ion-icon name="car" item-start color="primary"></ion-icon>
                 <ion-label stacked>Vehicle Number</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="vehicleNo" name="vehicleNo"></ion-input>
             </ion-item>
           </div>
         </ion-item-group>
@@ -38,19 +38,19 @@
                   </ion-col>
                   <ion-col col-8 class="grid">
                     <div>
-                        Name: {{ violenter.name }}
+                        Name: {{ violenter.ownername }}
                     </div>
                     <div>
-                        DOB: {{ violenter.dob }}
+                        S/O: {{ violenter.fathername }}
                     </div>
                    <div>
-                     RC: {{ violenter.register_certificate }}
+                     RC: {{ violenter.registrationno }}
                    </div>
                    <div>
-                     Vehicle No:  {{ violenter.vehicle_no }}
+                     Vehicle No:  {{ violenter.registrationno }}
                    </div>
                    <div>
-                      Previous Violations:  {{ violenter.violations.length }}
+                      Previous Violations:  0
                     </div>
                   </ion-col>
                   <ion-col col-12>

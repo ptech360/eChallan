@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from '../api/api';
 
 /*
   Generated class for the ContactsProvider provider.
@@ -48,7 +48,7 @@ export class ContactsProvider {
     },
   ]
 
-  constructor(public http: HttpClient) {
+  constructor(public api: Api) {
     console.log('Hello ContactsProvider Provider');
   }
 

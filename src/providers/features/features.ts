@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GenerateChallanComponent } from '../../components/generate-challan/generate-challan';
 import { ProfileComponent } from '../../components/profile/profile';
 import { NoRecordsComponent } from '../../components/no-records/no-records';
+import { Api } from '../api/api';
 
 /*
   Generated class for the FeaturesProvider provider.
@@ -54,7 +54,7 @@ export class FeaturesProvider {
       component: NoRecordsComponent,
     }
   ]
-  constructor(public http: HttpClient) {
+  constructor(public api: Api) {
     console.log('Hello FeaturesProvider Provider');
   }
 

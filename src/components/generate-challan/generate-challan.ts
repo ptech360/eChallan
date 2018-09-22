@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PeopleProvider } from '../../providers/people/people';
-import { ModalController, NavController } from 'ionic-angular';
+import { ModalController, NavController, Events } from 'ionic-angular';
 import { ViolenterHistoryPage } from '../../pages/violenter-history/violenter-history';
 import { AddViolationComponent } from '../add-violation/add-violation';
 
@@ -22,23 +22,34 @@ export class GenerateChallanComponent {
   vc: string;
   violenter: any;
   needManualDetails:boolean = false;
+  vehicleNo: string = 'UP65FT9590';
 
 
 
 
   constructor(public people:PeopleProvider,
               public modalCtrl:ModalController,
-              public navCtrl:NavController
+              public navCtrl:NavController,
+              public events: Events
   ) {
     this.text = 'Hello World';
   }
 
   getInfo(){
-    this.violenter = this.people.getPerson('driving_license',this.dl);
+    this.people.getVehicleDetails(this.vehicleNo).subscribe((response:any)=>{
+      this.violenter = response;  
     if(this.violenter == null)
       this.needManualDetails = true
     else  
       this.needManualDetails = false
+    },(error:any) => {
+      console.log(error);
+    });
+    // this.violenter = this.people.getPerson('driving_license',this.dl);
+    // if(this.violenter == null)
+    //   this.needManualDetails = true
+    // else  
+    //   this.needManualDetails = false
   }
 
   viewViolations(){

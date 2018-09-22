@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from '../api/api';
 
 /*
   Generated class for the ViolentsProvider provider.
@@ -33,7 +33,7 @@ export class ViolentsProvider {
       }
   ]
 
-  constructor(public http: HttpClient) {
+  constructor(public api: Api) {
     console.log('Hello ViolentsProvider Provider');
   }
 

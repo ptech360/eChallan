@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from '../api/api';
 
 /*
   Generated class for the ProfileProvider provider.
@@ -18,7 +19,7 @@ export class ProfileProvider {
     address: 'Indore, M.P.'
 
   }
-  constructor(public http: HttpClient) {
+  constructor(public api: Api) {
     console.log('Hello ProfileProvider Provider');
   }
 

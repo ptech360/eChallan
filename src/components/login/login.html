@@ -7,13 +7,13 @@
         <h1 text-center>Login</h1>
         <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-item>
-        <ion-label fixed>Phone</ion-label>
-        <ion-input type="number" value="" name="phone" placeholder="phone" [(ngModel)]="loginCredentials.phone" required></ion-input>
+        <ion-label fixed>Username</ion-label>
+        <ion-input type="text" value="" name="username" placeholder="Username" [(ngModel)]="loginCredentials.Username" required></ion-input>
       </ion-item>
     
       <ion-item>
         <ion-label fixed>Password</ion-label>
-        <ion-input type="password" name="password" placeholder="password" [(ngModel)]="loginCredentials.password" required></ion-input>
+        <ion-input type="password" name="password" placeholder="password" [(ngModel)]="loginCredentials.Password" required></ion-input>
       </ion-item>
   
       <button ion-button full type="submit" [disabled]="!loginForm.form.valid">Login</button>

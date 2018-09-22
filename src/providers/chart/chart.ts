@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from '../api/api';
 
 declare var google: any;
 /*
@@ -11,7 +11,7 @@ declare var google: any;
 @Injectable()
 export class ChartProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public api: Api) {
     console.log('Hello ChartProvider Provider');
   }
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Loading, LoadingController, NavController, AlertController } from 'ionic-angular';
-import { LoginProvider } from '../../providers/login/login';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { NoRecordsComponent } from '../no-records/no-records';
+import { User } from '../../providers/user/user';
 
 /**
  * Generated class for the LoginComponent component.
@@ -17,10 +17,10 @@ import { NoRecordsComponent } from '../no-records/no-records';
 export class LoginComponent {
   loading: Loading;
   text: string;
-  loginCredentials = {phone:'9876543210', password:'Abc@123'}
+  loginCredentials = {Username:'sa', Password:'Demo@Pass', IMEI:'863907040011407'};
 
   constructor(public loginCtrl:LoadingController, 
-              private auth: LoginProvider,
+              private user: User,
               public nav: NavController,
               public alertCtrl: AlertController
             ) {
@@ -37,18 +37,20 @@ export class LoginComponent {
 
   login(){
     this.showLoading()
-    this.auth.login(this.loginCredentials).subscribe(allowed=>{
+    this.user.login(this.loginCredentials).subscribe(allowed=>{
       if(allowed)
         this.nav.setRoot(TabsPage)
       else
-        this.showError('Access Denied')
+        this.showError('Access Denied');
+    }, error => {
+      this.showError('Something went wrong');
     })
   }
 
   showError(err){
     this.loading.dismiss()
     let alert = this.alertCtrl.create({
-      title: 'Warning',
+      title: 'Error',
       subTitle: err,
       buttons: ['OK']
     })

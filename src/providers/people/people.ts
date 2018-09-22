@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from '../api/api';
 
 /*
   Generated class for the PeopleProvider provider.
@@ -157,7 +157,7 @@ export class PeopleProvider {
       ],
     }
   ]
-  constructor(public http: HttpClient) {
+  constructor(public api: Api) {
     console.log('Hello PeopleProvider Provider');
   }
 
@@ -170,6 +170,10 @@ export class PeopleProvider {
       }
     }
     return null;
+  }
+
+  getVehicleDetails(vehicleNo:string){
+    return this.api.get('Vahan?vehicleno='+vehicleNo);
   }
 
 }
