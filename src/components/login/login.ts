@@ -18,13 +18,14 @@ export class LoginComponent {
   loading: Loading;
   text: string;
   loginCredentials = {Username:'sa', Password:'Demo@Pass', IMEI:'863907040011407'};
+  appInfo: any = {};
 
   constructor(public loginCtrl:LoadingController, 
               private user: User,
               public nav: NavController,
               public alertCtrl: AlertController
             ) {
-
+              this.getAppInfo();
   }
 
   showLoading(){
@@ -37,27 +38,21 @@ export class LoginComponent {
 
   login(){
     this.showLoading()
-    this.user.login(this.loginCredentials).subscribe(allowed=>{
-      if(allowed)
-        this.nav.setRoot(TabsPage)
-      else
-        this.showError('Access Denied');
+    this.user.login(this.loginCredentials).subscribe(response=>{
+      if(response)
+        this.nav.setRoot(TabsPage);
     }, error => {
-      this.showError('Something went wrong');
-    })
-  }
-
-  showError(err){
-    this.loading.dismiss()
-    let alert = this.alertCtrl.create({
-      title: 'Error',
-      subTitle: err,
-      buttons: ['OK']
-    })
-    alert.present();
+      this.loading.dismiss();
+    });
   }
 
   forget(){
     this.nav.push(NoRecordsComponent)
+  }
+
+  getAppInfo(){
+    this.user.getAppInfo().subscribe(response => {
+      this.appInfo = response;
+    })
   }
 }

@@ -7,7 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/interval';
+
+
+
 import { StorageService } from '../localstorage/storage';
+import { Uid } from '../../../node_modules/@ionic-native/uid';
+import { AndroidPermissions } from '../../../node_modules/@ionic-native/android-permissions';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
@@ -15,13 +21,57 @@ import { StorageService } from '../localstorage/storage';
 @Injectable()
 export class Api {
   url: string = 'http://182.75.23.86:8001';
+  sub: any;
 
-  constructor(public http: HttpClient, public localStorage:StorageService, public events:Events, public alertCtrl: AlertController) {
+  constructor(public http: HttpClient, 
+    public localStorage:StorageService, 
+    public events:Events, 
+    public alertCtrl: AlertController,
+    private uid: Uid, 
+    private androidPermissions: AndroidPermissions){
+    if(this.localStorage.getData('ngStorage-token')) {
+      this.sub = Observable.interval(10*60*1000).subscribe((val) => {
+        this.showError('Session Expired');
+        this.localStorage.clearData();
+        this.getImei();
+        this.events.publish("session:expired");
+        this.sub.unsubscribe();
+      });
+    }
+    this.getImei();
+  }
+
+  async getImei() {
+    if(this.uid.IMEI){
+      const { hasPermission } = await this.androidPermissions.checkPermission(
+        this.androidPermissions.PERMISSION.READ_PHONE_STATE
+      );
+     
+      if (!hasPermission) {
+        const result = await this.androidPermissions.requestPermission(
+          this.androidPermissions.PERMISSION.READ_PHONE_STATE
+        );
+     
+        if (!result.hasPermission) {
+          const alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: 'Permissions required',
+            buttons: []
+          })
+          alert.present();
+        }
+     
+        // ok, a user gave us permission, we can get him identifiers after restart app
+        return;
+      }
+      this.localStorage.storeData('IMEI',this.uid.IMEI);
+    }    
+    return this.uid.IMEI
   }
 
   getHeaders(optHeaders?: HttpHeaders) {
     let headers = new HttpHeaders();
-    if (this.localStorage.getData('ngStorage-token')) {
+    if (this.localStorage.getData('ngStorage-token')&&this.localStorage.getData('IMEI')) {
       headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));
       headers = headers.set('imei', this.localStorage.getData('IMEI'));
     }
@@ -90,13 +140,17 @@ export class Api {
   }
 
   handleError = (errorResponse: HttpErrorResponse) => {
-    const err: any = {};
     switch (errorResponse.status) {
+      case 400:
+        if(errorResponse.url === this.url + '/Token')
+          this.showError('Access Denied');
+        break;
       case 401:
         this.showError('Session Expired');
+        this.localStorage.clearData();
+        this.getImei();
         this.events.publish("session:expired");
-        break;
-      
+        break;      
       case 0:
         this.showError('You don\'t seem to have an active internet connection. Please connect and try again.' )
         break;
@@ -105,15 +159,7 @@ export class Api {
         this.showError('Somthing went wrong');
         break;
     }
-    err.status = errorResponse.error
-      ? errorResponse.error.status
-      : errorResponse.status;
-    err.message = errorResponse.error
-      ? errorResponse.error.message
-        ? errorResponse.error.message
-        : errorResponse.error.toString()
-      : 'Something went wrong';
-    return Observable.throw(err);
+    return Observable.throw(errorResponse);
   }
 
   showError(message){

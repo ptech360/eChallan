@@ -10,7 +10,7 @@ import { LoginComponent } from '../components/login/login';
   templateUrl: 'app.html'
 })
 export class MyApp implements OnInit{
-  rootPage:any = TabsPage;
+  rootPage:any = LoginComponent;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public events:Events) {
     platform.ready().then(() => {

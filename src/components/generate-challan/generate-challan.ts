@@ -42,14 +42,7 @@ export class GenerateChallanComponent {
       this.needManualDetails = true
     else  
       this.needManualDetails = false
-    },(error:any) => {
-      console.log(error);
     });
-    // this.violenter = this.people.getPerson('driving_license',this.dl);
-    // if(this.violenter == null)
-    //   this.needManualDetails = true
-    // else  
-    //   this.needManualDetails = false
   }
 
   viewViolations(){

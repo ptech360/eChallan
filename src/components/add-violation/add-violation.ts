@@ -37,9 +37,9 @@ export class AddViolationComponent {
   }
 
   subTotal(){
-    for(let i=0;i<this.currentViolents.length;i++){
-      this.totalCharge += Number(this.currentViolents[i].charge);
-    }
+    // for(let i=0;i<this.currentViolents.length;i++){
+    //   this.totalCharge += Number(this.currentViolents[i].charge);
+    // }
   }
 
   payment(){

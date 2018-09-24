@@ -20,6 +20,9 @@ import { NoRecordsComponent } from '../components/no-records/no-records';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Uid } from '@ionic-native/uid';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+
 import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService} from '../providers/providers';
 
 @NgModule({
@@ -74,7 +77,9 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
     ViolentsProvider,
     ContactsProvider,
     StorageService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},    
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Uid,
+    AndroidPermissions   
   ]
 })
 export class AppModule {}

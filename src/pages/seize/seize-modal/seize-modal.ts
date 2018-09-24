@@ -59,8 +59,3 @@ import { ReceiptPage } from "../../receipt/receipt";
       }
 
   }
-
-interface Document{
-    name:string,
-    id:string
-}

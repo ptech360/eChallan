@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController} from 'ionic-angular';
-import { GenerateChallanComponent } from '../../components/generate-challan/generate-challan';
 import { FeaturesProvider } from '../../providers/features/features';
 
 @Component({

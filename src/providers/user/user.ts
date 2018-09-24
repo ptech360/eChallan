@@ -29,7 +29,8 @@ export class User {
   _user: any;
   accountInfo: any;
 
-  constructor(public api: Api, public localStorage: StorageService) { }
+  constructor(public api: Api, public localStorage: StorageService) { 
+  }
 
   /**
    * Send a POST request to our login endpoint with the data
@@ -37,7 +38,10 @@ export class User {
    */
   login(accountInfo: any) {
     this.accountInfo = accountInfo;
+    // this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
     return this.api.post('Token', accountInfo).map(response => {
+      console.log(response);
+      
       this._loggedIn(response);
       return response;
     });
@@ -75,5 +79,9 @@ export class User {
   _loggedIn(resp) {
     this.localStorage.storeData('ngStorage-token', resp.token);
     this.localStorage.storeData('IMEI',this.accountInfo.IMEI);
+  }
+
+  getAppInfo(){
+    return this.api.get('Image');      
   }
 }

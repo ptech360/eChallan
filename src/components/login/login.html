@@ -1,7 +1,7 @@
 
 <ion-content>
 
-    <img class="login-logo" src="https://img.clipartxtras.com/197beaa39099b386dd67f0320c4ec25c_traffic-light-clip-art-hostted-clipartbarn-traffic-light-clipart-free_1500-1500.png" />
+    <img *ngIf="appInfo.projectSiteLogo" class="login-logo" [src]="appInfo.projectSiteLogo" />
     <ion-list class="login-form">
 
         <h1 text-center>Login</h1>
@@ -21,4 +21,8 @@
     <button ion-button full clear (click)="forget()">Forget Password</button>
     </ion-list>
   </ion-content>
+  <ion-footer text-center no-lines>
+    Powered by <b>{{appInfo.companyName}}</b><br>
+    {{appInfo.companyRights}}
+  </ion-footer>
   
