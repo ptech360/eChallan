@@ -1,7 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class StorageService {
-  constructor() {}
+  isToken: Subject<boolean> = new Subject<boolean>();
+  constructor() {
+    if(this.getData('ngStorage-token'))
+      this.isToken.next(true);
+    else
+      this.isToken.next(false);
+  }
+
 
   public storeData(field_name: any, data: any) {
     localStorage.setItem(field_name, JSON.stringify(data));
@@ -17,6 +25,9 @@ export class StorageService {
   }
 
   clearData() {
+    const imei = this.getData('IMEI');
     localStorage.clear();
+    this.storeData('IMEI',imei)
+    this.isToken.next(false);
   }
 }
