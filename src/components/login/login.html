@@ -1,9 +1,9 @@
 
-<ion-content>
+<ion-content  style="background-image: url(assets/imgs/Efkon.png);background-size: 100% 100%;">
 
     <img *ngIf="appInfo.projectSiteLogo" class="login-logo" [src]="appInfo.projectSiteLogo" />
     <ion-list class="login-form">
-
+        <h1 text-center>E-Challan</h1>
         <h1 text-center>Login</h1>
         <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-item>
