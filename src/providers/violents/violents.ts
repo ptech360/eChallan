@@ -38,7 +38,8 @@ export class ViolentsProvider {
   }
 
   getViolents(){
-    return this.violentsList;
+    // return this.violentsList;
+    return this.api.get('Offences');
   }
 
 }

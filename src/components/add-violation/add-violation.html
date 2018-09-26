@@ -19,7 +19,7 @@
         <ion-item>
             <ion-label>Select Violation</ion-label>
             <ion-select [(ngModel)]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="subTotal()">
-              <ion-option *ngFor="let violent of violentsList" [value]="violent">{{ violent.name }}</ion-option>
+              <ion-option *ngFor="let violent of violentsList" [value]="violent">{{ violent.offenceName }}</ion-option>
             </ion-select> 
           </ion-item>
     </ion-card>
@@ -29,10 +29,10 @@
       <ion-item *ngFor="let violentCharge of currentViolents">
         <ion-row>
           <ion-col col-8 class="title" no-padding>
-            {{ violentCharge.name }} <ion-badge>{{ violentCharge.code }}</ion-badge>
+            {{ violentCharge.offenceName }} <br><ion-badge>{{ violentCharge.offenceAct }}</ion-badge>
           </ion-col>
           <ion-col col-4 class="charge" no-padding>
-              ₹ {{ violentCharge.charge }}
+              ₹ {{ violentCharge.offenceFine }}
           </ion-col>
         </ion-row>
       </ion-item>

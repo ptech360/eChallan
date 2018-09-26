@@ -21,14 +21,16 @@ export class AddViolationComponent {
   violenter;
   violentOpts: { title: string, subTitle: string };
   currentViolents:any;
-  violentsList:any;
+  violentsList:any = [];
 
   constructor(public violent:ViolentsProvider,
               public navCtrl:NavController,
               public navParam:NavParams
   ) {
     
-    this.violentsList = this.violent.getViolents();
+    this.violent.getViolents().subscribe(response => {
+      this.violentsList = response;
+    })
   }
 
   ionViewDidLoad() {
