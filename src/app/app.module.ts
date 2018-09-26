@@ -23,7 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Uid } from '@ionic-native/uid';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
-import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService} from '../providers/providers';
+import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService, ChartProvider} from '../providers/providers';
 
 @NgModule({
   declarations: [
@@ -76,6 +76,7 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
     PeopleProvider,
     ViolentsProvider,
     ContactsProvider,
+    ChartProvider,
     StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Uid,

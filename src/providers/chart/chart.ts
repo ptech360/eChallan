@@ -15,7 +15,8 @@ export class ChartProvider {
     console.log('Hello ChartProvider Provider');
   }
 
-  violstionChart(){  var data = google.visualization.arrayToDataTable([
+  violstionChart(){  
+  var data = google.visualization.arrayToDataTable([
     ['Violent', '#Charges'],
     ['Red Signal',     11],
     ['No Helmet',      20],

@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { ChartProvider } from '../../providers/chart/chart';
 
-declare var google: any;
+declare let google: any;
 /**
  * Generated class for the ViolenterHistoryPage page.
  *
