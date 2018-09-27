@@ -29,15 +29,13 @@ export class Api {
     public alertCtrl: AlertController,
     private uid: Uid, 
     private androidPermissions: AndroidPermissions){
-    if(this.localStorage.getData('ngStorage-token')) {
+    
       this.sub = Observable.interval(10*60*1000).subscribe((val) => {
-        this.showError('Session Expired');
-        this.localStorage.clearData();
-        this.getImei();
-        this.events.publish("session:expired");
-        this.sub.unsubscribe();
+        if(this.localStorage.getData('ngStorage-token')) {
+          this.showError('Session Expired');
+          this.localStorage.clearData();
+        }
       });
-    }
     this.getImei();
   }
 
@@ -71,8 +69,10 @@ export class Api {
 
   getHeaders(optHeaders?: HttpHeaders) {
     let headers = new HttpHeaders();
-    if (this.localStorage.getData('ngStorage-token')&&this.localStorage.getData('IMEI')) {
-      headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));
+    if (this.localStorage.getData('ngStorage-token')) {
+      headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));      
+    }
+    if(this.localStorage.getData('IMEI')){
       headers = headers.set('imei', this.localStorage.getData('IMEI'));
     }
     if (optHeaders) {
@@ -149,7 +149,6 @@ export class Api {
         this.showError('Session Expired');
         this.localStorage.clearData();
         this.getImei();
-        this.events.publish("session:expired");
         break;      
       case 0:
         this.showError('You don\'t seem to have an active internet connection. Please connect and try again.' )

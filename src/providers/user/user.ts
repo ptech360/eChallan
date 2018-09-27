@@ -81,7 +81,15 @@ export class User {
     this.localStorage.storeData('IMEI',this.accountInfo.IMEI);
   }
 
+  isLoggedIn(){
+    if(this.localStorage.getData('ngStorage-token')){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getAppInfo(){
-    return this.api.get('Image');      
+    return this.api.get('Image');
   }
 }
