@@ -25,8 +25,7 @@
     </ion-card>
 
     <ion-list class="violation_details">
-
-      <ion-item *ngFor="let violentCharge of currentViolents">
+      <!-- <ion-item *ngFor="let violentCharge of currentViolents">
         <ion-row>
           <ion-col col-8 class="title" no-padding>
             {{ violentCharge.offenceName }} <br><ion-badge>{{ violentCharge.offenceAct }}</ion-badge>
@@ -35,6 +34,10 @@
               ₹ {{ violentCharge.offenceFine }}
           </ion-col>
         </ion-row>
+      </ion-item> -->
+      <ion-item *ngFor="let violation of currentViolents">
+        {{ violation.offenceName }}
+        <div item-right>₹ {{ violation.offenceFine }}</div>
       </ion-item>
     </ion-list>
     <button ion-button icon-only class="center" margin-bottom><ion-icon name="camera"></ion-icon></button>

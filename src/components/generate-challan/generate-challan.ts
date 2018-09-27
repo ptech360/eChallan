@@ -22,7 +22,7 @@ export class GenerateChallanComponent {
   vc: string;
   violenter: any;
   needManualDetails:boolean = false;
-  vehicleNo: string = 'UP65FT9590';
+  vehicleNo: string = 'UP65CY7917';
 
 
 

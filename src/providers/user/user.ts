@@ -28,6 +28,7 @@ import { StorageService } from '../localstorage/storage';
 export class User {
   _user: any;
   accountInfo: any;
+  appInfo: any;
 
   constructor(public api: Api, public localStorage: StorageService) { 
   }
@@ -40,8 +41,6 @@ export class User {
     this.accountInfo = accountInfo;
     // this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
     return this.api.post('Token', accountInfo).map(response => {
-      console.log(response);
-      
       this._loggedIn(response);
       return response;
     });
@@ -90,6 +89,10 @@ export class User {
   }
 
   getAppInfo(){
-    return this.api.get('Image');
+    if(this.appInfo){
+      return this.appInfo;
+    } else {
+      return (this.appInfo = this.api.get('Image'));
+    }
   }
 }

@@ -42,4 +42,7 @@ export class ViolentsProvider {
     return this.api.get('Offences');
   }
 
+  generateChallan(data: any){
+    return this.api.post('VahanChallan',data);
+  }
 }

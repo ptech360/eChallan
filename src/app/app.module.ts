@@ -24,6 +24,9 @@ import { Uid } from '@ionic-native/uid';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService, ChartProvider} from '../providers/providers';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PrintReceiptPage } from '../pages/print-receipt/print-receipt';
+import { Printer } from '../../node_modules/@ionic-native/printer';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
     ViolenterHistoryPage,
     AddViolationComponent,
     PaymentGatewayPage,
+    PrintReceiptPage,
     SeizePage,
     SeizeModal,
     ReceiptPage,
@@ -47,6 +51,8 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -60,6 +66,7 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
     ViolenterHistoryPage,
     AddViolationComponent,
     PaymentGatewayPage,
+    PrintReceiptPage,
     SeizePage,
     SeizeModal,
     ReceiptPage,
@@ -80,7 +87,8 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
     StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Uid,
-    AndroidPermissions   
+    AndroidPermissions,
+    Printer   
   ]
 })
 export class AppModule {}

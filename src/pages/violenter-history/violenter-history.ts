@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { ChartProvider } from '../../providers/chart/chart';
+import { Observable } from '../../../node_modules/rxjs/Observable';
 
 declare let google: any;
 /**
@@ -17,7 +18,7 @@ declare let google: any;
 })
 export class ViolenterHistoryPage implements OnInit {
 
-  public violenter;
+  public violenter = {};
   violents: string;
   violentOpts: { title: string, subTitle: string };
 
@@ -27,8 +28,13 @@ export class ViolenterHistoryPage implements OnInit {
   }
 
   ngOnInit() {
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(this.chartService.violstionChart);
+    var timmer = Observable.interval(1000).subscribe((val) => {
+      if(google){
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(this.chartService.violstionChart);
+        timmer.unsubscribe();
+      }
+    });
 
     this.violentOpts = {
       title: 'Violents Made',
@@ -37,7 +43,9 @@ export class ViolenterHistoryPage implements OnInit {
   }
 
   ionViewDidLoad() {
-      this.violenter = this.navParams.get('data')
+      this.violenter = this.navParams.get('data');
+      console.log(this.violenter);
+      
   }
 
   dismiss() {

@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AddViolationComponent } from '../../components/add-violation/add-violation';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ViolentsProvider } from '../../providers/violents/violents';
+import { PrintReceiptPage } from '../print-receipt/print-receipt';
 
 /**
  * Generated class for the PaymentGatewayPage page.
@@ -14,22 +17,33 @@ import { AddViolationComponent } from '../../components/add-violation/add-violat
   selector: 'page-payment-gateway',
   templateUrl: 'payment-gateway.html',
 })
-export class PaymentGatewayPage {
+export class PaymentGatewayPage implements OnInit{
 
   public currenViolations;
   public charge;
   public violenter;
+  public challanForm:FormGroup
+  violationIds: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public alertCtrl:AlertController
+              public alertCtrl:AlertController, public fb:FormBuilder,
+              public violent:ViolentsProvider,
+              public modalCtrl:ModalController
   ) {
     this.currenViolations = this.navParams.get('data')
     this.charge = this.navParams.get('charge')
     this.violenter = this.navParams.get('violenter')
   }
 
+  ngOnInit(){
+    this.challanForm = this.getChallanForm();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentGatewayPage');
+    console.log(this.currenViolations);
+    console.log(this.charge);
+    console.log(this.violenter);
   }
 
   confirm(){
@@ -41,17 +55,46 @@ export class PaymentGatewayPage {
           text: 'Error',
           role: 'cancel',
           handler: () => {
+            this.violent
             this.navCtrl.popTo(AddViolationComponent)
           }
         },
         {
           text: 'Success',
           handler: () => {
-            this.navCtrl.popToRoot();
+            this.violent.generateChallan(this.challanForm.value).subscribe((response: any) => {
+              this.challanForm.value['challanId'] = response.challanId;
+              const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
+              violenterModal.present();
+            })
           }
         }
       ]
     });
     alert.present();
+  }
+
+  getChallanForm(){
+    this.currenViolations.forEach(element => {
+      this.violationIds.push(element.offenceId);
+    });
+    return this.fb.group({
+      "REGISTRATIONNO": [this.violenter.registrationno],
+      "OWNERNAME": [this.violenter.ownername],
+      "FATHERNAME": [this.violenter.fathername],
+      "PERMANENTADDRESS": [this.violenter.permanentaddress],
+      "CHASSISNO": [this.violenter.chassisno],
+      "ENGNO": ["TEST"],
+      "BODYTYPE": [this.violenter.bodytype],
+      "MAKERMODEL": [this.violenter.makermodel],
+      "ViolationId": [this.violationIds.toString()],
+      "DlNo": ["TEST"],
+      "UserName": ["sa"],
+      "LocationName": ["GURGAON"],
+      "MOBILENUMBER": [this.violenter.mobilenumber],
+      "COLOUR": [ this.violenter.colour],
+      "PaymentTypeName": ["Net-Banking"],
+      "PaymentId": ["TXN101043252612212383"] 
+    });
   }
 }

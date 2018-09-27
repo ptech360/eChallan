@@ -52,7 +52,6 @@ import { ReceiptPage } from "../../receipt/receipt";
                   vehicleColor: this.vehicleColor,
                   vehicleNumber: this.vehicleNumber,
                   vehicleType: this.vehicleType
-
               }
           }
           this.navCtrl.push(ReceiptPage,{ data : this.object ,currentViolents: this.currentViolents, charge:this.charge, violenter: this.violenter, seizeData: seizeData} )

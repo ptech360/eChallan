@@ -17,23 +17,27 @@
     <ion-list radio-group>
         <ion-item>
           <ion-label>Credit/Debit Card</ion-label>
-          <ion-radio value="friends" checked></ion-radio>
+          <ion-radio value="Credit-Debit-Card" checked></ion-radio>
         </ion-item>
         <ion-item>
           <ion-label>UPI</ion-label>
-          <ion-radio value="family"></ion-radio>
+          <ion-radio value="UPI"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Net-Banking</ion-label>
+          <ion-radio value="Net-Banking"></ion-radio>
         </ion-item>
         <ion-item>
           <ion-label>Cash</ion-label>
-          <ion-radio value="enemies" [disabled]="isDisabled"></ion-radio>
+          <ion-radio value="Cash" [disabled]="isDisabled"></ion-radio>
         </ion-item>
       </ion-list>
 
       <h6 padding-left><b>Details</b></h6>
       <ion-card *ngIf="currenViolations">
         <ion-item *ngFor="let violation of currenViolations">
-          {{ violation.name }}
-          <div item-right>₹ {{ violation.charge }}</div>
+          {{ violation.offenceName }}
+          <div item-right>₹ {{ violation.offenceFine }}</div>
         </ion-item>
       </ion-card>
 </ion-content>

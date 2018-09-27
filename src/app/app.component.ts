@@ -17,23 +17,17 @@ export class MyApp implements OnInit{
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      // user.getAppInfo();
       statusBar.styleDefault();
       splashScreen.hide();
     });
   }
   
   ngOnInit(){
-    this.handleEvent();
     if(this.user.isLoggedIn()){
       this.rootPage = TabsPage;
     }else {
       this.rootPage = LoginComponent;
     }
-  }
-
-  handleEvent(){
-    this.events.subscribe('session:expired', () => {
-      this.rootPage = LoginComponent;
-    }); 
   }
 }

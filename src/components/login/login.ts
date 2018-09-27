@@ -23,9 +23,10 @@ export class LoginComponent {
   constructor(public loginCtrl:LoadingController, 
               private user: User,
               public nav: NavController,
-              public alertCtrl: AlertController
-            ) {
-              this.getAppInfo();
+              public alertCtrl: AlertController) {
+              this.user.getAppInfo().subscribe(response => {
+                this.appInfo = response;
+              })
   }
 
   showLoading(){
@@ -48,11 +49,5 @@ export class LoginComponent {
 
   forget(){
     this.nav.push(NoRecordsComponent)
-  }
-
-  getAppInfo(){
-    this.user.getAppInfo().subscribe(response => {
-      this.appInfo = response;
-    })
   }
 }

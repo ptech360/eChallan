@@ -40,30 +40,30 @@
           </ion-item>
     </ion-list>
 
-    <div *ngIf="violenter">
-    <div class="violation-timeline" *ngFor="let violetion of violenter.violations">
-        <div class="pin">
-          <div class="location">
-          {{ violetion.location }}
-          </div>
-          <div class="city">
-            {{ violetion.city }}
-          </div>
-        </div>
-        <div class="violation">
-          <div class="name">
-              {{ violetion.name }}
-          </div>
-          <div class="incharge">
-              <b>Incharge: {{ violetion.charge_person }}</b>
+    <div *ngIf="violenter.pastOffences">
+      <div class="violation-timeline" *ngFor="let violetion of violenter.pastOffences">
+          <div class="pin">
+            <div class="location">
+            {{ violetion.geoLocation }}
             </div>
-          <div class="date">
-              {{ violetion.date_of_violation }}
-              <span class="time">
-                  | {{ violetion.time_of_violation }}
-                </span>
+            <div class="city">
+              {{ violetion.locationName }}
+            </div>
+          </div>
+          <div class="violation">
+            <div class="name">
+                {{ violetion.violationDesc }}
+            </div>
+            <div class="incharge">
+                <b>Incharge: Nathuram Singh</b>
+              </div>
+            <div class="date">
+                {{ '12-09-2018 00:00:00' | date}}
+                <span class="time">
+                    | {{ '12-09-2018 00:00:00' | date:"HH:mm" }}
+                  </span>
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </ion-content>
