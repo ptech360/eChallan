@@ -41,10 +41,9 @@
       </ion-item>
     </ion-list>
     <div text-center>
-      <button ion-button icon-only class="center" margin-bottom text-center><ion-icon name="camera"></ion-icon></button>
+    <button ion-button icon-only class="center" margin-bottom><ion-icon name="camera"></ion-icon></button>
+    <button ion-button full (click)="payment()" [disabled]="!currentViolents.length">Continue to Pay</button>
+    <button ion-button full clear (click)="seize()" disabled>Unable to pay</button>
     </div>
-   
-    <button ion-button full (click)="payment()">Continue to Pay</button>
-    <button ion-button full clear (click)="seize()">Unable to pay</button>
   </ion-content>
   

@@ -40,32 +40,25 @@ export class Api {
   }
 
   async getImei() {
-    if(this.uid.IMEI){
-      const { hasPermission } = await this.androidPermissions.checkPermission(
+    const { hasPermission } = await this.androidPermissions.checkPermission(
+      this.androidPermissions.PERMISSION.READ_PHONE_STATE
+    );
+   
+    if (!hasPermission) {
+      const result = await this.androidPermissions.requestPermission(
         this.androidPermissions.PERMISSION.READ_PHONE_STATE
       );
-     
-      if (!hasPermission) {
-        const result = await this.androidPermissions.requestPermission(
-          this.androidPermissions.PERMISSION.READ_PHONE_STATE
-        );
-     
-        if (!result.hasPermission) {
-          const alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: 'Permissions required',
-            buttons: []
-          })
-          alert.present();
-        }
-     
-        // ok, a user gave us permission, we can get him identifiers after restart app
-        return;
+   
+      if (!result.hasPermission) {
+        throw new Error('Permissions required');
       }
-      this.localStorage.storeData('IMEI',this.uid.IMEI);
-    }    
+   
+      // ok, a user gave us permission, we can get him identifiers after restart app
+      return;
+    }
+    this.localStorage.storeData('IMEI',this.uid.IMEI);
     return this.uid.IMEI
-  }
+   }
 
   getHeaders(optHeaders?: HttpHeaders) {
     let headers = new HttpHeaders();

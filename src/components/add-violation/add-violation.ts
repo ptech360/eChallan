@@ -20,7 +20,7 @@ export class AddViolationComponent {
   totalCharge:number = 0.0;
   violenter;
   violentOpts: { title: string, subTitle: string };
-  currentViolents:any;
+  currentViolents:any[] = [];
   violentsList:any = [];
 
   constructor(public violent:ViolentsProvider,
@@ -30,12 +30,20 @@ export class AddViolationComponent {
     
     this.violent.getViolents().subscribe(response => {
       this.violentsList = response;
+      // this.violenter.pastOffences.forEach(element => {
+      //   const createdate:any = new Date(element.createdDate);
+      //   const now:any = new Date();
+      //   const millisTill10: number = new Date() - createdate;
+        
+      //   this.violentsList.filter(violent => {
+
+      //   });
+      // });
     })
   }
 
   ionViewDidLoad() {
-    this.violenter = this.navParam.get('name')
-    
+    this.violenter = this.navParam.get('data');    
   }
 
   subTotal(){

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Printer, PrintOptions } from '@ionic-native/printer';
 /**
  * Generated class for the PrintReceiptPage page.
@@ -25,7 +25,7 @@ export class PrintReceiptPage implements OnInit{
     grayscale: true
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private printer: Printer) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, private printer: Printer) {
   }
 
   ngOnInit(){
@@ -42,10 +42,15 @@ export class PrintReceiptPage implements OnInit{
 
   private print(){
     this.printer.print(this.printContent.nativeElement, this.options).then((onSuccess)=>{
-      alert(onSuccess);
+      this.navCtrl.popToRoot();
     }, (onError) =>{
       alert(onError);
+      this.navCtrl.popToRoot();
     });
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
   
 

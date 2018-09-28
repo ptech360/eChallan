@@ -48,8 +48,8 @@
                    <ion-item class="border">
                      <b class="primaryColor" item-left>Vehicle No: </b><p margin-left> {{ violenter.registrationno }}</p>
                    </ion-item>
-                   <ion-item >
-                     <b  class="primaryColor" item-left>Previous Violations:</b>0
+                   <ion-item>
+                     <b  class="primaryColor" item-left>Previous Violations:</b><p margin-left *ngIf="violenter.pastOffences">{{violenter.pastOffences.length}}</p>
                     </ion-item>
                 
                   <!-- <ion-col col-12>
