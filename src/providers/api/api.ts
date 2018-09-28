@@ -148,7 +148,6 @@ export class Api {
       case 401:
         this.showError('Session Expired');
         this.localStorage.clearData();
-        this.getImei();
         break;      
       case 0:
         this.showError('You don\'t seem to have an active internet connection. Please connect and try again.' )

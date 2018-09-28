@@ -45,8 +45,9 @@ $colors: (
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
+.primaryColor{
+  color: color($colors,primary);
+}
 
 
 // App Material Design Variables

@@ -40,7 +40,10 @@
         <div item-right>₹ {{ violation.offenceFine }}</div>
       </ion-item>
     </ion-list>
-    <button ion-button icon-only class="center" margin-bottom><ion-icon name="camera"></ion-icon></button>
+    <div text-center>
+      <button ion-button icon-only class="center" margin-bottom text-center><ion-icon name="camera"></ion-icon></button>
+    </div>
+   
     <button ion-button full (click)="payment()">Continue to Pay</button>
     <button ion-button full clear (click)="seize()">Unable to pay</button>
   </ion-content>
