@@ -21,20 +21,21 @@ export class ViolenterHistoryPage implements OnInit {
   public violenter = {};
   violents: string;
   violentOpts: { title: string, subTitle: string };
+  private violencListCopy = [];
+  public violencList = [];
 
-  constructor(public viewCtrl: ViewController, public navParams:NavParams,
-              public chartService:ChartProvider
+  constructor(public viewCtrl: ViewController, public navParams:NavParams
   ) {
   }
 
   ngOnInit() {
-    var timmer = Observable.interval(1000).subscribe((val) => {
-      if(google){
-        google.charts.load('current', {packages: ['corechart', 'bar']});
-        google.charts.setOnLoadCallback(this.chartService.violstionChart);
-        timmer.unsubscribe();
-      }
-    });
+    // var timmer = Observable.interval(1000).subscribe((val) => {
+    //   if(google){
+    //     google.charts.load('current', {packages: ['corechart', 'bar']});
+    //     google.charts.setOnLoadCallback(this.chartService.violstionChart);
+    //     timmer.unsubscribe();
+    //   }
+    // });
 
     this.violentOpts = {
       title: 'Violents Made',
@@ -44,7 +45,8 @@ export class ViolenterHistoryPage implements OnInit {
 
   ionViewDidLoad() {
       this.violenter = this.navParams.get('data');
-      console.log(this.violenter);
+      this.violencList = this.violenter['pastOffences'];
+      this.violencListCopy = this.violencList;
       
   }
 
@@ -54,6 +56,12 @@ export class ViolenterHistoryPage implements OnInit {
 
   stpSelect() {
     console.log('STP selected');
+  }
+
+  filterHistory(event:number[]){
+    this.violencList = this.violencListCopy.filter(v => {
+      return event.find(challanId => v.challanId==challanId);
+    })
   }
 
 }

@@ -51,6 +51,6 @@ export class GenerateChallanComponent {
   }
 
   addViolation(){
-    this.navCtrl.push(AddViolationComponent,{ name: this.violenter })
+    this.navCtrl.push(AddViolationComponent,{ data: this.violenter })
   }
 }

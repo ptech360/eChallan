@@ -49,8 +49,8 @@
                    <div>
                      Vehicle No:  {{ violenter.registrationno }}
                    </div>
-                   <div>
-                      Previous Violations:  0
+                   <div *ngIf="violenter.pastOffences">
+                      Previous Violations:  {{violenter.pastOffences.length}}
                     </div>
                   </ion-col>
                   <ion-col col-12>
