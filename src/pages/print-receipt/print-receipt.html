@@ -21,19 +21,19 @@
 
 <ion-content >
   <div #printContent>
-    <h4 text-center class="primaryColor">RECEIPT</h4>
-      <table *ngFor="let key of printData;">
-        
-        <tr>
-            <!-- <col width="130">
-            <col width="80"> -->
-          <td style="width:160px;text-transform:capitalize;">{{key}}</td>
-          <td>{{printScriptObject[key]}}</td>
-        </tr>
-      </table>
-     
-   
+    <ion-item *ngFor="let key of printData;">
+      <ion-row>
+        <ion-col col-6 no-padding>
+          {{key}} :
+        </ion-col>
+        <ion-col col-6 no-padding>
+          {{printScriptObject[key]}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
   </div>
-  <div text-center color="primary"><button ion-button color="primary" (click)="print()" [disabled]="!printData.length">Print</button></div>
+  <div text-center color="primary">
+    <button ion-button color="primary" (click)="print()" [disabled]="!printData.length">Print</button>
+  </div>
 
 </ion-content>

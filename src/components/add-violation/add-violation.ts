@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViolentsProvider } from '../../providers/violents/violents';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
 
@@ -22,13 +22,16 @@ export class AddViolationComponent {
   violentOpts: { title: string, subTitle: string };
   currentViolents:any[] = [];
   violentsList:any = [];
+  loading: Loading;
 
   constructor(public violent:ViolentsProvider,
               public navCtrl:NavController,
-              public navParam:NavParams
+              public navParam:NavParams,
+              public generateCtrl:LoadingController
   ) {
-    
+    this.showLoading()
     this.violent.getViolents().subscribe(response => {
+      this.loading.dismiss();
       this.violentsList = response;
       // this.violenter.pastOffences.forEach(element => {
       //   const createdate:any = new Date(element.createdDate);
@@ -57,7 +60,15 @@ export class AddViolationComponent {
   }
 
   seize(){
-    this.navCtrl.push(SeizePage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter })
+    this.navCtrl.push(SeizePage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter });
+  }
+
+  showLoading(){
+    this.loading =  this.generateCtrl.create({
+      content:'getting violents...',
+      dismissOnPageChange:true
+    })
+    this.loading.present()
   }
 
 }

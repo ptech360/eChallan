@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PeopleProvider } from '../../providers/people/people';
-import { ModalController, NavController, Events } from 'ionic-angular';
+import { ModalController, NavController, Events, Loading, LoadingController } from 'ionic-angular';
 import { ViolenterHistoryPage } from '../../pages/violenter-history/violenter-history';
 import { AddViolationComponent } from '../add-violation/add-violation';
 
@@ -23,6 +23,7 @@ export class GenerateChallanComponent {
   violenter: any;
   needManualDetails:boolean = false;
   vehicleNo: string = 'UP65CY7917';
+  loading: Loading;
 
 
 
@@ -30,14 +31,17 @@ export class GenerateChallanComponent {
   constructor(public people:PeopleProvider,
               public modalCtrl:ModalController,
               public navCtrl:NavController,
-              public events: Events
+              public events: Events,
+              public generateCtrl:LoadingController
   ) {
     this.text = 'Hello World';
   }
 
   getInfo(){
+    this.showLoading();
     this.people.getVehicleDetails(this.vehicleNo).subscribe((response:any)=>{
       this.violenter = response;  
+      this.loading.dismiss();
     if(this.violenter == null)
       this.needManualDetails = true
     else  
@@ -52,5 +56,13 @@ export class GenerateChallanComponent {
 
   addViolation(){
     this.navCtrl.push(AddViolationComponent,{ data: this.violenter })
+  }
+
+  showLoading(){
+    this.loading =  this.generateCtrl.create({
+      content:'getting...',
+      dismissOnPageChange:true
+    })
+    this.loading.present()
   }
 }

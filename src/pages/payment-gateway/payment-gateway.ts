@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, Loading, LoadingController } from 'ionic-angular';
 import { AddViolationComponent } from '../../components/add-violation/add-violation';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ViolentsProvider } from '../../providers/violents/violents';
@@ -24,11 +24,13 @@ export class PaymentGatewayPage implements OnInit{
   public violenter;
   public challanForm:FormGroup
   violationIds: any = [];
+  loading: Loading;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl:AlertController, public fb:FormBuilder,
               public violent:ViolentsProvider,
-              public modalCtrl:ModalController
+              public modalCtrl:ModalController,
+              public generateCtrl:LoadingController
   ) {
     this.currenViolations = this.navParams.get('data')
     this.charge = this.navParams.get('charge')
@@ -62,10 +64,13 @@ export class PaymentGatewayPage implements OnInit{
         {
           text: 'Success',
           handler: () => {
+            this.showLoading();
             this.violent.generateChallan(this.challanForm.value).subscribe((response: any) => {
+              this.loading.dismiss();
               this.challanForm.value['challanId'] = response.challanId;
               const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
               violenterModal.present();
+              this.navCtrl.popToRoot();
             })
           }
         }
@@ -96,5 +101,13 @@ export class PaymentGatewayPage implements OnInit{
       "PaymentTypeName": ["Net-Banking"],
       "PaymentId": ["TXN101043252612212383"] 
     });
+  }
+
+  showLoading(){
+    this.loading =  this.generateCtrl.create({
+      content:'processing...',
+      dismissOnPageChange:true
+    })
+    this.loading.present()
   }
 }

@@ -42,6 +42,7 @@ export class PrintReceiptPage implements OnInit{
 
   private print(){
     this.printer.print(this.printContent.nativeElement, this.options).then((onSuccess)=>{
+      this.dismiss();
       this.navCtrl.popToRoot();
     }, (onError) =>{
       alert(onError);
