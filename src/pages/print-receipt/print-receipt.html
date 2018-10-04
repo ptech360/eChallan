@@ -21,16 +21,38 @@
 
 <ion-content >
   <div #printContent>
-    <ion-item *ngFor="let key of printData;">
-      <ion-row>
-        <ion-col col-6 no-padding>
-          {{key}} :
-        </ion-col>
-        <ion-col col-6 no-padding>
-          {{printScriptObject[key]}}
-        </ion-col>
-      </ion-row>
-    </ion-item>
+    <h4 text-center class="primaryColor">RECEIPT</h4>
+    <table class="table" style="text-align: left;font: 12pt Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.3;">
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Name</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['OWNERNAME']}}</td>
+      </tr>
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Amount</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['amount']}}</td>
+      </tr>
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Violation(s)</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['violations']}}</td>
+      </tr>
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Location</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['LocationName']}}</td>
+      </tr>
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Registration No</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['REGISTRATIONNO']}}</td>
+      </tr>
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Vehicle No</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['vehicleNo']}}</td>
+      </tr>
+      <tr>
+        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Mobile</th>
+        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['MOBILENUMBER']}}</td>
+      </tr>
+    </table>
   </div>
   <div text-center color="primary">
     <button ion-button color="primary" (click)="print()" [disabled]="!printData.length">Print</button>

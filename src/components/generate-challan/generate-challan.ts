@@ -41,6 +41,7 @@ export class GenerateChallanComponent {
     this.showLoading();
     this.people.getVehicleDetails(this.vehicleNo).subscribe((response:any)=>{
       this.violenter = response;  
+      this.violenter['vehicleNo'] = this.vehicleNo;
       this.loading.dismiss();
     if(this.violenter == null)
       this.needManualDetails = true

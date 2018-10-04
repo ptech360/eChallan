@@ -15,7 +15,7 @@ import { Printer, PrintOptions } from '@ionic-native/printer';
 })
 export class PrintReceiptPage implements OnInit{
   @ViewChild('printContent') printContent;
-  printScriptObject: any;
+  printScriptObject: any = {};
   printData: any = [];
   options: PrintOptions = {
     name: 'MyDocument',

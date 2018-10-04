@@ -25,6 +25,7 @@ export class PaymentGatewayPage implements OnInit{
   public challanForm:FormGroup
   violationIds: any = [];
   loading: Loading;
+  violations: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl:AlertController, public fb:FormBuilder,
@@ -68,6 +69,9 @@ export class PaymentGatewayPage implements OnInit{
             this.violent.generateChallan(this.challanForm.value).subscribe((response: any) => {
               this.loading.dismiss();
               this.challanForm.value['challanId'] = response.challanId;
+              this.challanForm.value['amount'] = this.charge;
+              this.challanForm.value['violations'] = this.violations;
+              this.challanForm.value['vehicleNo'] = this.violenter.vehicleNo;
               const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
               violenterModal.present();
               this.navCtrl.popToRoot();
@@ -82,6 +86,7 @@ export class PaymentGatewayPage implements OnInit{
   getChallanForm(){
     this.currenViolations.forEach(element => {
       this.violationIds.push(element.offenceId);
+      this.violations.push(element.offenceName);
     });
     return this.fb.group({
       "REGISTRATIONNO": [this.violenter.registrationno],
