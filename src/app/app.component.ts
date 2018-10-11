@@ -16,10 +16,13 @@ export class MyApp implements OnInit{
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public events:Events, public user: User) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      // user.getAppInfo();
+      // Here you can do any higher level native things you might need
       statusBar.styleDefault();
-      splashScreen.hide();
+      user.getAppInfo().subscribe((response:any) => {
+        splashScreen.hide();
+      },(error:any) => {
+        console.log(error);
+      })
     });
   }
   

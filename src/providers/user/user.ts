@@ -89,7 +89,11 @@ export class User {
   }
 
   getAppInfo(){
-    return this.api.get('Image');
+    if(this.appInfo){
+      return this.appInfo;
+    }else{
+      return this.appInfo = this.api.get('Image');
+    }
   }
   
 }
