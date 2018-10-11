@@ -63,7 +63,7 @@ export class Api {
   getHeaders(optHeaders?: HttpHeaders) {
     let headers = new HttpHeaders();
     if (this.localStorage.getData('ngStorage-token')) {
-      headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));      
+      headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));  
     }
     if(this.localStorage.getData('IMEI')){
       headers = headers.set('imei', this.localStorage.getData('IMEI'));
@@ -139,8 +139,10 @@ export class Api {
           this.showError('Access Denied');
         break;
       case 401:
-        this.showError('Session Expired');
-        this.localStorage.clearData();
+        if(errorResponse.url != this.url + '/Image'){
+          this.showError('Session Expired');
+          this.localStorage.clearData();
+        }
         break;      
       case 0:
         this.showError('You don\'t seem to have an active internet connection. Please connect and try again.' )

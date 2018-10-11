@@ -5,6 +5,7 @@ import { GenerateChallanComponent } from './generate-challan/generate-challan';
 import { AddViolationComponent } from './add-violation/add-violation';
 import { ProfileComponent } from './profile/profile';
 import { NoRecordsComponent } from './no-records/no-records';
+import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { NoRecordsComponent } from './no-records/no-records';
     GenerateChallanComponent,
     AddViolationComponent,
     ProfileComponent,
-    NoRecordsComponent
+    NoRecordsComponent,
+    VehicleDetailComponent
   ],
   imports: [CommonModule],
   exports: [
@@ -20,7 +22,8 @@ import { NoRecordsComponent } from './no-records/no-records';
     GenerateChallanComponent,
     AddViolationComponent,
     ProfileComponent,
-    NoRecordsComponent
+    NoRecordsComponent,
+    VehicleDetailComponent
   ]
 })
 export class ComponentsModule {}

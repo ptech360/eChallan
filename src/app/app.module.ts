@@ -27,6 +27,8 @@ import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsPr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrintReceiptPage } from '../pages/print-receipt/print-receipt';
 import { Printer } from '../../node_modules/@ionic-native/printer';
+import { VehicleDetailComponent } from '../components/vehicle-detail/vehicle-detail';
+import { Camera } from '../../node_modules/@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { Printer } from '../../node_modules/@ionic-native/printer';
     TabsPage,
     LoginComponent,
     GenerateChallanComponent,
+    VehicleDetailComponent,
     ViolenterHistoryPage,
     AddViolationComponent,
     PaymentGatewayPage,
@@ -63,6 +66,7 @@ import { Printer } from '../../node_modules/@ionic-native/printer';
     TabsPage,
     LoginComponent,
     GenerateChallanComponent,
+    VehicleDetailComponent,
     ViolenterHistoryPage,
     AddViolationComponent,
     PaymentGatewayPage,
@@ -88,7 +92,8 @@ import { Printer } from '../../node_modules/@ionic-native/printer';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Uid,
     AndroidPermissions,
-    Printer   
+    Printer,
+    Camera
   ]
 })
 export class AppModule {}

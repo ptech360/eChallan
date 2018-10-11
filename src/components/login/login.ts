@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Loading, LoadingController, NavController, AlertController } from 'ionic-angular';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { NoRecordsComponent } from '../no-records/no-records';
@@ -14,7 +14,7 @@ import { User } from '../../providers/user/user';
   selector: 'login',
   templateUrl: 'login.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   loading: Loading;
   text: string;
   loginCredentials = {Username:'sa', Password:'Demo@Pass', IMEI:'863907040011407'};
@@ -23,10 +23,13 @@ export class LoginComponent {
   constructor(public loginCtrl:LoadingController, 
               private user: User,
               public nav: NavController,
-              public alertCtrl: AlertController) {
-              this.user.getAppInfo().subscribe(response => {
-                this.appInfo = response;
-              })
+              public alertCtrl: AlertController) {              
+  }
+
+  ngOnInit(){
+    this.user.getAppInfo().subscribe(response => {
+      this.appInfo = response;
+    });
   }
 
   showLoading(){

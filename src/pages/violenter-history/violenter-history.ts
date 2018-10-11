@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavParams } from 'ionic-angular';
 import { ChartProvider } from '../../providers/chart/chart';
 import { Observable } from '../../../node_modules/rxjs/Observable';
+import { ViolentsProvider } from '../../providers/violents/violents';
 
 declare let google: any;
 /**
@@ -23,8 +24,9 @@ export class ViolenterHistoryPage implements OnInit {
   violentOpts: { title: string, subTitle: string };
   private violencListCopy = [];
   public violencList = [];
+  violentsList: any;
 
-  constructor(public viewCtrl: ViewController, public navParams:NavParams
+  constructor(public viewCtrl: ViewController, public navParams:NavParams,public violent:ViolentsProvider,
   ) {
   }
 
@@ -41,11 +43,13 @@ export class ViolenterHistoryPage implements OnInit {
       title: 'Violents Made',
       subTitle: 'Select violents to display'
     };
+
+    this.getViolents();
   }
 
   ionViewDidLoad() {
       this.violenter = this.navParams.get('data');
-      this.violencList = this.violenter['pastOffences'];
+      this.violencList = this.violenter['PastViolations'];
       this.violencListCopy = this.violencList;
       
   }
@@ -58,9 +62,18 @@ export class ViolenterHistoryPage implements OnInit {
     console.log('STP selected');
   }
 
-  filterHistory(event:number[]){
-    this.violencList = this.violencListCopy.filter(v => {
-      return event.find(challanId => v.challanId==challanId);
+  filterHistory(event:any[]){
+    if(event.length)
+      this.violencList = this.violencListCopy.filter(v => {
+        return (event.indexOf(v.ViolationId)> -1);
+      })
+    else
+      this.violencList = this.violencListCopy;
+  }
+
+  getViolents(){
+    this.violent.getViolents().subscribe(response => {
+      this.violentsList = response;
     })
   }
 

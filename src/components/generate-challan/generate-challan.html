@@ -1,103 +1,100 @@
 <ion-header>
-    <ion-navbar color="primary">
-      <ion-title>Generate Challan</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
+  <ion-navbar color="primary">
+    <ion-title>Generate Challan</ion-title>
+  </ion-navbar>
+</ion-header>
 
-  <ion-content class="gray-back">
+
+<ion-content class="gray-back">
   <h6 text-center class="primaryColor">Violenter Detail</h6>
-    <form>
-        <ion-item-group>
-            <div class="block">
-            <ion-item>
-                <ion-icon name="card" item-start color="primary"></ion-icon>
-                <ion-label stacked>Driving License</ion-label>
-                <ion-input type="text" placeholder="Driving License" [(ngModel)]="dl" name="dl"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="card" item-start color="primary"></ion-icon>
-                <ion-label stacked>Registration Certificate</ion-label>
-                <ion-input type="text" placeholder=" Registration certificate"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="car" item-start color="primary"></ion-icon>
-                <ion-label stacked>Vehicle Number</ion-label>
-                <ion-input type="text"  placeholder="Vehicle Number" [(ngModel)]="vehicleNo" name="vehicleNo"></ion-input>
-            </ion-item>
-          </div>
-        </ion-item-group>
-        <button ion-button full color="primary" (click)="getInfo()">Check</button>
-
-        <div *ngIf="violenter">
-            <ion-card>
-             
-                  <!-- <ion-col col-4>
-                      <img src="https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg"/>
-                  </ion-col> -->
-                 
-                    <ion-item class="border">
-                       <b class="primaryColor" item-left>Name:</b> <p margin-left>{{ violenter.ownername }}</p> 
-                    </ion-item>
-                    <ion-item class="border">
-                      <b class="primaryColor" item-left>S/O:</b> <p margin-left> {{ violenter.fathername }}</p> 
-                    </ion-item>
-                   <ion-item class="border">
-                     <b class="primaryColor" item-left>RC: </b><p margin-left>{{ violenter.registrationno }}</p>
-                   </ion-item>
-                   <ion-item class="border">
-                     <b class="primaryColor" item-left>Vehicle No: </b><p margin-left> {{ violenter.registrationno }}</p>
-                   </ion-item>
-                   <ion-item>
-                     <b  class="primaryColor" item-left>Previous Violations:</b><p margin-left *ngIf="violenter.pastOffences">{{violenter.pastOffences.length}}</p>
-                    </ion-item>
-                
-                  <!-- <ion-col col-12>
-                   
-                  </ion-col> -->
-              
-              <div padding-left padding-right margin-bottom>
-                    <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
-                      <ion-icon name='star'></ion-icon>
-                      View Previous Violations
-                    </button>
-                  </div>
-              </ion-card>
-        </div>
-
-        <div *ngIf="needManualDetails">
-          <h6 margin>Data not found, add details manually</h6>
-          <ion-item>
-            <ion-icon name="person" item-start color="primary"></ion-icon>
-            <ion-label stacked>Name</ion-label>
-            <ion-input [(ngModel)]="name" name="name" type="text" placeholder="eg. Komal Thakur"></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-icon name="call" item-start color="primary"></ion-icon>
-              <ion-label stacked>Phone</ion-label>
-              <ion-input #phonen [(ngModel)]="phone" name="phone" type="number" placeholder="eg. 97383746355"></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-icon name="card" item-start color="primary"></ion-icon>
-              <ion-label stacked>Driving License</ion-label>
-              <ion-input [(ngModel)]="driving_license" name="driving_license" type="text" placeholder="eg. 97383746355"></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-icon name="card" item-start color="primary"></ion-icon>
-              <ion-label stacked>Registration Certificate</ion-label>
-              <ion-input [(ngModel)]="register_certificate" name="register_certificate" type="text" placeholder="eg. 21212311213"></ion-input>
-          </ion-item>
-          <ion-item>
+  <form>
+    <ion-item-group>
+      <div class="block">
+        <ion-item>
+          <ion-icon name="card" item-start color="primary"></ion-icon>
+          <ion-label stacked>Driving License</ion-label>
+          <ion-input type="text" placeholder="Driving License" [(ngModel)]="dl" name="dl"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="card" item-start color="primary"></ion-icon>
+          <ion-label stacked>Registration Certificate</ion-label>
+          <ion-input type="text" placeholder=" Registration certificate"></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-icon name="car" item-start color="primary"></ion-icon>
-          <ion-label stacked>Vehicle No</ion-label>
-          <ion-input [(ngModel)]="vehicle_no" name="vehicle_no" type="text" placeholder="eg. HR C 3920"></ion-input>
-          </ion-item>
-        </div>
+          <ion-label stacked>Vehicle Number</ion-label>
+          <ion-input type="text" placeholder="Vehicle Number" [(ngModel)]="vehicleNo" name="vehicleNo"></ion-input>
+        </ion-item>
+      </div>
+    </ion-item-group>
+    <button ion-button full color="primary" (click)="getInfo()">Check</button>
 
-        <div padding text-center>
-          <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">Add Violation</button>
+    <!-- <div *ngIf="violenter">
+      <ion-card>
+        <ion-col col-4>
+          <img src="https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg" />
+        </ion-col>
+        <ion-item class="border">
+          <b class="primaryColor" item-left>Name:</b>
+          <p margin-left>{{ violenter.ownername }}</p>
+        </ion-item>
+        <ion-item class="border">
+          <b class="primaryColor" item-left>S/O:</b>
+          <p margin-left> {{ violenter.fathername }}</p>
+        </ion-item>
+        <ion-item class="border">
+          <b class="primaryColor" item-left>RC: </b>
+          <p margin-left>{{ violenter.registrationno }}</p>
+        </ion-item>
+        <ion-item class="border">
+          <b class="primaryColor" item-left>Vehicle No: </b>
+          <p margin-left> {{ violenter.registrationno }}</p>
+        </ion-item>
+        <ion-item>
+          <b class="primaryColor" item-left>Previous Violations:</b>
+          <p margin-left *ngIf="violenter.pastOffences">{{violenter.pastOffences.length}}</p>
+        </ion-item>
+
+        <div padding-left padding-right margin-bottom>
+          <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
+            <ion-icon name='star'></ion-icon>
+            View Previous Violations
+          </button>
         </div>
-    </form> 
-    <!-- {{  }} -->
-  </ion-content>
-  
+      </ion-card>
+    </div>
+
+    <div *ngIf="needManualDetails">
+      <h6 margin>Data not found, add details manually</h6>
+      <ion-item>
+        <ion-icon name="person" item-start color="primary"></ion-icon>
+        <ion-label stacked>Name</ion-label>
+        <ion-input [(ngModel)]="name" name="name" type="text" placeholder="eg. Komal Thakur"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="call" item-start color="primary"></ion-icon>
+        <ion-label stacked>Phone</ion-label>
+        <ion-input #phonen [(ngModel)]="phone" name="phone" type="number" placeholder="eg. 97383746355"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="card" item-start color="primary"></ion-icon>
+        <ion-label stacked>Driving License</ion-label>
+        <ion-input [(ngModel)]="driving_license" name="driving_license" type="text" placeholder="eg. 97383746355"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="card" item-start color="primary"></ion-icon>
+        <ion-label stacked>Registration Certificate</ion-label>
+        <ion-input [(ngModel)]="register_certificate" name="register_certificate" type="text" placeholder="eg. 21212311213"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="car" item-start color="primary"></ion-icon>
+        <ion-label stacked>Vehicle No</ion-label>
+        <ion-input [(ngModel)]="vehicle_no" name="vehicle_no" type="text" placeholder="eg. HR C 3920"></ion-input>
+      </ion-item>
+    </div>
+
+    <div padding text-center>
+      <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">Add Violation</button>
+    </div> -->
+  </form>
+</ion-content>

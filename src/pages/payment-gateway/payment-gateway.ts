@@ -26,6 +26,7 @@ export class PaymentGatewayPage implements OnInit{
   violationIds: any = [];
   loading: Loading;
   violations: any = [];
+  files: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl:AlertController, public fb:FormBuilder,
@@ -36,10 +37,12 @@ export class PaymentGatewayPage implements OnInit{
     this.currenViolations = this.navParams.get('data')
     this.charge = this.navParams.get('charge')
     this.violenter = this.navParams.get('violenter')
+    this.files = this.navParams.get('files');
   }
 
   ngOnInit(){
     this.challanForm = this.getChallanForm();
+    this.challanForm.patchValue(this.violenter);
   }
 
   ionViewDidLoad() {
@@ -47,6 +50,8 @@ export class PaymentGatewayPage implements OnInit{
     console.log(this.currenViolations);
     console.log(this.charge);
     console.log(this.violenter);
+    console.log(this.files);
+    
   }
 
   confirm(){
@@ -66,15 +71,27 @@ export class PaymentGatewayPage implements OnInit{
           text: 'Success',
           handler: () => {
             this.showLoading();
-            this.violent.generateChallan(this.challanForm.value).subscribe((response: any) => {
+            const formData = new FormData();
+            Object.keys(this.challanForm.value).forEach(element => {
+              formData.append(element,this.challanForm.value[element]);
+            });
+            this.files.forEach((file:any) => {
+              formData.append('file',file);
+            });
+            formData.append('VehicleImageFile','abstreg');
+            this.violent.generateChallan(formData).subscribe((response: any) => {
               this.loading.dismiss();
-              this.challanForm.value['challanId'] = response.challanId;
+              this.challanForm.value['ChallanId'] = response.ChallanId;
+              this.challanForm.value['ChallanDate'] = new Date();
               this.challanForm.value['amount'] = this.charge;
               this.challanForm.value['violations'] = this.violations;
-              this.challanForm.value['vehicleNo'] = this.violenter.vehicleNo;
+              this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
+              this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
               const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
               violenterModal.present();
               this.navCtrl.popToRoot();
+            },(error: any) => {
+              this.loading.dismiss();
             })
           }
         }
@@ -85,26 +102,27 @@ export class PaymentGatewayPage implements OnInit{
 
   getChallanForm(){
     this.currenViolations.forEach(element => {
-      this.violationIds.push(element.offenceId);
-      this.violations.push(element.offenceName);
+      this.violationIds.push(element.ViolationId);
+      this.violations.push(element.ViolationName);
     });
     return this.fb.group({
-      "REGISTRATIONNO": [this.violenter.registrationno],
-      "OWNERNAME": [this.violenter.ownername],
-      "FATHERNAME": [this.violenter.fathername],
-      "PERMANENTADDRESS": [this.violenter.permanentaddress],
-      "CHASSISNO": [this.violenter.chassisno],
-      "ENGNO": ["TEST"],
-      "BODYTYPE": [this.violenter.bodytype],
-      "MAKERMODEL": [this.violenter.makermodel],
-      "ViolationId": [this.violationIds.toString()],
-      "DlNo": ["TEST"],
-      "UserName": ["sa"],
-      "LocationName": ["GURGAON"],
-      "MOBILENUMBER": [this.violenter.mobilenumber],
-      "COLOUR": [ this.violenter.colour],
-      "PaymentTypeName": ["Net-Banking"],
-      "PaymentId": ["TXN101043252612212383"] 
+      BodyType: [''],
+      ChassisNo: [''],
+      Colour: [''],
+      EngNo: [''],
+      FatherName: [''],
+      MakerModel: [''],
+      DlNo:[''],
+      MobileNumber: [''],
+      OwnerName: [''],
+      PermanentAddress: [''],
+      RegistrationNo: [''],
+      ViolationId:[this.violationIds.toString()],
+      UserName: ["sa"],
+      LocationName: ["GURGAON"],
+      GeoLocationName: ["GURGAON"],
+      PaymentTypeName: ["Net-Banking"],
+      PaymentId : ["TXN101043252612212383"] 
     });
   }
 

@@ -19,31 +19,34 @@
         <ion-item>
             <ion-label>Select Violation</ion-label>
             <ion-select [(ngModel)]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="subTotal()">
-              <ion-option *ngFor="let violent of violentsList" [value]="violent">{{ violent.offenceName }}</ion-option>
+              <ion-option *ngFor="let violent of violentsList" [value]="violent">{{ violent.ViolationName }}</ion-option>
             </ion-select> 
           </ion-item>
     </ion-card>
 
     <ion-list class="violation_details">
-      <!-- <ion-item *ngFor="let violentCharge of currentViolents">
-        <ion-row>
-          <ion-col col-8 class="title" no-padding>
-            {{ violentCharge.offenceName }} <br><ion-badge>{{ violentCharge.offenceAct }}</ion-badge>
-          </ion-col>
-          <ion-col col-4 class="charge" no-padding>
-              ₹ {{ violentCharge.offenceFine }}
-          </ion-col>
-        </ion-row>
-      </ion-item> -->
       <ion-item *ngFor="let violation of currentViolents">
-        {{ violation.offenceName }}
-        <div item-right>₹ {{ violation.offenceFine }}</div>
+        {{ violation.ViolationName }}
+        <div item-right>₹ {{ violation.ViolationFine }}</div>
       </ion-item>
     </ion-list>
+
+    <div padding>      
+      <ion-card *ngFor="let url of imageUrls;let i = index;">
+        <div text-right>
+          <ion-icon class="img-close" name="close" (click)="delImage(i)"></ion-icon>
+        </div>
+        <img [src]="url"/>
+      </ion-card>      
+    </div>
+
+
     <div text-center>
-    <button ion-button icon-only class="center" margin-bottom><ion-icon name="camera"></ion-icon></button>
-    <button ion-button full (click)="payment()" [disabled]="!currentViolents.length">Continue to Pay</button>
-    <button ion-button full clear (click)="seize()" disabled>Unable to pay</button>
+      <button ion-button icon-only class="center" margin-bottom (click)="capture()" [disabled]="!currentViolents.length">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+      <button ion-button full (click)="payment()" [disabled]="!currentViolents.length">Continue to Pay</button>
+      <button ion-button full clear (click)="seize()" disabled>Unable to pay</button>
     </div>
   </ion-content>
   

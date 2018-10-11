@@ -36,8 +36,8 @@
       <h6 text-center color="primary" class="primaryColor"><b>Details</b></h6>
       <ion-card *ngIf="currenViolations">
         <ion-item *ngFor="let violation of currenViolations">
-          {{ violation.offenceName }}
-          <div item-right>₹ {{ violation.offenceFine }}</div>
+          {{ violation.ViolationName }}
+          <div item-right>₹ {{ violation.ViolationFine }}</div>
         </ion-item>
       </ion-card>
 </ion-content>

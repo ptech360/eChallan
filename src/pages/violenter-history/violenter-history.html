@@ -22,42 +22,42 @@
   <!-- <div id="violents_piechart" margin-bottom></div> -->
 
   <ion-list class="top-list-header">
-    <ion-item *ngIf="violenter">
-      {{ violenter.name }}
+    <ion-item>
+      {{ violenter.OwnerName }}
       <br>
-      <p>Driving License: {{ violenter.driving_license }}</p>
+      <!-- <p>Driving License: {{ violenter.driving_license }}</p> -->
     </ion-item>
     <ion-item>
       <ion-label>Filter Violents</ion-label>
-      <ion-select [(ngModel)]="violent" [selectOptions]="violentOpts" multiple="true" (ngModelChange)="filterHistory($event)" cancelText="Cancel"
-        okText="Ok">
-        <ion-option value="0">All</ion-option>
-        <ion-option *ngFor="let violent of violencList" [value]="violent.challanId">{{violent.violationDesc}}</ion-option>
+      <ion-select [selectOptions]="violentOpts" multiple="true" (ngModelChange)="filterHistory($event)" cancelText="Cancel"
+        okText="Ok" ngModel>
+        <!-- <ion-option value="0">All</ion-option> -->
+        <ion-option *ngFor="let violent of violentsList" [value]="violent.ViolationId">{{violent.ViolationName}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
 
-  <div *ngIf="violenter.pastOffences">
-    <div class="violation-timeline" *ngFor="let violetion of violenter.pastOffences">
+  <div *ngIf="violencList.length">
+    <div class="violation-timeline" *ngFor="let violation of violencList">
       <div class="pin">
         <div class="location">
-          {{ violetion.geoLocation }}
+          {{ violation.GeoLocation }}
         </div>
         <div class="city">
-          {{ violetion.locationName }}
+          {{ violation.LocationName }}
         </div>
       </div>
       <div class="violation">
         <div class="name">
-          {{ violetion.violationDesc }}
+          {{ violation.ViolationDesc }}
         </div>
         <div class="incharge">
           <b>Incharge: Nathuram Singh</b>
         </div>
         <div class="date">
-          {{ '12-09-2018 00:00:00' | date}}
+          {{ violation.CreatedDate | date}}
           <span class="time">
-            | {{ '12-09-2018 00:00:00' | date:"HH:mm" }}
+            | {{ violation.CreatedDate | date:"HH:mm" }}
           </span>
         </div>
       </div>

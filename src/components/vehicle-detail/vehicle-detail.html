@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Vehicle Detail
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="gray-back">
+  <ion-list>
+    <form [formGroup]="violationForm">
+      <ion-item>
+        <ion-label class="primaryColor" floating>BodyType</ion-label>
+        <ion-input type="text" formControlName="BodyType"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>ChassisNo</ion-label>
+        <ion-input type="text" formControlName="ChassisNo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>Colour</ion-label>
+        <ion-input type="text" formControlName="Colour"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>EngNo</ion-label>
+        <ion-input type="text" formControlName="EngNo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>FatherName</ion-label>
+        <ion-input type="text" formControlName="FatherName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>MakerModel</ion-label>
+        <ion-input type="text" formControlName="MakerModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>MobileNumber</ion-label>
+        <ion-input type="text" formControlName="MobileNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>OwnerName</ion-label>
+        <ion-input type="text" formControlName="OwnerName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>PermanentAddress</ion-label>
+        <ion-input type="text" formControlName="PermanentAddress"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>RegistrationNo</ion-label>
+        <ion-input type="text" formControlName="RegistrationNo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>RegnDate</ion-label>
+        <ion-input type="text" formControlName="RegnDate"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>VehicleClass</ion-label>
+        <ion-input type="text" formControlName="VehicleClass"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="primaryColor" floating>VehicleNo</ion-label>
+        <ion-input type="text" formControlName="VehicleNo"></ion-input>
+      </ion-item>
+      <div padding-left padding-right margin-bottom *ngIf="violationForm.controls.PastViolationCount.value">
+        <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
+          <ion-icon name='star'></ion-icon>
+          View Previous Violations
+        </button>
+      </div>
+      <div padding text-center>
+        <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add Violation</button>
+      </div>
+    </form>
+  </ion-list>
+</ion-content>

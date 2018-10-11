@@ -1,25 +1,26 @@
+<ion-content style="background-image: url(assets/imgs/Efkon.png);background-size: 100% 100%;" padding>
 
-<ion-content  style="background-image: url(assets/imgs/Efkon.png);background-size: 100% 100%;">
-
-    <img *ngIf="appInfo.projectSiteLogo" class="login-logo" [src]="appInfo.projectSiteLogo" />
-    <ion-list class="login-form">
-        <h1 text-center>E-Challan</h1>
-        <h1 text-center>Login</h1>
-        <form (ngSubmit)="login()" #loginForm="ngForm">
+  <img *ngIf="appInfo.ProjectSiteLogo" class="login-logo" [src]="appInfo.ProjectSiteLogo" />
+  <br>
+  <ion-list class="login-form" no-padding>
+    <h1 text-center>{{appInfo.ProjectName}}</h1>
+    <h1 text-center>Login</h1>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
       <ion-item>
         <ion-label fixed>Username</ion-label>
         <ion-input type="text" value="" name="username" placeholder="Username" [(ngModel)]="loginCredentials.Username" required></ion-input>
       </ion-item>
-    
+
       <ion-item>
         <ion-label fixed>Password</ion-label>
         <ion-input type="password" name="password" placeholder="password" [(ngModel)]="loginCredentials.Password" required></ion-input>
       </ion-item>
-  
+
       <button ion-button full type="submit" [disabled]="!loginForm.form.valid">Login</button>
     </form>
     <!-- <button ion-button full clear (click)="forget()">Forget Password</button> -->
-    </ion-list>
-  </ion-content>
-  
-  
+  </ion-list>
+</ion-content>
+<ion-footer text-center>
+  <b> {{appInfo.CompanyRights}}</b>
+</ion-footer>

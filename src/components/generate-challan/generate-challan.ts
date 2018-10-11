@@ -3,6 +3,7 @@ import { PeopleProvider } from '../../providers/people/people';
 import { ModalController, NavController, Events, Loading, LoadingController } from 'ionic-angular';
 import { ViolenterHistoryPage } from '../../pages/violenter-history/violenter-history';
 import { AddViolationComponent } from '../add-violation/add-violation';
+import { VehicleDetailComponent } from '../vehicle-detail/vehicle-detail';
 
 /**
  * Generated class for the GenerateChallanComponent component.
@@ -41,12 +42,11 @@ export class GenerateChallanComponent {
     this.showLoading();
     this.people.getVehicleDetails(this.vehicleNo).subscribe((response:any)=>{
       this.violenter = response;  
-      this.violenter['vehicleNo'] = this.vehicleNo;
+      this.violenter['VehicleNo'] = this.vehicleNo;
       this.loading.dismiss();
-    if(this.violenter == null)
-      this.needManualDetails = true
-    else  
-      this.needManualDetails = false
+      this.navCtrl.push(VehicleDetailComponent,{ data: this.violenter })
+    }, (error)=>{
+      this.loading.dismiss();
     });
   }
 

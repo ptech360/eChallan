@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ViolentsProvider } from '../../providers/violents/violents';
 import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
 
@@ -23,17 +24,28 @@ export class AddViolationComponent {
   currentViolents:any[] = [];
   violentsList:any = [];
   loading: Loading;
+  cameraOptions: CameraOptions = {
+    sourceType         : this.camera.PictureSourceType.CAMERA,
+    destinationType    : this.camera.DestinationType.DATA_URL,
+    encodingType       : this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true
+  };
+  imageUrls: any = [];
+  files: any = [];
+
 
   constructor(public violent:ViolentsProvider,
               public navCtrl:NavController,
               public navParam:NavParams,
+              private camera: Camera,
               public generateCtrl:LoadingController
   ) {
     this.showLoading()
     this.violent.getViolents().subscribe(response => {
       this.loading.dismiss();
       this.violentsList = response;
-      // this.violenter.pastOffences.forEach(element => {
+      // this.violenter.PastViolations.forEach(element => {
       //   const createdate:any = new Date(element.createdDate);
       //   const now:any = new Date();
       //   const millisTill10: number = new Date() - createdate;
@@ -51,12 +63,12 @@ export class AddViolationComponent {
 
   subTotal(){
     for(let i=0;i<this.currentViolents.length;i++){
-      this.totalCharge += Number(this.currentViolents[i].offenceFine);
+      this.totalCharge += Number(this.currentViolents[i].ViolationFine);
     }
   }
 
   payment(){
-    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter })
+    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter, files:this.files })
   }
 
   seize(){
@@ -69,6 +81,32 @@ export class AddViolationComponent {
       dismissOnPageChange:true
     })
     this.loading.present()
+  }
+
+  private capture(){
+    this.camera.getPicture(this.cameraOptions).then((onSuccess)=>{
+      this.imageUrls.push('data:image/jpeg;base64,' + onSuccess);
+      const fileName:string = 'img'+new Date().toISOString().substring(0,10)+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.jpeg'; 
+      this.files.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess,fileName));
+      console.log(this.files);
+      
+    },(onError)=>{
+      alert(onError);
+    })
+  }
+
+  dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+  }
+
+  delImage(index:number){
+    this.imageUrls.splice(index,1);
+    this.files.splice(index,1);
   }
 
 }

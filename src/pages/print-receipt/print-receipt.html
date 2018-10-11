@@ -19,39 +19,60 @@
 </ion-header>
 
 
-<ion-content >
-  <div #printContent>
+<ion-content>
+  <div #printContent  padding>
     <h4 text-center class="primaryColor">RECEIPT</h4>
-    <table class="table" style="text-align: left;font: 12pt Georgia, 'Times New Roman', Times, serif;
-    line-height: 1.3;">
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Name</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['OWNERNAME']}}</td>
-      </tr>
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Amount</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['amount']}}</td>
-      </tr>
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Violation(s)</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['violations']}}</td>
-      </tr>
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Location</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['LocationName']}}</td>
-      </tr>
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Registration No</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['REGISTRATIONNO']}}</td>
-      </tr>
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Vehicle No</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['vehicleNo']}}</td>
-      </tr>
-      <tr>
-        <th style="vertical-align: baseline;padding: 0px 10px 0px 10px;">Mobile</th>
-        <td style="padding: 0px 10px 0px 10px;">{{printScriptObject['MOBILENUMBER']}}</td>
-      </tr>
+    <table style="text-align: left;font: 11pt 'Times New Roman';padding-bottom: 20px;">
+      <thead>
+        <th style="width: 40%;"></th>
+        <th style="width: 60%;"></th>
+      </thead>
+      <tbody>
+        <tr>
+          <th style="vertical-align: baseline;">Challan No</th>
+          <td>: {{printScriptObject['ChallanId']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Challan Date</th>
+          <td>: {{printScriptObject['ChallanDate'] | date}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Vehicle No</th>
+          <td>: {{printScriptObject['VehicleNo']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Vehicle Class</th>
+          <td>: {{printScriptObject['VehicleClass']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Location</th>
+          <td>: {{printScriptObject['LocationName']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Owner Name</th>
+          <td>: {{printScriptObject['OwnerName']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Owner Address</th>
+          <td>: {{printScriptObject['PermanentAddress']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Amount</th>
+          <td>: {{printScriptObject['amount']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Violation(s)</th>
+          <td>: {{printScriptObject['violations']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Registration No</th>
+          <td>: {{printScriptObject['RegistrationNo']}}</td>
+        </tr>
+        <tr>
+          <th style="vertical-align: baseline;">Mobile</th>
+          <td>{{printScriptObject['MobileNumber']}}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <div text-center color="primary">

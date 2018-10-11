@@ -39,7 +39,7 @@ export class User {
    */
   login(accountInfo: any) {
     this.accountInfo = accountInfo;
-    // this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
+    this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
     return this.api.post('Token', accountInfo).map(response => {
       this._loggedIn(response);
       return response;
@@ -76,7 +76,7 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
-    this.localStorage.storeData('ngStorage-token', resp.token);
+    this.localStorage.storeData('ngStorage-token', resp.Token);
     this.localStorage.storeData('IMEI',this.accountInfo.IMEI);
   }
 
@@ -89,10 +89,7 @@ export class User {
   }
 
   getAppInfo(){
-    if(this.appInfo){
-      return this.appInfo;
-    } else {
-      return (this.appInfo = this.api.get('Image'));
-    }
+    return this.api.get('Image');
   }
+  
 }
