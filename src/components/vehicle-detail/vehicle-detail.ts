@@ -25,21 +25,21 @@ export class VehicleDetailComponent {
     public navParam:NavParams,
     public fb:FormBuilder) {
       this.violationForm = this.fb.group({
-        BodyType: [''],
-        ChassisNo: [''],
-        Colour: [''],
-        EngNo: [''],
-        FatherName: [''],
-        MakerModel: [''],
-        MobileNumber: [''],
-        OwnerName: [''],
+        BodyType: ['NA'],
+        ChassisNo: ['NA'],
+        Colour: ['NA'],
+        EngNo: ['NA'],
+        FatherName: ['NA'],
+        MakerModel: ['NA'],
+        MobileNumber: ['NA'],
+        OwnerName: ['NA'],
         PastViolationCount: [0],
         PastViolations: [],
-        PermanentAddress: [''],
-        RegistrationNo: [''],
-        RegnDate: [''],
-        VehicleClass: [''],
-        VehicleNo:['']
+        PermanentAddress: ['NA'],
+        RegistrationNo: ['NA'],
+        RegnDate: ['NA'],
+        VehicleClass: ['NA'],
+        VehicleNo:['NA']
       });
   }
 

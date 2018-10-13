@@ -58,7 +58,9 @@ export class AddViolationComponent {
   }
 
   ionViewDidLoad() {
-    this.violenter = this.navParam.get('data');    
+    this.violenter = this.navParam.get('data'); 
+    console.log(this.violenter);
+       
   }
 
   subTotal(){

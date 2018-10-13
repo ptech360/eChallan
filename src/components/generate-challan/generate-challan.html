@@ -29,30 +29,30 @@
     </ion-item-group>
     <button ion-button full color="primary" (click)="getInfo()">Check</button>
 
-    <!-- <div *ngIf="violenter">
+    <div *ngIf="violenter">
       <ion-card>
-        <ion-col col-4>
+        <!-- <ion-col col-4>
           <img src="https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg" />
-        </ion-col>
+        </ion-col> -->
         <ion-item class="border">
           <b class="primaryColor" item-left>Name:</b>
-          <p margin-left>{{ violenter.ownername }}</p>
+          <p margin-left>{{ violenter.OwnerName }}</p>
         </ion-item>
         <ion-item class="border">
           <b class="primaryColor" item-left>S/O:</b>
-          <p margin-left> {{ violenter.fathername }}</p>
+          <p margin-left> {{ violenter.FatherName }}</p>
         </ion-item>
         <ion-item class="border">
-          <b class="primaryColor" item-left>RC: </b>
-          <p margin-left>{{ violenter.registrationno }}</p>
+          <b class="primaryColor" item-left>EngNo: </b>
+          <p margin-left>{{ violenter.EngNo }}</p>
         </ion-item>
         <ion-item class="border">
           <b class="primaryColor" item-left>Vehicle No: </b>
-          <p margin-left> {{ violenter.registrationno }}</p>
+          <p margin-left> {{ violenter.VehicleNo }}</p>
         </ion-item>
         <ion-item>
           <b class="primaryColor" item-left>Previous Violations:</b>
-          <p margin-left *ngIf="violenter.pastOffences">{{violenter.pastOffences.length}}</p>
+          <p margin-left *ngIf="violenter.PastViolations">{{violenter.PastViolations.length}}</p>
         </ion-item>
 
         <div padding-left padding-right margin-bottom>
@@ -64,7 +64,7 @@
       </ion-card>
     </div>
 
-    <div *ngIf="needManualDetails">
+    <!-- <div *ngIf="needManualDetails">
       <h6 margin>Data not found, add details manually</h6>
       <ion-item>
         <ion-icon name="person" item-start color="primary"></ion-icon>
@@ -91,10 +91,10 @@
         <ion-label stacked>Vehicle No</ion-label>
         <ion-input [(ngModel)]="vehicle_no" name="vehicle_no" type="text" placeholder="eg. HR C 3920"></ion-input>
       </ion-item>
-    </div>
+    </div> -->
 
     <div padding text-center>
-      <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">Add Violation</button>
-    </div> -->
+      <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">Proceed</button>
+    </div>
   </form>
 </ion-content>

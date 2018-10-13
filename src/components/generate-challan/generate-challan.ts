@@ -44,7 +44,7 @@ export class GenerateChallanComponent {
       this.violenter = response;  
       this.violenter['VehicleNo'] = this.vehicleNo;
       this.loading.dismiss();
-      this.navCtrl.push(VehicleDetailComponent,{ data: this.violenter })
+      // this.navCtrl.push(VehicleDetailComponent,{ data: this.violenter })
     }, (error)=>{
       this.loading.dismiss();
     });
@@ -56,7 +56,8 @@ export class GenerateChallanComponent {
   }
 
   addViolation(){
-    this.navCtrl.push(AddViolationComponent,{ data: this.violenter })
+    // this.navCtrl.push(AddViolationComponent,{ data: this.violenter })
+    this.navCtrl.push(VehicleDetailComponent,{ data: this.violenter })
   }
 
   showLoading(){

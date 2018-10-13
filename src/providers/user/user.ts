@@ -1,9 +1,10 @@
 import 'rxjs/add/operator/toPromise';
-
+import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
 import { StorageService } from '../localstorage/storage';
+import { Observable } from '../../../node_modules/rxjs/Observable';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -90,9 +91,9 @@ export class User {
 
   getAppInfo(){
     if(this.appInfo){
-      return this.appInfo;
+      return Observable.of(this.appInfo);
     }else{
-      return this.appInfo = this.api.get('Image');
+      return this.api.get('Image').map(response => this.appInfo = response);
     }
   }
   
