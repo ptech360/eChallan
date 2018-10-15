@@ -30,12 +30,12 @@ export class Api {
     private uid: Uid, 
     private androidPermissions: AndroidPermissions){
     
-      this.sub = Observable.interval(10*60*1000).subscribe((val) => {
-        if(this.localStorage.getData('ngStorage-token')) {
-          this.showError('Session Expired');
-          this.localStorage.clearData();
-        }
-      });
+      // this.sub = Observable.interval(10*60*1000).subscribe((val) => {
+      //   if(this.localStorage.getData('ngStorage-token')) {
+      //     this.showError('Session Expired');
+      //     this.localStorage.clearData();
+      //   }
+      // });
     this.getImei();
   }
 

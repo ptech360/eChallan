@@ -13,17 +13,17 @@
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
           <ion-label stacked>Driving License</ion-label>
-          <ion-input type="text" placeholder="Driving License" [(ngModel)]="dl" name="dl"></ion-input>
+          <ion-input type="text" placeholder="Driving License" [(ngModel)]="dl" name="dl" disabled></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
           <ion-label stacked>Registration Certificate</ion-label>
-          <ion-input type="text" placeholder=" Registration certificate"></ion-input>
+          <ion-input type="text" placeholder=" Registration certificate" disabled></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="car" item-start color="primary"></ion-icon>
           <ion-label stacked>Vehicle Number</ion-label>
-          <ion-input type="text" placeholder="Vehicle Number" [(ngModel)]="vehicleNo" name="vehicleNo"></ion-input>
+          <ion-input type="text" placeholder="Vehicle Number" [(ngModel)]="vehicleNo"  (ngModelChange)="vehicleNo = $event.toLocaleUpperCase()" name="vehicleNo"></ion-input>
         </ion-item>
       </div>
     </ion-item-group>
