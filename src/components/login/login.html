@@ -1,4 +1,4 @@
-<ion-content style="background-image: url(assets/imgs/Efkon.png);background-size: 100% 100%;" padding>
+<!-- <ion-content style="background-image: url(assets/imgs/Efkon.png);background-size: 100% 100%;" padding>
 
   <img *ngIf="appInfo.ProjectSiteLogo" class="login-logo" [src]="appInfo.ProjectSiteLogo" />
   <br>
@@ -17,10 +17,38 @@
       </ion-item>
 
       <button ion-button full type="submit" [disabled]="!loginForm.form.valid">Login</button>
-    </form>
-    <!-- <button ion-button full clear (click)="forget()">Forget Password</button> -->
-  </ion-list>
+    </form> -->
+    <!--comment section <button ion-button full clear (click)="forget()">Forget Password</button> -->
+  <!-- </ion-list>
 </ion-content>
 <ion-footer text-center>
   <b> {{appInfo.CompanyRights}}</b>
-</ion-footer>
+</ion-footer> -->
+
+<ion-content style="background: whitesmoke;">
+  
+  <div class="logInContainer">
+      <img *ngIf="appInfo.ProjectSiteLogo" class="login-logo" [src]="appInfo.ProjectSiteLogo" />
+    <h1 text-center>{{appInfo.ProjectName}}E-Challan</h1>
+    <h5 text-center>LOGIN</h5>
+    <form class="loginForm" (ngSubmit)="login()" #loginForm="ngForm">
+      <ion-item margin-bottom>
+        <ion-label > <ion-icon name="ios-mail-outline" color="primary"></ion-icon></ion-label>
+        <ion-input type="text" value="" name="username" color="primary" placeholder="Username" [(ngModel)]="loginCredentials.Username" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label ><ion-icon color="primary" color="primary" name="ios-lock-outline"></ion-icon></ion-label>
+        <ion-input type="password" name="password" placeholder="password" [(ngModel)]="loginCredentials.Password" required></ion-input>
+      </ion-item>
+      <div padding-top>
+      <button ion-button class="loginBtn" full type="submit" [disabled]="!loginForm.form.valid">Login</button>
+    </div>
+    </form>
+  </div>
+
+</ion-content>
+<ion-footer text-center>
+  <img src="/assets/imgs/efkonlogo.jpg" style="width:100%;height: 100%;">
+    <b> {{appInfo.CompanyRights}}</b>
+  </ion-footer>

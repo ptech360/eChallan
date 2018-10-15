@@ -1,9 +1,37 @@
-login {
-
-}
-.login-logo{
-    margin-top:50px;
-    width: 150px;
-margin: auto;
-display: block;
+login{
+    // ion-content{
+    //     background: url(/assets/imgs/efkonlogo.jpg);
+    //     background-size: contain;
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+      
+        
+    // }
+    .loginBtn{
+        padding: 24px;
+    }
+    .login-logo{
+        margin-top:50px;
+        width: 150px;
+    margin: auto;
+    display: block;
+    }
+    .logInContainer{
+        padding: 20px;
+    }
+    .loginForm{
+       padding-top: 20px;
+       ion-item{
+           background: lightgray;
+           ion-icon{
+            font-size: 26px;
+            // color: black;
+            font-weight: bold;
+           }
+           ion-input{
+               font-weight: 500;
+               font-size: 20px;
+           }
+       }
+    }
 }
