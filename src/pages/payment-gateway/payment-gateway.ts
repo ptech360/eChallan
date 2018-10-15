@@ -43,6 +43,7 @@ export class PaymentGatewayPage implements OnInit{
   ngOnInit(){
     this.challanForm = this.getChallanForm();
     this.challanForm.patchValue(this.violenter);
+    this.challanForm.controls['VehicleNo'].patchValue(this.violenter.VehicleNo);
   }
 
   ionViewDidLoad() {
@@ -117,10 +118,11 @@ export class PaymentGatewayPage implements OnInit{
       OwnerName: [''],
       PermanentAddress: [''],
       RegistrationNo: [''],
+      VehicleNo: [''],
       ViolationId:[this.violationIds.toString()],
       UserName: ["sa"],
       LocationName: ["GURGAON"],
-      GeoLocationName: ["GURGAON"],
+      GeoLocation: ["GURGAON"],
       PaymentTypeName: ["Net-Banking"],
       PaymentId : ["TXN101043252612212383"] 
     });

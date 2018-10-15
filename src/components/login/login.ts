@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit{
   text: string;
   loginCredentials = {Username:'sa', Password:'Demo@Pass', IMEI:'863907040011407'};
   appInfo: any = {};
+  currentYear = new Date().getFullYear();
 
   constructor(public loginCtrl:LoadingController, 
               private user: User,
