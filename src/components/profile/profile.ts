@@ -19,6 +19,7 @@ export class ProfileComponent {
 
   profile;
   loading: Loading;
+  userDetails: any = {};
 
   constructor(public profileService: ProfileProvider,
               public navCtrl:NavController,
@@ -26,6 +27,7 @@ export class ProfileComponent {
               public profileCtrl:LoadingController
   ) {
     this.profile = this.profileService.getProfile();
+    this.userDetails = this.storage.getData('user-detail');
   }
 
   logout(){

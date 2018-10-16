@@ -78,6 +78,7 @@ export class User {
    */
   _loggedIn(resp) {
     this.localStorage.storeData('ngStorage-token', resp.Token);
+    this.localStorage.storeData('user-detail', resp.userDetails);
     this.localStorage.storeData('IMEI',this.accountInfo.IMEI);
   }
 
