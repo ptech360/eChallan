@@ -40,7 +40,7 @@ export class User {
    */
   login(accountInfo: any) {
     this.accountInfo = accountInfo;
-    this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
+    // this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
     return this.api.post('Token', accountInfo).map(response => {
       this._loggedIn(response);
       return response;

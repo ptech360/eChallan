@@ -22,7 +22,7 @@
 <ion-content>
   <div #printContent  padding>
     <h4 text-center class="primaryColor">CHALLAN</h4>
-    <table style="text-align: left;font: 11pt 'Times New Roman';padding-bottom: 20px;">
+    <table style="text-align: left;;padding-bottom: 20px; font-size: 18px;">
       <thead>
         <th style="width: 40%;"></th>
         <th style="width: 60%;"></th>
@@ -74,6 +74,10 @@
         </tr>
       </tbody>
     </table>
+    <div >
+    <h4 class="sign"> Duty Officer : </h4>
+      <h4 class="sign"> Name/Sign of Owner : </h4>
+    </div>
   </div>
   <div text-center color="primary">
     <button ion-button color="primary" (click)="print()" [disabled]="!printData.length">Print</button>
