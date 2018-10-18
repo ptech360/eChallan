@@ -34,8 +34,8 @@ export class VehicleDetailComponent {
         OwnerName: ['NA'],
         PastViolationCount: [0],
         PastViolations: [],
-        PermanentAddress: ['NA'],
-        RegistrationNo: ['NA'],
+        OwnerAddress: ['NA'],
+        // RegistrationNo: ['NA'],
         RegnDate: ['NA'],
         VehicleClass: ['NA'],
         VehicleNo:['NA']

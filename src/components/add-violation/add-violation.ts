@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
@@ -39,38 +39,46 @@ export class AddViolationComponent {
               public navCtrl:NavController,
               public navParam:NavParams,
               private camera: Camera,
+              public alertCtrl: AlertController,
               public generateCtrl:LoadingController
   ) {
     this.showLoading()
     this.violent.getViolents().subscribe(response => {
       this.loading.dismiss();
       this.violentsList = response;
-      // this.violenter.PastViolations.forEach(element => {
-      //   const createdate:any = new Date(element.createdDate);
-      //   const now:any = new Date();
-      //   const millisTill10: number = new Date() - createdate;
-        
-      //   this.violentsList.filter(violent => {
-
-      //   });
-      // });
     })
   }
 
   ionViewDidLoad() {
-    this.violenter = this.navParam.get('data'); 
-    console.log(this.violenter);
-       
+    this.violenter = this.navParam.get('data');        
   }
 
   subTotal(){
+    let repeatedViolents = []    
+    repeatedViolents = this.currentViolents.filter(element => {
+      return this.violenter.PastViolations.findIndex(violent => {
+        const createdDate:any = new Date(violent.CreatedDate);
+        const currentDate:any = new Date();
+        let miliseconds:any = currentDate.getTime() - createdDate.getTime();
+        let h = ((miliseconds/1000)/60)/60;
+        return (element.ViolationId === violent.ViolationId && h<=24);
+      })>-1;
+    });
+    if(repeatedViolents.length){
+      let repeatedViolentNames:string = '';
+      repeatedViolents.forEach((element:any,index:number) => {
+        repeatedViolentNames += index+1 + '. ' + element.ViolationName + "\n";
+        this.currentViolents.splice(this.currentViolents.indexOf(element),1);
+      });
+      this.showError(repeatedViolentNames);
+    }
     for(let i=0;i<this.currentViolents.length;i++){
       this.totalCharge += Number(this.currentViolents[i].ViolationFine);
     }
   }
 
   payment(){
-    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter, files:this.files })
+      this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter, files:this.files })
   }
 
   seize(){
@@ -79,7 +87,7 @@ export class AddViolationComponent {
 
   showLoading(){
     this.loading =  this.generateCtrl.create({
-      content:'getting violents...',
+      content:'Loading Violations...',
       dismissOnPageChange:true
     })
     this.loading.present()
@@ -109,6 +117,15 @@ export class AddViolationComponent {
   delImage(index:number){
     this.imageUrls.splice(index,1);
     this.files.splice(index,1);
+  }
+
+  showError(message){
+    const alert = this.alertCtrl.create({
+      title: 'Repeated Violation(s)',
+      subTitle: message,
+      buttons: ['OK']
+    })
+    alert.present();
   }
 
 }

@@ -83,11 +83,13 @@ export class PaymentGatewayPage implements OnInit{
             this.violent.generateChallan(formData).subscribe((response: any) => {
               this.loading.dismiss();
               this.challanForm.value['ChallanId'] = response.ChallanId;
-              this.challanForm.value['ChallanDate'] = new Date();
+              this.challanForm.value['ChallanDate'] = response.ChallanDate;
               this.challanForm.value['amount'] = this.charge;
               this.challanForm.value['violations'] = this.violations;
               this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
               this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
+              this.challanForm.value['DutyOfficer'] = response.DutyOfficer;
+
               const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
               violenterModal.present();
               this.navCtrl.popToRoot();
@@ -116,7 +118,7 @@ export class PaymentGatewayPage implements OnInit{
       DlNo:[''],
       MobileNumber: [''],
       OwnerName: [''],
-      PermanentAddress: [''],
+      OwnerAddress: [''],
       RegistrationNo: [''],
       VehicleNo: [''],
       ViolationId:[this.violationIds.toString()],

@@ -22,7 +22,7 @@
 <ion-content>
   <div #printContent  padding>
     <h4 text-center class="primaryColor">CHALLAN</h4>
-    <table style="text-align: left;padding-bottom: 20px;">
+    <table style="text-align: left;;padding-bottom: 20px; font-size: 18px;">
       <thead>
         <th style="width: 40%;"></th>
         <th style="width: 60%;"></th>
@@ -54,7 +54,7 @@
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Owner Address</th>
-          <td>: {{printScriptObject['PermanentAddress']}}</td>
+          <td>: {{printScriptObject['OwnerAddress']}}</td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Amount</th>
@@ -65,14 +65,20 @@
           <td>: {{printScriptObject['violations']}}</td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Registration No</th>
-          <td>: {{printScriptObject['RegistrationNo']}}</td>
-        </tr>
-        <tr>
           <th style="vertical-align: baseline;">Mobile</th>
           <td>{{printScriptObject['MobileNumber']}}</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <th style="vertical-align: baseline;">Duty Officer</th>
+          <td>: {{printScriptObject['DutyOfficer']}}</td>
+        </tr>
+        <tr >
+          <th style="vertical-align: baseline; padding-top: 45px!important;" >Name/Sign of Owner </th>
+          <td style="padding-top: 45px!important;" >: _________________</td>
+        </tr>
+      </tfoot>
     </table>
   </div>
   <div text-center color="primary">

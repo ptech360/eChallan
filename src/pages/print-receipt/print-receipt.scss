@@ -1,18 +1,14 @@
 page-print-receipt {
- th{
-   padding:8px;
- }
-  @media Print{
-
-    .printRecipt{
-    text-align: left;
-    padding-bottom: 20px;
-    th{
-     padding: 10px;
+    .signtaure{
+        margin-top: 60px;
+        // display: flex;
+        // justify-content: space-between;
     }
+  th{
+      padding: 10px!important;
   }
-  h4{
-    text-align: center;
+  .sign{
+      line-height: 4;
   }
 }
-}
+
