@@ -23,18 +23,19 @@ export class MyApp{
         this.intializeApp();
       },(error:any) => {
         console.log(error);        
-        if(error.status == 401){
-          const alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: error.error,
-            buttons: ['OK']
-          });
+        // if(error.status == 401){
+        //   const alert = this.alertCtrl.create({
+        //     title: 'Error',
+        //     subTitle: error.error,
+        //     buttons: ['OK']
+        //   });
 
-          alert.present();
-          alert.onDidDismiss(()=>{
-            platform.exitApp();
-          });
-        }
+        //   alert.present();
+        //   alert.onDidDismiss(()=>{
+        //     platform.exitApp();
+        //   });
+        // }
+        this.intializeApp();
       })
     });
   }

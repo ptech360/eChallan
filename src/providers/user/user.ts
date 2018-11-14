@@ -40,7 +40,7 @@ export class User {
    */
   login(accountInfo: any) {
     this.accountInfo = accountInfo;
-    this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
+    // this.accountInfo['IMEI'] = this.localStorage.getData('IMEI');
     return this.api.post('Token', accountInfo).map(response => {
       this._loggedIn(response);
       return response;
@@ -94,7 +94,10 @@ export class User {
     if(this.appInfo){
       return Observable.of(this.appInfo);
     }else{
-      return this.api.get('Image').map(response => this.appInfo = response);
+      return this.api.get('Image').map(response => {
+        this.appInfo = response;
+        return response;
+      });
     }
   }
   
