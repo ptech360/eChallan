@@ -7,31 +7,176 @@ login{
       
         
     // }
-    .loginBtn{
-        padding: 24px;
+//     .loginBtn{
+//         padding: 24px;
+//     }
+//     .login-logo{
+//         margin-top:50px;
+//         width: 150px;
+//     margin: auto;
+//     display: block;
+//     }
+//     .logInContainer{
+//         padding: 20px;
+//     }
+//     .loginForm{
+//        padding-top: 20px;
+//        ion-item{
+//            background: lightgray;
+//            ion-icon{
+//             font-size: 26px;
+//             // color: black;
+//             font-weight: bold;
+//            }
+//            ion-input{
+//                font-weight: 500;
+//                font-size: 20px;
+//            }
+//        }
+//     }
+// }
+
+
+// ,,,,,,,
+.mobile-login{
+  position:relative;
+  width:100%;
+  height:100%;
+  .header{
+    
+  }
+  .content{
+    background-color:#fcfdfd;
+    background:url(http://funkyimg.com/i/2MVDW.png), url(http://funkyimg.com/i/2MVDX.png);
+    background-size:contain;
+    background-position:top left, bottom right;
+    background-repeat:no-repeat;
+    height:100%;
+    .logo{
+       position:absolute;
+       width:120px;
+       height:120px;
+       box-shadow:0 0 10px rgba(0,0,0,0.1);
+       border-radius:50%;
+       animation:zoomin 0.5s;
+          animation-fill-mode: forwards;
+                 img{
+                   position:absolute;
+                   top:50%;
+                   left:50%;
+                   transform:translate(-50%,-50%);
+          height:100px; 
+          margin:auto;
+          display:block;
+        }
     }
-    .login-logo{
-        margin-top:50px;
-        width: 150px;
-    margin: auto;
-    display: block;
+    .logo1{
+          top:20%;
+          right:10px;
     }
-    .logInContainer{
-        padding: 20px;
+     .logo2{
+          bottom:20%;
+          left:10px;
     }
-    .loginForm{
-       padding-top: 20px;
-       ion-item{
-           background: lightgray;
-           ion-icon{
-            font-size: 26px;
-            // color: black;
-            font-weight: bold;
-           }
-           ion-input{
-               font-weight: 500;
-               font-size: 20px;
-           }
-       }
+    .login{
+      .label{
+        text-align:center;
+        display:block;
+        position:absolute;
+        top:-50px;
+        width:100%;
+        font-family:arial;
+        font-size:2rem;
+        font-weight:bold;
+        color:gray;
+      }
+      position:absolute;;
+      top:50%;
+      transform:translatey(-50%);
+      width:80%;
+      border-radius:0 100px 100px 0;
+      background-color:white;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      animation:slidein 0.5s ease-in;
+       animation-delay:0.3s;
+      transform-origin:center;
+      opacity:0;
+      animation-fill-mode:forwards;
+      color:#8fa1b7;
+      .inputs{
+        input:placeholder{
+          color:#8fa1b7;
+        }
+        input{
+          border:0px;
+          border-bottom:1px solid #8fa1b7;
+          font-size:1.1em;
+          background:transparent;
+          color:#8fa1b7;
+        }
+        .password input{
+          border-bottom:0px;
+        }
+        .input{
+          display:flex;
+         label{
+           padding:10px;
+           font-size:2rem;
+         } 
+         input[type="text"]{
+           flex-grow:0.7;
+         }
+        }
+      }
+      .login-btn{
+         border-radius:50%;
+         width:50px;
+         height:50px;
+         border:0px;
+         background:linear-gradient(#20c9cd,#2aeaa1);
+         color:white;
+         position:absolute;
+         right:-20px;
+         top:50%;
+         transform:translatey(-50%);
+         transform-origin:center;
+         animation: rotate 0.3s;
+         box-shadow:0 0 15px rgba(0,0,0,0.3);
+         font-size:2rem;
+      }
+      button[disabled]{
+        display:none;
+      }
     }
+  }
+}
+
+@keyframes rotate{
+  0%{
+    transform:translatey(-50%) rotate(0deg)
+  }
+  100%{
+    transform:translatey(-50%) rotate(360deg)
+  }
+}
+@keyframes slidein{
+  0%{
+      opacity:1;
+    transform:translatey(-50%) translate(-100%)
+  }
+  100%{
+    opacity:1;
+    transform:translatey(-50%) initial;
+  }
+}
+
+@keyframes zoomin{
+  0%{
+    transform:scale(0);
+  
+  }
+  100%{
+    transform:scale(1);
+  }
+}
 }

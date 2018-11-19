@@ -35,8 +35,8 @@ export class MyApp{
         //     platform.exitApp();
         //   });
         // }
-        this.intializeApp();
       })
+      this.intializeApp();
     });
   }
   
