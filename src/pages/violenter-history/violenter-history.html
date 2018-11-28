@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="gray-back">
+<ion-content class="gray-back backgorund">
   <!-- <div id="violents_piechart" margin-bottom></div> -->
 
   <ion-list class="top-list-header">
@@ -32,7 +32,7 @@
       <ion-select [selectOptions]="violentOpts" multiple="true" (ngModelChange)="filterHistory($event)" cancelText="Cancel"
         okText="Ok" ngModel>
         <!-- <ion-option value="0">All</ion-option> -->
-        <ion-option *ngFor="let violent of violentsList" [value]="violent.ViolationId">{{violent.ViolationName}}</ion-option>
+        <ion-option *ngFor="let violent of violentsList" [value]="violent.ViolationId" style="white-space:pre-line">{{violent.ViolationName}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
@@ -63,4 +63,35 @@
       </div>
     </div>
   </div>
+
+  <!-- <table style="width:100%">
+    <tr>
+      <th>Area</th>
+      <th>Violation</th>
+      <th>Incharge</th>
+      <th>Date</th>
+      <th>Time</th>
+    </tr>
+    <tr *ngFor="let violation of violencList" >
+      <td>
+        <div>{{ violation.GeoLocation }}</div>
+        <div>{{ violation.GeoLocation }}</div>
+      </td>
+      <td>{{ violation.ViolationDesc }}</td>
+      <td>Nathuram Singh</td>
+      <td>{{ violation.CreatedDate | date}}</td>
+      <td>{{ violation.CreatedDate | date:"HH:mm" }}</td>
+    </tr>
+    <tr>
+      <td>Eve</td>
+      <td>Jackson</td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <td>John</td>
+      <td>Doe</td>
+      <td>80</td>
+    </tr>
+  </table> -->
+
 </ion-content>

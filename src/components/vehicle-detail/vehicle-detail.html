@@ -6,12 +6,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="gray-back">
-  <ion-list>
+<ion-content class="gray-back background">
+  <ion-card>
     <form [formGroup]="violationForm">
       <ion-item>
         <ion-label class="primaryColor" floating>BodyType</ion-label>
-        <ion-input type="text" formControlName="BodyType"></ion-input>
+        <ion-input type="text" formControlName="BodyType" item-right></ion-input>
       </ion-item>
       <ion-item>
         <ion-label class="primaryColor" floating>ChassisNo</ion-label>
@@ -65,9 +65,11 @@
         <ion-label class="primaryColor" floating>VehicleNo</ion-label>
         <ion-input type="text" formControlName="VehicleNo"></ion-input>
       </ion-item>
-      <div padding text-center>
-        <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add Violation</button>
-      </div>
+      
     </form>
-  </ion-list>
+  </ion-card>
+  <div padding text-center>
+    <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add
+      Violation</button>
+  </div>
 </ion-content>

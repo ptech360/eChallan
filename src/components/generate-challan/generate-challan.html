@@ -5,10 +5,10 @@
 </ion-header>
 
 
-<ion-content class="gray-back">
+<ion-content class="gray-back background">
   <h6 text-center class="primaryColor">Violenter Detail</h6>
   <form>
-    <ion-item-group>
+    <ion-card>
       <div class="block">
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
@@ -26,8 +26,10 @@
           <ion-input type="text" placeholder="Vehicle Number" [(ngModel)]="vehicleNo"  (ngModelChange)="vehicleNo = $event.toLocaleUpperCase()" name="vehicleNo"></ion-input>
         </ion-item>
       </div>
-    </ion-item-group>
+    </ion-card>
+    <div padding>
     <button ion-button full color="primary" (click)="getInfo()">Check</button>
+    </div>
 
     <div *ngIf="violenter">
       <ion-card>
@@ -36,28 +38,28 @@
         </ion-col> -->
         <ion-item class="border">
           <b class="primaryColor" item-left>Name:</b>
-          <p margin-left>{{ violenter.OwnerName }}</p>
+          <p margin-left text-right>{{ violenter.OwnerName }}</p>
         </ion-item>
         <ion-item class="border">
           <b class="primaryColor" item-left>S/O:</b>
-          <p margin-left> {{ violenter.FatherName }}</p>
+          <p margin-left text-right> {{ violenter.FatherName }}</p>
         </ion-item>
         <ion-item class="border">
           <b class="primaryColor" item-left>EngNo: </b>
-          <p margin-left>{{ violenter.EngNo }}</p>
+          <p margin-left text-right>{{ violenter.EngNo }}</p>
         </ion-item>
         <ion-item class="border">
           <b class="primaryColor" item-left>Vehicle No: </b>
-          <p margin-left> {{ violenter.VehicleNo }}</p>
+          <p margin-left text-right> {{ violenter.VehicleNo }}</p>
         </ion-item>
         <ion-item>
           <b class="primaryColor" item-left>Previous Violations:</b>
-          <p margin-left *ngIf="violenter.PastViolations">{{violenter.PastViolations.length}}</p>
+          <p margin-left *ngIf="violenter.PastViolations" text-right>{{violenter.PastViolations.length}}</p>
         </ion-item>
 
         <div padding-left padding-right margin-bottom>
           <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
-            <ion-icon name='star'></ion-icon>
+           
             View Previous Violations
           </button>
         </div>

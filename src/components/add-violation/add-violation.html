@@ -7,7 +7,7 @@
     </ion-navbar>
   </ion-header>
   
-  <ion-content class="gray-back">
+  <ion-content class="gray-back background">
     <div class="total-charge">
       <div class="inner-box">
           <small>Rupees</small>
@@ -19,17 +19,17 @@
         <ion-item>
             <ion-label>Select Violation</ion-label>
             <ion-select [(ngModel)]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="subTotal()">
-              <ion-option *ngFor="let violent of violentsList" [value]="violent">{{ violent.ViolationName }}</ion-option>
+              <ion-option class="preline" *ngFor="let violent of violentsList" [value]="violent">{{ violent.ViolationName }}</ion-option>
             </ion-select> 
           </ion-item>
     </ion-card>
 
-    <ion-list class="violation_details">
-      <ion-item *ngFor="let violation of currentViolents">
+    <ion-card class="violation_details">
+      <ion-item *ngFor="let violation of currentViolents" style="white-space:pre-line">
         {{ violation.ViolationName }}
         <div item-right>₹ {{ violation.ViolationFine }}</div>
       </ion-item>
-    </ion-list>
+    </ion-card>
 
     <div padding>      
       <ion-card *ngFor="let url of imageUrls;let i = index;">
@@ -42,11 +42,16 @@
 
 
     <div text-center>
-      <button ion-button icon-only class="center" margin-bottom (click)="capture()" [disabled]="!currentViolents.length">
+      <div class="flex">
+        <div class="label">Add Image</div>
+      <button ion-button icon-only class="center" (click)="capture()" [disabled]="!currentViolents.length">
         <ion-icon name="camera"></ion-icon>
       </button>
+      </div>
+      <div padding>
       <button ion-button full (click)="payment()" [disabled]="!currentViolents.length">Continue to Pay</button>
       <button ion-button full clear (click)="seize()" disabled>Unable to pay</button>
+      </div>
     </div>
   </ion-content>
   

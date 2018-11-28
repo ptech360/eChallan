@@ -34,6 +34,18 @@ add-violation {
         font-size: 32px;
     }
 }
+.flex{
+  display: flex;
+  justify-content: center;
+}
+.label{
+  margin-right: 10px;
+  display: grid;
+  align-items: center;
+  color: color($colors,primary);
+    font-weight: bold;
+    font-size: 18px;
+}
 
 .alert-sub-title{
     white-space: pre-line !important;

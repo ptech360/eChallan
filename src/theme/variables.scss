@@ -49,6 +49,15 @@ $colors: (
   color: color($colors,primary);
 }
 
+.background{
+  background: #f2f2f2;
+}
+.preline{
+  white-space: pre-line;
+}
+.alert-checkbox-label{
+  white-space: pre-line!important;
+}
 
 // App Material Design Variables
 // --------------------------------------------------

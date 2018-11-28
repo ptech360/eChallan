@@ -3,11 +3,24 @@ page-home {
         ion-row{
                 ion-col{
                     border:1px solid gray;
+                    padding-top: 22px;
+                    padding-bottom: 22px;
                     img{
                         width:50%;
                     }
                     font-weight:bold;
+                    border: 2px solid black;
                 }
+                ion-col:nth-child(odd){
+                  border-right: 0;
+                }
+                margin: -4px;
         }
+    }
+    .orange{
+      background: #ff5722
+    }
+    .blue{
+      background:#35befb;;
     }
 }

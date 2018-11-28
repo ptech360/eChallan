@@ -56,7 +56,7 @@
 
   <!-- //// -->
   <div class="mobile-login">
-    <div class="header">{{appInfo.ProjectName}}</div>
+    
     <div class="content">
       <div class="logo logo1">
         <img *ngIf="appInfo.ProjectSiteLogo" class="login-logo" [src]="appInfo.ProjectSiteLogo" />
@@ -65,7 +65,8 @@
     
     <form class="loginForm" (ngSubmit)="login()" #loginForm="ngForm">
       <div class="login">
-        <label class="label">Login</label>
+        <!-- <label class="label">Login</label> -->
+          <label class="label">{{appInfo.ProjectName}}</label>
        
         <div class="inputs">
           <div class="input username">
@@ -89,7 +90,7 @@
       </form>
       <div class="logo logo2">
         <!-- <img src="assets/imgs/logo.png" /> -->
-        <img src="assets/imgs/efkonImage.jpg" />
+        <img src="assets/imgs/logo.png" />
       </div>
     </div>
   </div>
