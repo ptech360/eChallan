@@ -13,8 +13,8 @@
 </ion-header>
 
 
-<ion-content class="gray-back">
-    <ion-list radio-group>
+<ion-content class="gray-back background">
+    <ion-card radio-group>
         <ion-item>
           <ion-label>Credit/Debit Card</ion-label>
           <ion-radio value="Credit-Debit-Card" checked></ion-radio>
@@ -31,7 +31,7 @@
           <ion-label>Cash</ion-label>
           <ion-radio value="Cash" [disabled]="isDisabled"></ion-radio>
         </ion-item>
-      </ion-list>
+      </ion-card>
 
       <h6 text-center color="primary" class="primaryColor"><b>Details</b></h6>
       <ion-card *ngIf="currenViolations">
@@ -42,7 +42,7 @@
       </ion-card>
 </ion-content>
 <ion-footer>
-  <ion-row>
+  <ion-row >
     <ion-col no-padding class="totalCharge">
         ₹ {{ charge }}
     </ion-col>

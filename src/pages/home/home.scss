@@ -3,8 +3,8 @@ page-home {
         ion-row{
                 ion-col{
                     border:1px solid gray;
-                    padding-top: 22px;
-                    padding-bottom: 22px;
+                    padding-top: 28px;
+                    padding-bottom: 28px;
                     img{
                         width:50%;
                     }
@@ -14,13 +14,14 @@ page-home {
                 ion-col:nth-child(odd){
                   border-right: 0;
                 }
-                margin: -4px;
+              
         }
+         padding: 0;
     }
     .orange{
-      background: #ff5722
+      background: #ff8851;
     }
     .blue{
-      background:#35befb;;
+      background:#50c5f9;
     }
 }

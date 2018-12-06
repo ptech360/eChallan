@@ -46,7 +46,7 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 .primaryColor{
-  color: color($colors,primary);
+  color: color($colors,primary) !important;
 }
 
 .background{

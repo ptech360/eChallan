@@ -7,69 +7,72 @@
 </ion-header>
 
 <ion-content class="gray-back background">
+<form [formGroup]="violationForm">
   <ion-card>
-    <form [formGroup]="violationForm">
-      <ion-item>
-        <ion-label class="primaryColor" floating>BodyType</ion-label>
-        <ion-input type="text" formControlName="BodyType" item-right></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>ChassisNo</ion-label>
-        <ion-input type="text" formControlName="ChassisNo"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>Colour</ion-label>
-        <ion-input type="text" formControlName="Colour"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>EngNo</ion-label>
-        <ion-input type="text" formControlName="EngNo"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>FatherName</ion-label>
-        <ion-input type="text" formControlName="FatherName"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>MakerModel</ion-label>
-        <ion-input type="text" formControlName="MakerModel"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>MobileNumber</ion-label>
-        <ion-input type="text" formControlName="MobileNumber"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>OwnerName</ion-label>
-        <ion-input type="text" formControlName="OwnerName"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>OwnerAddress</ion-label>
-        <ion-input type="text" formControlName="OwnerAddress"></ion-input>
-      </ion-item>
-      <!-- <ion-item>
-        <ion-label class="primaryColor" floating>RegistrationNo</ion-label>
-        <ion-input type="text" formControlName="RegistrationNo"></ion-input>
-      </ion-item> -->
-      <ion-item>
-        <ion-label class="primaryColor" floating>RegnDate</ion-label>
-        <ion-input type="text" formControlName="RegnDate"></ion-input>
-      </ion-item>
-      <!-- <ion-item>
-        <ion-label class="primaryColor" floating>RegnDate</ion-label>
-        <ion-datetime formControlName="RegnDate"></ion-datetime>
-      </ion-item> -->
-      <ion-item>
-        <ion-label class="primaryColor" floating>VehicleClass</ion-label>
-        <ion-input type="text" formControlName="VehicleClass"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label class="primaryColor" floating>VehicleNo</ion-label>
-        <ion-input type="text" formControlName="VehicleNo"></ion-input>
+   
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>BodyType</ion-label>
+        <ion-input type="text"   formControlName="BodyType" text-right></ion-input>
       </ion-item>
       
-    </form>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>ChassisNo</ion-label>
+        <ion-input type="text" text-right formControlName="ChassisNo"  text-right></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>Colour</ion-label>
+        <ion-input type="text" text-right formControlName="Colour"  text-right></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>EngNo</ion-label>
+        <ion-input type="text" formControlName="EngNo" text-right></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>FatherName</ion-label>
+        <ion-input type="text"  text-right formControlName="FatherName"></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>MakerModel</ion-label>
+        <ion-input type="text" formControlName="MakerModel" text-right></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>MobileNumber</ion-label>
+        <ion-input type="text"   text-right formControlName="MobileNumber"></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>OwnerName</ion-label>
+        <ion-input type="text"  text-right formControlName="OwnerName"></ion-input>
+      </ion-item>
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>OwnerAddress</ion-label>
+        <ion-input type="text"  text-right formControlName="OwnerAddress"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label class="primaryColor" item-left>RegistrationNo</ion-label>
+        <ion-input type="text" formControlName="RegistrationNo"></ion-input>
+      </ion-item> -->
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>RegnDate</ion-label>
+        <ion-input type="text"  text-right formControlName="RegnDate"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label class="primaryColor" item-left>RegnDate</ion-label>
+        <ion-datetime formControlName="RegnDate"></ion-datetime>
+      </ion-item> -->
+      <ion-item class="border">
+        <ion-label class="primaryColor" item-left>VehicleClass</ion-label>
+        <ion-input type="text"  text-right formControlName="VehicleClass"></ion-input>
+      </ion-item>
+      <ion-item  class="border">
+        <ion-label class="primaryColor" item-left>VehicleNo</ion-label>
+        <ion-input type="text"  text-right formControlName="VehicleNo"></ion-input>
+      </ion-item>
+      
+   
   </ion-card>
   <div padding text-center>
     <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add
       Violation</button>
   </div>
+  </form>
 </ion-content>
