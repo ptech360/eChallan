@@ -24,7 +24,7 @@ export class ViolenterHistoryPage implements OnInit {
   violentOpts: { title: string, subTitle: string };
   private violencListCopy = [];
   public violencList = [];
-  violentsList: any;
+  violentsList: any = [];
 
   constructor(public viewCtrl: ViewController, public navParams:NavParams,public violent:ViolentsProvider,
   ) {

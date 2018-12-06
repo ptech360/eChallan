@@ -173,7 +173,7 @@ export class PeopleProvider {
   }
 
   getVehicleDetails(vehicleNo:string){
-    return this.api.get('Vahan?vehicleno='+vehicleNo);
+    return this.api.get('VahanDetails?vehicleno='+vehicleNo);
   }
 
 }

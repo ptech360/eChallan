@@ -39,10 +39,10 @@ export class ViolentsProvider {
 
   getViolents(){
     // return this.violentsList;
-    return this.api.get('Offences');
+    return this.api.get('TrafficVioList');
   }
 
   generateChallan(data: any){
-    return this.api.post('VahanChallan',data);
+    return this.api.post('VehicleChallan',data);
   }
 }

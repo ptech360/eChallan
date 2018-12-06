@@ -45,8 +45,9 @@
       <button ion-button icon-only class="center" margin-bottom (click)="capture()" [disabled]="!currentViolents.length">
         <ion-icon name="camera"></ion-icon>
       </button>
-      <button ion-button full (click)="payment()" [disabled]="!currentViolents.length">Continue to Pay</button>
-      <button ion-button full clear (click)="seize()" disabled>Unable to pay</button>
+      <!-- <button ion-button full (click)="payment()" [disabled]="!currentViolents.length">Continue to Pay</button> -->
+      <!-- <button ion-button full clear (click)="seize()" disabled>Unable to pay</button> -->
+      <button ion-button full (click)="generateChallan()" [disabled]="!currentViolents.length">Generate Challan</button>
     </div>
   </ion-content>
   
