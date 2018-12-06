@@ -30,6 +30,7 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
+<<<<<<< HEAD
       // user.getAppInfo().subscribe(
       //   (response: any) => {
       //     statusBar.styleDefault();
@@ -68,6 +69,28 @@ export class MyApp {
       // );
 
 
+=======
+      user.getAppInfo().subscribe((response:any) => {
+        statusBar.styleDefault();
+        splashScreen.hide();
+        this.intializeApp();
+      },(error:any) => {
+        console.log(error);        
+        // if(error.status == 401){
+        //   const alert = this.alertCtrl.create({
+        //     title: 'Error',
+        //     subTitle: error.error,
+        //     buttons: ['OK']
+        //   });
+
+        //   alert.present();
+        //   alert.onDidDismiss(()=>{
+        //     platform.exitApp();
+        //   });
+        // }
+        this.intializeApp();
+      })
+>>>>>>> 42affb964b086521f96dcf3b8f970a9542fc308c
     });
 
     if (typeof jQuery == 'undefined' || !window.jQuery) {
