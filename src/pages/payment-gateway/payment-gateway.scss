@@ -9,10 +9,17 @@ page-payment-gateway {
       background: white;
     }
     .details{
-      background: color($colors,primary);
+      background: white;
      span{
-       color: white!important;
+       color:color($colors,primary);
      }
+
     }
-   
+    .preline{
+      ion-label{
+      white-space: initial!important;
+      }
+     
+    }
+  
 }

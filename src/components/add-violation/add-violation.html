@@ -25,7 +25,7 @@
     </ion-card>
 
     <ion-card class="violation_details">
-      <ion-item *ngFor="let violation of currentViolents" style="white-space:pre-line">
+      <ion-item *ngFor="let violation of currentViolents" style="white-space:pre-line;">
         {{ violation.ViolationName }}
         <div item-right>₹ {{ violation.ViolationFine }}</div>
       </ion-item>
