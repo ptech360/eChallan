@@ -8,5 +8,11 @@ page-payment-gateway {
     ion-row{
       background: white;
     }
+    .details{
+      background: color($colors,primary);
+     span{
+       color: white!important;
+     }
+    }
    
 }

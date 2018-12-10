@@ -20,7 +20,7 @@ import { AndroidPermissions } from '../../../node_modules/@ionic-native/android-
  */
 @Injectable()
 export class Api {
-  url: string = 'http://182.75.23.84:8001';
+  url: string = 'http://182.75.23.84:8002';
   sub: any;
 
   constructor(public http: HttpClient, 

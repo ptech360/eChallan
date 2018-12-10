@@ -16,6 +16,7 @@ add-violation {
             font-size: 10px;
             display:block;
         }
+        
     }
     .violation_details{
         .title{
@@ -33,6 +34,9 @@ add-violation {
         color: white;
         font-size: 32px;
     }
+    .addImage{
+          margin: 10px;
+        }
 }
 .flex{
   display: flex;

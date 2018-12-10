@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="gray-back backgorund">
+<ion-content class="gray-back background">
   <!-- <div id="violents_piechart" margin-bottom></div> -->
 
   <ion-list class="top-list-header">
@@ -37,7 +37,7 @@
     </ion-item>
   </ion-list>
 
-  <div *ngIf="violencList.length">
+  <ion-card>
     <div class="violation-timeline" *ngFor="let violation of violencList">
       <div class="pin">
         <div class="location">
@@ -62,9 +62,9 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- <table style="width:100%">
+  </ion-card>
+<div class="tableContainer" *ngIf="violencList && violencList.length">
+  <table>
     <tr>
       <th>Area</th>
       <th>Violation</th>
@@ -74,24 +74,16 @@
     </tr>
     <tr *ngFor="let violation of violencList" >
       <td>
-        <div>{{ violation.GeoLocation }}</div>
-        <div>{{ violation.GeoLocation }}</div>
+        <div style="text-transform: lowercase;">{{ violation.GeoLocation }}</div>
+       
       </td>
       <td>{{ violation.ViolationDesc }}</td>
       <td>Nathuram Singh</td>
       <td>{{ violation.CreatedDate | date}}</td>
       <td>{{ violation.CreatedDate | date:"HH:mm" }}</td>
     </tr>
-    <tr>
-      <td>Eve</td>
-      <td>Jackson</td>
-      <td>94</td>
-    </tr>
-    <tr>
-      <td>John</td>
-      <td>Doe</td>
-      <td>80</td>
-    </tr>
-  </table> -->
+    
+  </table>
+  </div>
 
 </ion-content>

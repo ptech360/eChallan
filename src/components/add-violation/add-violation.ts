@@ -4,6 +4,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ToastService } from '../../providers/toast/toast.service';
+import { PrintReceiptPage } from '../../pages/print-receipt/print-receipt';
 
 /**
  * Generated class for the AddViolationComponent component.
@@ -23,7 +26,10 @@ export class AddViolationComponent {
   violentOpts: { title: string, subTitle: string };
   currentViolents:any[] = [];
   violentsList:any = [];
+  violationIds: any = [];
+  violations: any = [];
   loading: Loading;
+  public challanForm:FormGroup
   cameraOptions: CameraOptions = {
     sourceType         : this.camera.PictureSourceType.CAMERA,
     destinationType    : this.camera.DestinationType.DATA_URL,
@@ -40,27 +46,63 @@ export class AddViolationComponent {
               public navParam:NavParams,
               private camera: Camera,
               public alertCtrl: AlertController,
-              public generateCtrl:LoadingController
+              public toastService:ToastService,
+              public fb:FormBuilder
   ) {
-    this.showLoading()
+    // this.showLoading()
+    this.toastService.showLoader('Loading Violations...')
     this.violent.getViolents().subscribe(response => {
-      this.loading.dismiss();
+      this.toastService.hideLoader();
       this.violentsList = response;
-    })
+    }, error => {
+      this.toastService.hideLoader();
+    });
   }
 
   ionViewDidLoad() {
     this.violenter = this.navParam.get('data');        
   }
 
+  getChallanForm(){
+    this.currentViolents.forEach(element => {
+      this.violationIds.push(element.ViolationId);
+      this.violations.push(element.ViolationName);
+    });
+    return this.fb.group({
+      BodyType: [''],
+      ChassisNo: [''],
+      Colour: [''],
+      EngNo: [''],
+      FatherName: [''],
+      MakerModel: [''],
+      DlNo:[''],
+      MobileNumber: [''],
+      OwnerName: [''],
+      OwnerAddress: [''],
+      RegistrationNo: [''],
+      VehicleNo: [''],
+      ViolationId:[this.violationIds.toString()],
+      UserName: ["sa"],
+      LocationName: ["GURGAON"],
+      GeoLocation: ["GURGAON"],
+      PaymentTypeName: ["Net-Banking"],
+      PaymentId : ["TXN101043252612212383"] 
+    });
+  }
+
   subTotal(){
-    let repeatedViolents = []    
+    let repeatedViolents = [];
+    let createdDate:any = 0;
+    let currentDate:any = 0; 
+    let miliseconds:any = 0;  
+    let h:any;
+    if(this.violenter.PastViolations&&this.violenter.PastViolations.length)
     repeatedViolents = this.currentViolents.filter(element => {
       return this.violenter.PastViolations.findIndex(violent => {
-        const createdDate:any = new Date(violent.CreatedDate);
-        const currentDate:any = new Date();
-        let miliseconds:any = currentDate.getTime() - createdDate.getTime();
-        let h = ((miliseconds/1000)/60)/60;
+        createdDate = new Date(violent.CreatedDate);
+        currentDate = new Date();
+        miliseconds = currentDate.getTime() - createdDate.getTime();
+        h = ((miliseconds/1000)/60)/60;
         return (element.ViolationId === violent.ViolationId && h<=24);
       })>-1;
     });
@@ -81,16 +123,39 @@ export class AddViolationComponent {
       this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter, files:this.files })
   }
 
-  seize(){
-    this.navCtrl.push(SeizePage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter });
+  generateChallan(){
+    this.challanForm = this.getChallanForm();
+    this.challanForm.patchValue(this.violenter);
+    this.challanForm.controls['VehicleNo'].patchValue(this.violenter.VehicleNo);
+    this.toastService.showLoader();
+    const formData = new FormData();
+    Object.keys(this.challanForm.value).forEach(element => {
+      formData.append(element,this.challanForm.value[element]);
+    });
+    this.files.forEach((file:any) => {
+      formData.append('file',file);
+    });
+    formData.append('VehicleImageFile','abstreg');
+    this.violent.generateChallan(formData).subscribe((response: any) => {
+      this.toastService.hideLoader();
+      this.challanForm.value['ChallanId'] = response.ChallanId;
+      this.challanForm.value['ChallanDate'] = response.ChallanDate;
+      this.challanForm.value['amount'] = this.totalCharge;
+      this.challanForm.value['violations'] = this.violations;
+      this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
+      this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
+      this.challanForm.value['DutyOfficer'] = response.DutyOfficer;
+      this.navCtrl.push(PrintReceiptPage, {data: this.challanForm.value, currentViolents: this.currentViolents});
+      // const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
+      // violenterModal.present();
+      // this.navCtrl.popToRoot();
+    },(error: any) => {
+      this.toastService.hideLoader();
+    })
   }
 
-  showLoading(){
-    this.loading =  this.generateCtrl.create({
-      content:'Loading Violations...',
-      dismissOnPageChange:true
-    })
-    this.loading.present()
+  seize(){
+    this.navCtrl.push(SeizePage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter });
   }
 
   private capture(){
