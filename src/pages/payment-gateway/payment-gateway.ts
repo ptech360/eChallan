@@ -11,7 +11,7 @@ declare const KMswipe :any;
 declare let require;
 var parseString = require('xml2js').parseString;
 
-declare let lmProcessPay;
+declare let IdProcessPay;
 declare let $;
 /**
  * Generated class for the PaymentGatewayPage page.
@@ -232,12 +232,25 @@ export class PaymentGatewayPage implements OnInit{
   // }
 
   confirm(){
-    const response = lmProcessPay('EFKON','800081','36PVB8S8CIC2KPXEIL4JBX7U',this.generatedObject.ChallanId, this.generatedObject.VehicleNo, this.generatedObject.OwnerName, this.generatedObject.MobileNumber);
-    let that = this;
-    parseString(response, function(err, result){
-      console.log(result);
-      
+    var Amount = '10.00';
+    var trackid = new Date().getTime();
+    var merchantId = "800081";
+    var sharedKey = "36PVB8S8CIC2KPXEIL4JBX7U";
+    var sUrl = "";
+    var email = "kharetwal.pankaj111@gmail.com";
+    var mobile = "9806155360";
+    var reqpaymentMode = "None";
+    var reqnoOfPayments = "1";
+    var paymentData = Array(Amount+"|0.00|"+trackid+'|12|'+ '|UP65CY7917|' + '|AMOL KUMAR AGRAWAL|' + '7408428190');
+    var nachData = "348505057445|Savings|Monthly|6|2018-06-30";
+    var payResp = IdProcessPay(merchantId,sharedKey,Amount,sUrl,email,mobile,reqpaymentMode,reqnoOfPayments,paymentData,nachData);
+    // document.getElementById('responsediv').value = payResp;
+    // const response = IdProcessPay('EFKON','','',this.generatedObject.ChallanId, this.generatedObject.VehicleNo, this.generatedObject.OwnerName, this.generatedObject.MobileNumber);
+    // let that = this;
+    parseString(payResp, function(err, result){
+      console.log(result);      
     });
+    
   }
 
   dismiss() {
