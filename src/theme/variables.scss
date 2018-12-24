@@ -46,9 +46,18 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 .primaryColor{
-  color: color($colors,primary);
+  color: color($colors,primary) !important;
 }
 
+.background{
+  background: #f2f2f2;
+}
+.preline{
+  white-space: pre-line;
+}
+.alert-checkbox-label{
+  white-space: pre-line!important;
+}
 
 // App Material Design Variables
 // --------------------------------------------------

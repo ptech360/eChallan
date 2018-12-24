@@ -2,12 +2,26 @@ page-home {
     .home{
         ion-row{
                 ion-col{
-                    border:1px solid gray;
+                   
+                    padding-top: 28px;
+                    padding-bottom: 28px;
                     img{
                         width:50%;
                     }
                     font-weight:bold;
+                   
                 }
+                ion-col:nth-child(odd){
+                  border-right: 0;
+                }
+              
         }
+         padding: 0;
+    }
+    .orange{
+      background: #ff8851;
+    }
+    .blue{
+      background:#50c5f9;
     }
 }

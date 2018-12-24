@@ -16,6 +16,7 @@ add-violation {
             font-size: 10px;
             display:block;
         }
+        
     }
     .violation_details{
         .title{
@@ -24,8 +25,11 @@ add-violation {
         .charge{
             text-align: right;
         }
+       
     }
-
+ ion-label{
+          white-space: initial!important;
+        }
     .img-close{
         position: absolute;
         margin-top: 1px;
@@ -33,6 +37,21 @@ add-violation {
         color: white;
         font-size: 32px;
     }
+    .addImage{
+          margin: 10px;
+        }
+}
+.flex{
+  display: flex;
+  justify-content: center;
+}
+.label{
+  margin-right: 10px;
+  display: grid;
+  align-items: center;
+  color: color($colors,primary);
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .alert-sub-title{

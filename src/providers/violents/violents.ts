@@ -45,4 +45,8 @@ export class ViolentsProvider {
   generateChallan(data: any){
     return this.api.post('VehicleChallan',data);
   }
+
+  challanPayment(data:any){
+    return this.api.put('ChallanPayment',data);
+  }
 }

@@ -52,4 +52,34 @@ page-violenter-history {
           }
         }
       }
+      td{
+        width: 1%;
+      }
+      table,  td {
+        font-size: 12px;
+        background: white;
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  
+}
+th{
+  padding: 4px;
+  background: color($colors,primary);
+  color: white;
+}
+.tableContainer{
+padding-bottom: 10px;
+  overflow-x: scroll;
+}
+table{
+  width: 120%;
+}
+th{
+  border-left: 1px solid white!important;
+}
+th:first-child{
+  border-left: 1px solid black!important;
+}
+    
 }

@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="background">
   <div #printContent padding>
     <h4 text-center class="primaryColor">CHALLAN</h4>
     <table style="text-align: left;;padding-bottom: 20px; font-size: 18px;">
@@ -132,6 +132,24 @@
           </td>
         </tr>
         <tr>
+          <th style="vertical-align: baseline;">Payment</th>
+          <td>: {{printScriptObject.PaymentId ? 'Done' : 'Pending'}}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <br>
+          </td>
+        </tr>
+        <tr *ngIf="printScriptObject.PaymentId">
+          <th style="vertical-align: baseline;">Transaction Id</th>
+          <td>: {{printScriptObject.PaymentId}}</td>
+        </tr>
+        <tr *ngIf="printScriptObject.PaymentId">
+          <td colspan="2">
+            <br>
+          </td>
+        </tr>
+        <tr>
           <th style="vertical-align: baseline; padding-top: 45px!important;">Name/Sign of Owner </th>
           <td style="padding-top: 45px!important;">: _________________</td>
         </tr>
@@ -153,9 +171,11 @@
       </tfoot>
     </table>
   </div>
-  <div text-center color="primary">
-    <button ion-button color="primary" (click)="pay()" [disabled]="!printData.length">Pay</button>
-    <button ion-button color="primary" (click)="print()" [disabled]="!printData.length">Print</button>
+  <div text-center color="primary" class="flex" padding>
+    <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">Done</button>
+    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="!printScriptObject.PaymentId">Payment</button>
+    <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">Print</button>
+ 
   </div>
 
 </ion-content>

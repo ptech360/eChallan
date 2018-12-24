@@ -6,6 +6,7 @@ import { ViolentsProvider } from '../../providers/violents/violents';
 import { PrintReceiptPage } from '../print-receipt/print-receipt';
 import * as KMSWIPE from 'cordova-plugin-k-mswipe';
 import { ToastService } from '../../providers/toast/toast.service';
+import { SeizePage } from '../seize/seize';
 declare const KMswipe :any;
 
 declare let require;
@@ -43,10 +44,10 @@ export class PaymentGatewayPage implements OnInit{
               public viewCtrl: ViewController, 
               public alertCtrl:AlertController, 
               public fb:FormBuilder,
-              // public violent:ViolentsProvider,
+              public violent:ViolentsProvider,
+              public toastService:ToastService
               // public modalCtrl:ModalController,
               // public generateCtrl:LoadingController,
-              // public toastService:ToastService
   ) {
     this.currenViolations = this.navParams.get('currentViolations')
     this.generatedObject = this.navParams.get('data');
@@ -246,11 +247,30 @@ export class PaymentGatewayPage implements OnInit{
     var payResp = IdProcessPay(merchantId,sharedKey,Amount,sUrl,email,mobile,reqpaymentMode,reqnoOfPayments,paymentData,nachData);
     // document.getElementById('responsediv').value = payResp;
     // const response = IdProcessPay('EFKON','','',this.generatedObject.ChallanId, this.generatedObject.VehicleNo, this.generatedObject.OwnerName, this.generatedObject.MobileNumber);
-    // let that = this;
-    parseString(payResp, function(err, result){
-      console.log(result);      
+    let that = this;
+    parseString(payResp, function(err:any, result:any){
+      console.log(result);  
+      if(result.Response && result.Response.RespCode[0] === '1000' ){
+        const paymentObject = {
+          "ChallanId": that.generatedObject.ChallanId,
+          "PaymentId": result.Response.Payments[0].Payment1[0].TnxId[0],
+          "PaymentTypeName": result.Response.Payments[0].Payment1[0].PaymentType[0],
+          "PaymentDate": result.Response.Payments[0].Payment1[0].Date[0]
+        };
+        that.violent.challanPayment(paymentObject).subscribe(response => {
+          that.toastService.showToast('Payment Done');
+          that.generatedObject['PaymentId'] = paymentObject.PaymentId;
+          that.dismiss();
+        });  
+      } else if(result.Error) {
+        that.toastService.showToast(result.Error.ErrorMessage[0]);
+      }
     });
     
+  }
+
+  seize() {
+    this.navCtrl.push(SeizePage);
   }
 
   dismiss() {

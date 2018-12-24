@@ -81,6 +81,10 @@ export class PrintReceiptPage implements OnInit{
       violenterModal.present();
   }
 
+  done() {
+    this.navCtrl.popToRoot();
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }

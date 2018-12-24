@@ -22,36 +22,6 @@ export class FeaturesProvider {
       name: 'Profile',
       img: 'assets/imgs/traffic_police.png',
       component: ProfileComponent,
-    },
-    {
-      name: 'other',
-      img: 'assets/imgs/other.png',
-      component: NoRecordsComponent,
-    },
-    {
-      name: 'other',
-      img: 'assets/imgs/other.png',
-      component: NoRecordsComponent,
-    },
-    {
-      name: 'other',
-      img: 'assets/imgs/other.png',
-      component: NoRecordsComponent,
-    },
-    {
-      name: 'other',
-      img: 'assets/imgs/other.png',
-      component: NoRecordsComponent,
-    },
-    {
-      name: 'other',
-      img: 'assets/imgs/other.png',
-      component: NoRecordsComponent,
-    },
-    {
-      name: 'other',
-      img: 'assets/imgs/other.png',
-      component: NoRecordsComponent,
     }
   ]
   constructor(public api: Api) {

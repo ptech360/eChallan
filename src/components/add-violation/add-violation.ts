@@ -86,7 +86,7 @@ export class AddViolationComponent {
       LocationName: ["GURGAON"],
       GeoLocation: ["GURGAON"],
       PaymentTypeName: ["Net-Banking"],
-      PaymentId : ["TXN101043252612212383"] 
+      PaymentId : [null] 
     });
   }
 

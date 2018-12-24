@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content class="gray-back">
+<ion-content class="gray-back background">
   <ion-list radio-group>
     <ion-item>
       <ion-label>Credit/Debit Card</ion-label>
@@ -39,23 +39,33 @@
     </ion-item>
   </ion-list>
 
-  <h6 text-center color="primary" class="primaryColor">
+  <!-- <h6 text-center color="primary" class="primaryColor">
     <b>Details</b>
-  </h6>
+  </h6> -->
+  <ion-list-header text-center class="details">
+    <span>Details</span>
+  </ion-list-header>
   <ion-card *ngIf="currenViolations">
-    <ion-item *ngFor="let violation of currenViolations">
+    <ion-item *ngFor="let violation of currenViolations" class="preline">
       {{ violation.ViolationName }}
       <div item-right>₹ {{ violation.ViolationFine }}</div>
     </ion-item>
   </ion-card>
+  <ion-card>
+      <ion-item class="preline">
+        Total
+        <div item-right class="totalCharge">₹ {{ charge }}</div>
+      </ion-item>
+    <!-- <ion-row>
+      <ion-col no-padding class="totalCharge">
+        Total
+      </ion-col>
+      <ion-col col-6 >
+          ₹ {{ charge }}
+        <button ion-button full (click)="confirm()">Continue</button>
+      </ion-col>
+    </ion-row> -->
+  </ion-card>
+  <button ion-button full (click)="confirm()">Continue to Pay</button>
+  <button ion-button full clear (click)="seize()">Unable to pay</button>
 </ion-content>
-<ion-footer>
-  <ion-row>
-    <ion-col no-padding class="totalCharge">
-      ₹ {{ charge }}
-    </ion-col>
-    <ion-col col-6>
-      <button ion-button full (click)="confirm()">Continue</button>
-    </ion-col>
-  </ion-row>
-</ion-footer>
