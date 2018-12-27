@@ -49,4 +49,20 @@ export class ViolentsProvider {
   challanPayment(data:any){
     return this.api.put('ChallanPayment',data);
   }
+  
+  vehicleType() {
+    return this.api.get('VehicleTypes');
+  }
+
+  VehicleDocs() {
+    return this.api.get('VehicleDocs');
+  }
+
+  vehicleSeize(data:any) {
+    return this.api.post('VehicleSeize',data);
+  }
+
+  documentSeize(data:any) {
+    return this.api.post('DocumentSeize',data);
+  }
 }

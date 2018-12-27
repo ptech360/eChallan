@@ -45,7 +45,8 @@ export class PaymentGatewayPage implements OnInit{
               public alertCtrl:AlertController, 
               public fb:FormBuilder,
               public violent:ViolentsProvider,
-              public toastService:ToastService
+              public toastService:ToastService,
+              public modalCtrl: ModalController
               // public modalCtrl:ModalController,
               // public generateCtrl:LoadingController,
   ) {
@@ -270,7 +271,9 @@ export class PaymentGatewayPage implements OnInit{
   }
 
   seize() {
-    this.navCtrl.push(SeizePage);
+    // this.navCtrl.push(SeizePage, {'data': this.generatedObject});
+    const modal = this.modalCtrl.create(SeizePage, {'data': this.generatedObject});
+    modal.present()
   }
 
   dismiss() {

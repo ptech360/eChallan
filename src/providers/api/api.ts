@@ -149,7 +149,7 @@ export class Api {
         break;
     
       default:
-        this.showError('Somthing went wrong');
+        this.showError(errorResponse.error.message || 'Somthing went wrong');
         break;
     }
     return Observable.throw(errorResponse);

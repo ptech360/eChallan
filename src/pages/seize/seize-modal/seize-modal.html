@@ -1,81 +1,102 @@
 <ion-header>
-        <ion-toolbar color="primary">
-          <ion-title>
-            Seize {{ object }}
-          </ion-title>
-          <ion-buttons start>
-            <button ion-button (click)="dismiss()">
-              <span ion-text color="primary" showWhen="ios">Cancel</span>
-              <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-            </button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      
-      <ion-content class="gray-back">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Seize {{ object }}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-        <!-- for document -->
-        <div *ngIf="object=='document'">
-            <ion-card>
-                   <form>
-                       <ion-item>
-                            <ion-icon name="copy" color="primary" item-start></ion-icon>
-                            <ion-label stacked color="primary">Name</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="documentName" name="documentSeize" placeholder="eg: License"></ion-input>
-                       </ion-item>
-                       <ion-item>
-                            <ion-icon name="copy" color="primary" item-start></ion-icon>
-                            <ion-label stacked color="primary">ID</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="documentID" name="documentID" placeholder="eg: 253746356273"></ion-input>
-                       </ion-item>
-                       <button ion-button full icon-start small><ion-icon name="camera"></ion-icon>Add Image</button>
-                   </form> 
-            </ion-card>
-            <button ion-button float-right small outline round margin-right>+ Add Document</button>
+<ion-content class="gray-back">
+  <!-- for document -->
+  <div *ngIf="object=='document'">
+    <ion-card>
+      <ion-item>
+        <ion-icon name="car" color="primary" item-start></ion-icon>
+        <ion-label>Docs</ion-label>
+        <ion-select [(ngModel)]="docsIds" name="docsIds" interface="popover" multiple="true">
+          <ion-option *ngFor="let doc of vehicleDocs;" [value]="doc.Id">{{doc.DocumentName}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="docsIds.length">
+        <ion-item *ngFor="let doc of docsIds;let i = index;">
+          <ion-label stacked color="primary">{{vehicleDocs[i].DocumentName}}</ion-label>
+          <ion-input [(ngModel)]="docsInputIds[i]"></ion-input>
+        </ion-item>
+      </div>
+    </ion-card>
+    <div>      
+      <ion-card *ngFor="let url of documentUrls;let i = index;">
+        <div text-right>
+          <ion-icon class="img-close" name="close" (click)="delDocImage(i)"></ion-icon>
         </div>
+        <img [src]="url"/>
+      </ion-card>      
+    </div>
+    <div text-center>
+      <h2 color="primary">Capture Photos</h2>
+      <button ion-button icon-only class="center" margin-bottom (click)="captureDocument()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </div>
+  </div>
 
 
-        <!-- for vehicle -->
-        <div *ngIf="object=='vehicle'">
-            <ion-card>
-                <form>
-                    <ion-item>
-                            <ion-icon name="car" color="primary" item-start></ion-icon>
-                            <ion-label stacked color="primary">Name</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="vehicleName" name="vehicleName" placeholder="eg: Honda City"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                            <ion-icon name="car" color="primary" item-start></ion-icon>
-                                    <ion-label>Type</ion-label>
-                                    <ion-select [(ngModel)]="vehicleType" name="vehicleType" interface="popover">
-                                      <ion-option >Car</ion-option>
-                                      <ion-option >Bike</ion-option>
-                                      <ion-option >Scooter without gear</ion-option>
-                                      <ion-option >Scooter with gear</ion-option>
-                                      <ion-option >Truck</ion-option>
-                                      <ion-option >Loader</ion-option>
-                                      <ion-option>Other</ion-option>
-                                    </ion-select>
-                    </ion-item>
-                    <ion-item>
-                            <ion-icon name="car" color="primary" item-start></ion-icon>
-                            <ion-label stacked color="primary">Color</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="vehicleColor" name="vehicleColor" placeholder="eg: Silver"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                            <ion-icon name="car" color="primary" item-start></ion-icon>
-                            <ion-label stacked color="primary">Number</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="vehicleNumber" name="vehicleNumber" placeholder="eg: HR 61 C 8438"></ion-input>
-                    </ion-item>
-                </form>
-            </ion-card>
-            <div padding>
-            <button ion-button round  class="center" icon-start><ion-icon name="camera"></ion-icon> Add Image</button>
-            </div>
+  <!-- for vehicle -->
+  <div *ngIf="object=='vehicle'">
+    <ion-card>
+      <form>
+        <ion-item>
+          <ion-icon name="car" color="primary" item-start></ion-icon>
+          <ion-label stacked color="primary">Name</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="vehicleName" name="vehicleName" placeholder="Honda City">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="car" color="primary" item-start></ion-icon>
+          <ion-label stacked color="primary">Color</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="challanObject.Colour" name="vehicleColor" readonly>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="car" color="primary" item-start></ion-icon>
+          <ion-label stacked color="primary">Number</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="challanObject.VehicleNo" name="vehicleNumber" readonly>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="car" color="primary" item-start></ion-icon>
+          <ion-label>Type</ion-label>
+          <ion-select [(ngModel)]="vehicleTypeId" name="vehicleTypeId" interface="popover">
+            <ion-option *ngFor="let type of vehicleTypes;" [value]="type.Id">{{type.VehicleTypeName}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </form>
+    </ion-card>
+    <div>      
+      <ion-card *ngFor="let url of vehicleUrls;let i = index;">
+        <div text-right>
+          <ion-icon class="img-close" name="close" (click)="delVehicleImage(i)"></ion-icon>
         </div>
+        <img [src]="url"/>
+      </ion-card>      
+    </div>
+    <div text-center>
+      <h2 color="primary">Capture Photos</h2>
+      <button ion-button icon-only class="center" margin-bottom (click)="captureVehicle()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+    </div>
+  </div>
 
-        </ion-content>
+</ion-content>
 
-        <ion-footer>
-            <button full ion-button (click)="print()">Seize</button>
-        </ion-footer>
+<ion-footer>
+  <button full ion-button (click)="seizeVehicle()" *ngIf="object=='vehicle'" [disabled]="!vehicleImages.length">Seize</button>
+  <button full ion-button (click)="seizeDocument()" *ngIf="object=='document'" [disabled]="!documentImages.length">Seize</button>
+</ion-footer>
