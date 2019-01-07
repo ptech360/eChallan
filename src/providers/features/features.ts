@@ -16,11 +16,13 @@ export class FeaturesProvider {
     {
       name: 'Challan Generator',
       img: 'assets/imgs/challan.png',
+      icon: 'calculator',
       component: GenerateChallanComponent,
     },
     {
       name: 'Profile',
       img: 'assets/imgs/traffic_police.png',
+      icon: 'person',
       component: ProfileComponent,
     }
   ]

@@ -3,8 +3,8 @@ page-home {
         ion-row{
                 ion-col{
                    
-                    padding-top: 28px;
-                    padding-bottom: 28px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
                     img{
                         width:50%;
                     }
@@ -14,9 +14,40 @@ page-home {
                 ion-col:nth-child(odd){
                   border-right: 0;
                 }
+                .col{
+                    padding-left:15px;
+                    padding-right: 15px; 
+                }
               
         }
          padding: 0;
+
+         .box{
+            //  background:#ebf9f8;
+            background: rgba(0, 121, 107, 0.05);
+            padding: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0px 0 10px 3px #33333321;
+            
+             .icon-ios{
+                 font-size: 80px;
+                 color: #00796b;
+             }
+             .label-title{
+                color: #00796b;
+                padding-top: 15px;
+             }
+             &:hover{
+                 background: #00796b;
+                .icon-ios{
+                    color: white;
+                }
+                .label-title{
+                   color: white;
+                   letter-spacing: 1px;
+                 }   
+             }
+         }
     }
     .orange{
       background: #ff8851;
