@@ -1,5 +1,6 @@
 page-home {
     .home{
+        max-width: 400px;
         ion-row{
                 ion-col{
                    
@@ -28,8 +29,8 @@ page-home {
             padding: 20px 0;
             border-radius: 8px;
             box-shadow: 0px 0 10px 3px #33333321;
-            
-             .icon-ios{
+
+             .icon{
                  font-size: 80px;
                  color: #00796b;
              }
@@ -39,7 +40,7 @@ page-home {
              }
              &:hover{
                  background: #00796b;
-                .icon-ios{
+                .icon{
                     color: white;
                 }
                 .label-title{
