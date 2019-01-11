@@ -30,6 +30,7 @@ import { Printer } from '../../node_modules/@ionic-native/printer';
 import { VehicleDetailComponent } from '../components/vehicle-detail/vehicle-detail';
 import { Camera } from '../../node_modules/@ionic-native/camera';
 import { ToastService } from '../providers/toast/toast.service';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ToastService } from '../providers/toast/toast.service';
     Uid,
     AndroidPermissions,
     Printer,
-    Camera
+    Camera,
+    Geolocation
   ]
 })
 export class AppModule {}

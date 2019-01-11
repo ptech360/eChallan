@@ -7,71 +7,70 @@
 </ion-header>
 
 <ion-content class="gray-back background">
-<form [formGroup]="violationForm">
-  <ion-card>
-<ion-item>
-  <ion-label stacked>Body Type</ion-label>
-  <ion-input type="text" formControlName="BodyType" ></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label stacked>Chassis No</ion-label>
-  <ion-input type="text"  formControlName="ChassisNo"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label stacked>Colour</ion-label>
-  <ion-input type="text"  formControlName="Colour"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label stacked>Eng No</ion-label>
-  <ion-input type="text" formControlName="EngNo" ></ion-input>
-</ion-item>
-<ion-item>
-  <ion-label stacked>Father Name</ion-label>
-  <ion-input type="text" formControlName="FatherName"></ion-input>
-</ion-item>
-   
-      <ion-item >
-        <ion-label  stacked >Maker Model</ion-label>
-        <ion-input type="text" formControlName="MakerModel" ></ion-input>
-      </ion-item>
-      
-      
-      
-     
-     
-     
-      <ion-item >
-        <ion-label  stacked >Mobile Number</ion-label>
-        <ion-input type="text"   formControlName="MobileNumber"></ion-input>
+  <form [formGroup]="violationForm">
+    <ion-card>
+      <ion-item>
+        <ion-label stacked>Body Type</ion-label>
+        <ion-input type="text" formControlName="BodyType"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label  stacked >Owner Name</ion-label>
-        <ion-input type="text"  formControlName="OwnerName"></ion-input>
+        <ion-label stacked>Chassis No</ion-label>
+        <ion-input type="text" formControlName="ChassisNo"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label  stacked >Owner Address</ion-label>
-        <ion-input type="text"  formControlName="OwnerAddress"></ion-input>
+        <ion-label stacked>Colour</ion-label>
+        <ion-input type="text" formControlName="Colour"></ion-input>
       </ion-item>
-      
-      <ion-item >
-        <ion-label  stacked >Registration  Date</ion-label>
-        <ion-input type="text"   formControlName="RegnDate"></ion-input>
+      <ion-item>
+        <ion-label stacked>Eng No</ion-label>
+        <ion-input type="text" formControlName="EngNo"></ion-input>
       </ion-item>
-     
-      <ion-item >
-        <ion-label  stacked >Vehicle Class</ion-label>
-        <ion-input type="text"   formControlName="VehicleClass"></ion-input>
+      <ion-item>
+        <ion-label stacked>Father Name</ion-label>
+        <ion-input type="text" formControlName="FatherName"></ion-input>
       </ion-item>
-      <ion-item  >
-        <ion-label  stacked >Vehicle No</ion-label>
-        <ion-input type="text"   formControlName="VehicleNo"></ion-input>
+
+      <ion-item>
+        <ion-label stacked>Maker Model</ion-label>
+        <ion-input type="text" formControlName="MakerModel"></ion-input>
       </ion-item>
-      
-   
-  </ion-card>
-  <div padding text-center>
-    <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add
-      Violation</button>
-  </div>
+
+
+
+
+
+
+      <ion-item>
+        <ion-label stacked>Mobile Number</ion-label>
+        <ion-input type="text" formControlName="MobileNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Owner Name</ion-label>
+        <ion-input type="text" formControlName="OwnerName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Owner Address</ion-label>
+        <ion-input type="text" formControlName="OwnerAddress"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Registration Date</ion-label>
+        <ion-input type="text" formControlName="RegnDate"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Vehicle Class</ion-label>
+        <ion-input type="text" formControlName="VehicleClass"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Vehicle No</ion-label>
+        <ion-input type="text" formControlName="VehicleNo"></ion-input>
+      </ion-item>
+
+    </ion-card>
+    <div padding text-center>
+      <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add
+        Violation</button>
+    </div>
   </form>
 </ion-content>

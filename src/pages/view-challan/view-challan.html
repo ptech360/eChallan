@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ViewChallanPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>View Challan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>From Date</ion-label>
+      <ion-datetime pickerFormat="YYYY-MM-DDTHH:mm" displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="date.fromDate"> </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>To Date</ion-label>
+      <ion-datetime pickerFormat="YYYY-MM-DDTHH:mm" displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="date.toDate"> </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <button ion-button block (click)="getChallan()">Get</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="challans,length">
+    <ion-card *ngFor="let challan of challans;let i = index;" (click)="getChallanDetail(challan)">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            <b>Challan Id: </b>{{challan.ChallanId}}
+          </ion-col>
+          <ion-col col-6 text-wrap text-right>
+            <small>{{challan.ChallanDate | date}}</small>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 text-wrap>
+            <b>Vehicle No: </b>{{challan.VehicleNo}}
+          </ion-col>
+          <ion-col col-6 *ngIf="challan.PaymentStatus === 'P'" text-right>
+            <b>Payment: </b>
+            <ion-badge float-right text-wrap>Pending</ion-badge>
+            <br>
+          </ion-col>
+          <ion-col col-6 *ngIf="challan.DocsSeizeStatus === 'S'" text-right>
+            <b>Document(s): </b>
+            <ion-badge float-right text-wrap>Seized</ion-badge>
+            <br>
+          </ion-col> 
+          <ion-col col-6 *ngIf="challan.VehicleSeizeStatus === 'S'" text-right>
+            <b>Vehicle: </b>
+            <ion-badge float-right text-wrap>Seized</ion-badge>
+            <br>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
+</ion-content>

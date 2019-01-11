@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Navbar } from 'ionic-angular';
 import { Printer, PrintOptions } from '@ionic-native/printer';
 import { PaymentGatewayPage } from '../payment-gateway/payment-gateway';
+import { ViolentsProvider } from '../../providers/providers';
+import { ToastService } from '../../providers/toast/toast.service';
 declare let require;
 var parseString = require('xml2js').parseString;
 /**
@@ -37,7 +39,9 @@ export class PrintReceiptPage implements OnInit{
               public viewCtrl: ViewController, 
               public navParams: NavParams,
               public modalCtrl:ModalController, 
-              private printer: Printer) {
+              private printer: Printer,
+              public violationService: ViolentsProvider,
+              public toastService: ToastService) {
   }
 
   ngOnInit(){
@@ -51,7 +55,7 @@ export class PrintReceiptPage implements OnInit{
     Object.keys(this.printScriptObject).forEach(key => {
       this.printData.push(key);
     });
-    console.log('ionViewDidLoad PrintReceiptPage', this.printScriptObject);
+    console.log('ionViewDidLoad PrintReceiptPage', this.currentViolations);
   }
 
   private print(){
@@ -88,6 +92,34 @@ export class PrintReceiptPage implements OnInit{
 
   done() {
     this.navCtrl.popToRoot();
+  }
+
+  unseize(object){
+    if(object.VehicleSeizeStatus === 'S'){
+      this.toastService.showLoader();
+      this.violationService.unseizeVehicle(object.ChallanId).subscribe(response => {
+        this.toastService.hideLoader();
+        this.toastService.showToast('Vehicle Unseized');
+        object.PaymentStatus = "P";
+        object.VehicleSeizeStatus = ""
+      }, error => {
+        this.toastService.hideLoader();
+      });
+    } else if(object.DocsSeizeStatus === 'S') {
+      this.toastService.showLoader();
+      this.violationService.unseizeDocs(object.ChallanId).subscribe(response => {
+        this.toastService.hideLoader();
+        this.toastService.showToast('Docs Unseized');
+        object.PaymentStatus = "P";
+        object.DocsSeizeStatus = ""
+      }, error => {
+        this.toastService.hideLoader();
+      });
+    }
+    
+    object.DocsSeizeStatus = ""
+    console.log(object);
+    
   }
 
   dismiss() {

@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Print Receipt
+      Generated Challan
     </ion-title>
     <!-- <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -133,28 +133,28 @@
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Payment</th>
-          <td *ngIf="printScriptObject.seizedDocument || printScriptObject.seizedVehicle">: Not Done</td>
-          <td *ngIf="!printScriptObject.seizedDocument && !printScriptObject.seizedVehicle">: {{printScriptObject.PaymentId ? 'Done' : 'Pending'}}</td>
+          <td *ngIf="printScriptObject.DocsSeizeStatus || printScriptObject.VehicleSeizeStatus">: Not Done</td>
+          <td *ngIf="!printScriptObject.DocsSeizeStatus && !printScriptObject.VehicleSeizeStatus">: {{printScriptObject.PaymentId ? 'Done' : 'Pending'}}</td>
         </tr>
         <tr>
           <td colspan="2">
             <br>
           </td>
         </tr>
-        <tr *ngIf="printScriptObject.seizedDocument">
+        <tr *ngIf="printScriptObject.DocsSeizeStatus">
           <th style="vertical-align: baseline;">Seized Document</th>
-          <td>: <span *ngFor="let doc of printScriptObject.seizedDocument;let i = index;">{{doc.DocumentName}}<i *ngIf="i < printScriptObject.seizedDocument.length-1">, </i></span></td>
+          <td>: <span *ngFor="let doc of printScriptObject.vehicleDocsModel;let i = index;">{{doc.DocumentName}}<i *ngIf="i < printScriptObject.vehicleDocsModel.length-1">, </i></span></td>
         </tr>
-        <tr *ngIf="printScriptObject.seizedDocument">
+        <tr *ngIf="printScriptObject.DocsSeizeStatus">
           <td colspan="2">
             <br>
           </td>
         </tr>
-        <tr *ngIf="printScriptObject.seizedVehicle">
+        <tr *ngIf="printScriptObject.VehicleSeizeStatus">
           <th style="vertical-align: baseline;">Seized Vehicle</th>
           <td>{{printScriptObject['VehicleNo']}}</td>
         </tr>
-        <tr *ngIf="printScriptObject.seizedVehicle">
+        <tr *ngIf="printScriptObject.VehicleSeizeStatus">
           <td colspan="2">
             <br>
           </td>
@@ -192,7 +192,8 @@
   </div>
   <div text-center color="primary" class="flex" padding>
     <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">Done</button>
-    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="!(printScriptObject.PaymentId || printScriptObject.seizedVehicle || printScriptObject.seizedDocument)">Payment</button>
+    <button ion-button color="primary" padding full *ngIf="printScriptObject.VehicleSeizeStatus || printScriptObject.DocsSeizeStatus" (click)="unseize(printScriptObject)">Unseize</button>
+    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="!(printScriptObject.PaymentStatus==='P' || printScriptObject.VehicleSeizeStatus==='S' || printScriptObject.DocsSeizeStatus ==='S')">Payment</button>
     <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">Print</button>
  
   </div>

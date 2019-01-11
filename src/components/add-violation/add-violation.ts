@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Geolocation } from '@ionic-native/geolocation';
+import { HttpClient } from '@angular/common/http';
+
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
@@ -23,13 +26,12 @@ export class AddViolationComponent {
   text: string;
   totalCharge:number = 0.0;
   violenter;
-  violentOpts: { title: string, subTitle: string };
   currentViolents:any[] = [];
   violentsList:any = [];
   violationIds: any = [];
   violations: any = [];
   loading: Loading;
-  public challanForm:FormGroup
+  challanForm:FormGroup
   cameraOptions: CameraOptions = {
     sourceType         : this.camera.PictureSourceType.CAMERA,
     destinationType    : this.camera.DestinationType.DATA_URL,
@@ -39,17 +41,20 @@ export class AddViolationComponent {
   };
   imageUrls: any = [];
   files: any = [];
+  geoLocation: string = "";
+  locationName: string = "";
 
 
   constructor(public violent:ViolentsProvider,
               public navCtrl:NavController,
               public navParam:NavParams,
               private camera: Camera,
+              private geolocation: Geolocation,
               public alertCtrl: AlertController,
               public toastService:ToastService,
-              public fb:FormBuilder
+              public fb:FormBuilder,
+              public httpClient: HttpClient
   ) {
-    // this.showLoading()
     this.toastService.showLoader('Loading Violations...')
     this.violent.getViolents().subscribe(response => {
       this.toastService.hideLoader();
@@ -59,8 +64,24 @@ export class AddViolationComponent {
     });
   }
 
+  getGeoLoacation(latitude, longitude){
+    this.httpClient.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&key=AIzaSyC0fj5LBatMHxv2d-o6OTni7V1voRbQiKM').subscribe((response:any) => {
+      this.locationName = response.results ? response.results[0].formatted_address : 'Not Locate';
+      console.log(this.locationName);
+      
+    })
+  }
+
   ionViewDidLoad() {
-    this.violenter = this.navParam.get('data');        
+    this.violenter = this.navParam.get('data');
+    this.geolocation.getCurrentPosition().then(pos => {
+      this.geoLocation =  'lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude;
+      setTimeout(() => {
+        this.getGeoLoacation(pos.coords.latitude,pos.coords.longitude);        
+      }, 2000);
+    }).catch(error=>{
+      console.log(error);
+    });
   }
 
   getChallanForm(){
@@ -83,9 +104,9 @@ export class AddViolationComponent {
       VehicleNo: [''],
       ViolationId:[this.violationIds.toString()],
       UserName: ["sa"],
-      LocationName: ["GURGAON"],
-      GeoLocation: ["GURGAON"],
-      PaymentTypeName: ["Net-Banking"],
+      LocationName: ["Gurgoan"],
+      GeoLocation: ["Gurgoan"],
+      PaymentTypeName: [""],
       PaymentId : [null] 
     });
   }
@@ -167,7 +188,7 @@ export class AddViolationComponent {
       
     },(onError)=>{
       alert(onError);
-    })
+    });
   }
 
   dataURLtoFile(dataurl, filename) {
