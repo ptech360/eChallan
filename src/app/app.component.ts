@@ -30,30 +30,30 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
-      // user.getAppInfo().subscribe(
-      //   (response: any) => {
-      //     statusBar.styleDefault();
-      //     splashScreen.hide();
-      //     this.intializeApp();
-      //   },
-      //   (error: any) => {
-      //     console.log(error);
-      //     if (error.status == 401) {
-      //       const alert = this.alertCtrl.create({
-      //         title: 'Error',
-      //         subTitle: error.error,
-      //         buttons: ['OK']
-      //       });
+      user.getAppInfo().subscribe(
+        (response: any) => {
+          statusBar.styleDefault();
+          splashScreen.hide();
+          this.intializeApp();
+        },
+        (error: any) => {
+          splashScreen.hide();
+          if (error.status == 401) {
+            const alert = this.alertCtrl.create({
+              title: 'Error',
+              subTitle: error.error,
+              buttons: ['OK']
+            });
 
-      //       alert.present();
-      //       alert.onDidDismiss(() => {
-      //         platform.exitApp();
-      //       });
-      //     }
-      //   }
-      // );
+            alert.present();
+            alert.onDidDismiss(() => {
+              platform.exitApp();
+            });
+          }
+        }
+      );
 
-      this.intializeApp();
+      // this.intializeApp();
 
       // KMswipe.config({
       //     environment: KMSWIPE.GatewayEnvironment.LABS,

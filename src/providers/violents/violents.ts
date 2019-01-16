@@ -65,4 +65,16 @@ export class ViolentsProvider {
   documentSeize(data:any) {
     return this.api.post('DocumentSeize',data);
   }
+
+  getChallanByDate(data) {
+    return this.api.get('ChallanByDate?FromDate='+data.fromDate+'&ToDate='+data.toDate);
+  }
+
+  unseizeVehicle(challanId){
+    return this.api.post('RollbackSeizedVehicle?challanId='+challanId,{});
+  }
+
+  unseizeDocs(challanId){
+    return this.api.post('RollbackSeizedDocs?challanId='+challanId,{});
+  }
 }

@@ -72,13 +72,17 @@ export class SeizeModal {
         formData.append('VehicleTypId', this.vehicleTypeId);
         formData.append('VehicleName', this.vehicleName);
         formData.append('VehicleImage', this.vehicleImages);
+        this.toastService.showLoader();
 
         this.violentService.vehicleSeize(formData).subscribe(response => {
-            this.challanObject.seizedVehicle = response;
+            this.toastService.hideLoader();
+            this.challanObject.VehicleSeizeStatus = "S";
+            this.challanObject.PaymentStatus ='';
             this.toastService.showToast('Vehicle Seized');
             this.viewCtrl._nav.popAll();
         }, (error) => {
-            if (error.status === 401)
+             this.toastService.hideLoader();
+             if (error.status === 401)
                 this.viewCtrl._nav.popAll();
         });
     }
@@ -89,12 +93,17 @@ export class SeizeModal {
         formData.append('DocsId', this.docsIds);
         formData.append('DocsInputId', this.docsInputIds);
         formData.append('DocsImage', this.documentImages);
-
+        this.toastService.showLoader();
+        
         this.violentService.documentSeize(formData).subscribe(response => {
-            this.challanObject.seizedDocument = response;
+            this.toastService.hideLoader();
+            this.challanObject.DocsSeizeStatus = "S"
+            this.challanObject.PaymentStatus ='';
+            this.challanObject.vehicleDocsModel = response;
             this.toastService.showToast('Documents Seized');
             this.viewCtrl._nav.popAll();
         }, (error) => {
+            this.toastService.hideLoader();
             if (error.status === 401)
                 this.viewCtrl._nav.popAll();
         });
