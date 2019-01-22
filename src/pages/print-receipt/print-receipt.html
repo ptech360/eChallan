@@ -41,7 +41,7 @@
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Challan Date</th>
-          <td>: {{printScriptObject['ChallanDate'] | date}}</td>
+          <td>: {{printScriptObject['ChallanDate'] | date}} {{printScriptObject['ChallanDate'] | date:'h:mm a'}}</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -113,7 +113,7 @@
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Mobile</th>
-          <td>{{printScriptObject['MobileNumber']}}</td>
+          <td>: {{printScriptObject['MobileNumber']}}</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -193,7 +193,7 @@
   <div text-center color="primary" class="flex" padding>
     <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">Done</button>
     <button ion-button color="primary" padding full *ngIf="printScriptObject.VehicleSeizeStatus || printScriptObject.DocsSeizeStatus" (click)="unseize(printScriptObject)">Unseize</button>
-    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="!(printScriptObject.PaymentStatus==='P' || printScriptObject.VehicleSeizeStatus==='S' || printScriptObject.DocsSeizeStatus ==='S')">Payment</button>
+    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="printScriptObject.PaymentStatus==='P' || !(printScriptObject.VehicleSeizeStatus==='S' || printScriptObject.DocsSeizeStatus ==='S')">Payment</button>
     <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">Print</button>
  
   </div>

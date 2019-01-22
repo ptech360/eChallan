@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, Loading, AlertController }
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
+import * as localForage from "localforage";
 
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
@@ -59,7 +60,23 @@ export class AddViolationComponent {
     this.violent.getViolents().subscribe(response => {
       this.toastService.hideLoader();
       this.violentsList = response;
+      localForage.setItem('TrafficVioList', response).then(function () {
+        return localForage.getItem('TrafficVioList');
+      }).then(function (value) {
+        console.log(value);
+        // we got our value
+      }).catch(function (err) {
+        console.log(err);
+        // we got an error
+      });
     }, error => {
+      localForage.getItem('TrafficVioList').then(function (value) {
+        console.log(value);
+        // we got our value
+      }).catch(function (err) {
+        console.log(err);
+        // we got an error
+      });
       this.toastService.hideLoader();
     });
   }
@@ -104,8 +121,8 @@ export class AddViolationComponent {
       VehicleNo: [''],
       ViolationId:[this.violationIds.toString()],
       UserName: ["sa"],
-      LocationName: ["Gurgoan"],
-      GeoLocation: ["Gurgoan"],
+      LocationName: [this.locationName],
+      GeoLocation: [this.geoLocation],
       PaymentTypeName: [""],
       PaymentId : [null] 
     });
@@ -141,7 +158,7 @@ export class AddViolationComponent {
   }
 
   payment(){
-      this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter, files:this.files })
+    this.navCtrl.push(PaymentGatewayPage, { data: this.currentViolents, charge:this.totalCharge, violenter: this.violenter, files:this.files });
   }
 
   generateChallan(){

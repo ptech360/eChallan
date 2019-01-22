@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViolentsProvider } from '../../providers/providers';
 import { PrintReceiptPage } from '../print-receipt/print-receipt';
 import { ToastService } from '../../providers/toast/toast.service';
-
+import * as localForage from "localforage";
 /**
  * Generated class for the ViewChallanPage page.
  *
@@ -41,6 +41,16 @@ export class ViewChallanPage {
     this.violenterService.getChallanByDate(date).subscribe(response => {
       this.toastService.hideLoader();
       this.challans = response;
+      localForage.setItem('challans', response).then(function () {
+        return localForage.getItem('key');
+      }).then(function (value) {
+        console.log(value);
+        
+        // we got our value
+      }).catch(function (err) {
+        console.log(err);
+        // we got an error
+      });
     }, (error)=>{
       this.toastService.hideLoader();
     });
@@ -51,6 +61,7 @@ export class ViewChallanPage {
     const currentViolents:any[] = challan.PastViolations.filter(c => { 
       if(c.ChallanId === challan.ChallanId) {
         violations.push(c.ViolationDesc);
+        challan['LocationName'] = c.LocationName; 
       }    
       return c.ChallanId === challan.ChallanId;
     });    

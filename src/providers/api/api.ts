@@ -20,7 +20,7 @@ import { AndroidPermissions } from '../../../node_modules/@ionic-native/android-
  */
 @Injectable()
 export class Api {
-  url: string = 'http://182.75.23.84:8002';
+  url: string = 'http://172.21.0.54:8002';
   sub: any;
 
   constructor(public http: HttpClient, 
@@ -29,13 +29,6 @@ export class Api {
     public alertCtrl: AlertController,
     private uid: Uid, 
     private androidPermissions: AndroidPermissions){
-    
-      // this.sub = Observable.interval(10*60*1000).subscribe((val) => {
-      //   if(this.localStorage.getData('ngStorage-token')) {
-      //     this.showError('Session Expired');
-      //     this.localStorage.clearData();
-      //   }
-      // });
     this.getImei();
   }
 

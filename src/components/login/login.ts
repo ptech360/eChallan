@@ -3,7 +3,7 @@ import { Loading, LoadingController, NavController, AlertController } from 'ioni
 import { TabsPage } from '../../pages/tabs/tabs';
 import { NoRecordsComponent } from '../no-records/no-records';
 import { User } from '../../providers/user/user';
-
+import * as localForage from "localforage";
 /**
  * Generated class for the LoginComponent component.
  *
@@ -30,6 +30,25 @@ export class LoginComponent implements OnInit{
   ngOnInit(){
     this.user.getAppInfo().subscribe(response => {
       this.appInfo = response;
+      localForage.setItem('ProjectLogo', response).then(function () {
+        return localForage.getItem('ProjectLogo');
+      }).then(function (value) {
+        console.log(value);
+        // we got our value
+      }).catch(function (err) {
+        console.log(err);
+        // we got an error
+      });
+    }, error => {
+      if(error.status == 0){
+        localForage.getItem('ProjectLogo').then(function (value) {
+          console.log(value);
+          // we got our value
+        }).catch(function (err) {
+          console.log(err);
+          // we got an error
+        });
+      }
     });
   }
 
