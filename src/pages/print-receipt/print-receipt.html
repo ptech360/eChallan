@@ -18,7 +18,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content class="background">
   <div #printContent padding>
     <h4 text-center class="primaryColor">CHALLAN</h4>
@@ -32,7 +31,7 @@
           <th style="vertical-align: baseline;">
             <u>Challan No</u>
           </th>
-          <td>: {{printScriptObject['ChallanId']}}</td>
+          <td>: {{printScriptObject['ChallanId'] || 'Not Generated'}}</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -193,7 +192,7 @@
   <div text-center color="primary" class="flex" padding>
     <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">Done</button>
     <button ion-button color="primary" padding full *ngIf="printScriptObject.VehicleSeizeStatus || printScriptObject.DocsSeizeStatus" (click)="unseize(printScriptObject)">Unseize</button>
-    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="printScriptObject.PaymentStatus==='P' || !(printScriptObject.VehicleSeizeStatus==='S' || printScriptObject.DocsSeizeStatus ==='S')">Payment</button>
+    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="printScriptObject.PaymentStatus==='P'">Payment</button>
     <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">Print</button>
  
   </div>

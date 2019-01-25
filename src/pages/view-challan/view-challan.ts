@@ -41,16 +41,6 @@ export class ViewChallanPage {
     this.violenterService.getChallanByDate(date).subscribe(response => {
       this.toastService.hideLoader();
       this.challans = response;
-      localForage.setItem('challans', response).then(function () {
-        return localForage.getItem('key');
-      }).then(function (value) {
-        console.log(value);
-        
-        // we got our value
-      }).catch(function (err) {
-        console.log(err);
-        // we got an error
-      });
     }, (error)=>{
       this.toastService.hideLoader();
     });

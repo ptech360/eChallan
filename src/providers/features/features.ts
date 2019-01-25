@@ -32,6 +32,11 @@ export class FeaturesProvider {
       component: 'ViewChallanPage'
     },
     {
+      name: 'Upload Challans',
+      icon: 'cloud-upload',
+      component: 'UnuploadedChallanPage'
+    },
+    {
       name: 'Logout',
       icon: 'log-out',
       component: LoginComponent

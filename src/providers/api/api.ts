@@ -12,23 +12,23 @@ import 'rxjs/add/observable/interval';
 
 
 import { StorageService } from '../localstorage/storage';
-import { Uid } from '../../../node_modules/@ionic-native/uid';
-import { AndroidPermissions } from '../../../node_modules/@ionic-native/android-permissions';
+import { Uid } from '@ionic-native/uid';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  url: string = 'http://172.21.0.54:8002';
+  url: string = 'http://182.75.23.84:8002';
   sub: any;
 
-  constructor(public http: HttpClient, 
-    public localStorage:StorageService, 
-    public events:Events, 
+  constructor(public http: HttpClient,
+    public localStorage: StorageService,
+    public events: Events,
     public alertCtrl: AlertController,
-    private uid: Uid, 
-    private androidPermissions: AndroidPermissions){
+    private uid: Uid,
+    private androidPermissions: AndroidPermissions) {
     this.getImei();
   }
 
@@ -36,29 +36,29 @@ export class Api {
     const { hasPermission } = await this.androidPermissions.checkPermission(
       this.androidPermissions.PERMISSION.READ_PHONE_STATE
     );
-   
+
     if (!hasPermission) {
       const result = await this.androidPermissions.requestPermission(
         this.androidPermissions.PERMISSION.READ_PHONE_STATE
       );
-   
+
       if (!result.hasPermission) {
         throw new Error('Permissions required');
       }
-   
+
       // ok, a user gave us permission, we can get him identifiers after restart app
       return;
     }
-    this.localStorage.storeData('IMEI',this.uid.IMEI);
+    this.localStorage.storeData('IMEI', this.uid.IMEI);
     return this.uid.IMEI
-   }
+  }
 
   getHeaders(optHeaders?: HttpHeaders) {
     let headers = new HttpHeaders();
     if (this.localStorage.getData('ngStorage-token')) {
-      headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));  
+      headers = headers.set('Authorization', 'Bearer ' + this.localStorage.getData('ngStorage-token'));
     }
-    if(this.localStorage.getData('IMEI')){
+    if (this.localStorage.getData('IMEI')) {
       headers = headers.set('imei', this.localStorage.getData('IMEI'));
     }
     if (optHeaders) {
@@ -126,29 +126,30 @@ export class Api {
   }
 
   handleError = (errorResponse: HttpErrorResponse) => {
-    switch (errorResponse.status) {
-      case 400:
-        if(errorResponse.url === this.url + '/Token')
-          this.showError('Access Denied');
-        break;
-      case 401:
-        if(errorResponse.url != this.url + '/Image'){
-          this.showError('Session Expired');
-          this.localStorage.clearData();
-        }
-        break;      
-      case 0:
-        this.showError('You don\'t seem to have an active internet connection. Please connect and try again.' )
-        break;
-    
-      default:
-        this.showError(errorResponse.error.message || 'Somthing went wrong');
-        break;
-    }
+    if (errorResponse.status)
+      switch (errorResponse.status) {
+        case 400:
+          if (errorResponse.url === this.url + '/Token')
+            this.showError('Access Denied');
+          break;
+        case 401:
+          if (errorResponse.url != this.url + '/ProjectLogo') {
+            this.showError('Session Expired');
+            this.localStorage.clearData();
+          }
+          break;
+        case 0:
+          this.showError('You don\'t seem to have an active internet connection. Please connect and try again.')
+          break;
+
+        default:
+          this.showError(errorResponse.error.message || 'Somthing went wrong');
+          break;
+      }
     return Observable.throw(errorResponse);
   }
 
-  showError(message){
+  showError(message) {
     const alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: message,

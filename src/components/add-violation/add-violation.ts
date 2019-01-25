@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, AlertController, Alert, App } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
@@ -54,26 +54,28 @@ export class AddViolationComponent {
               public alertCtrl: AlertController,
               public toastService:ToastService,
               public fb:FormBuilder,
-              public httpClient: HttpClient
+              public httpClient: HttpClient,
+              public appCtrl: App
   ) {
     this.toastService.showLoader('Loading Violations...')
     this.violent.getViolents().subscribe(response => {
       this.toastService.hideLoader();
       this.violentsList = response;
-      localForage.setItem('TrafficVioList', response).then(function () {
+      localForage.setItem('TrafficVioList', response).then(() => {
         return localForage.getItem('TrafficVioList');
-      }).then(function (value) {
+      }).then((value) => {
         console.log(value);
         // we got our value
-      }).catch(function (err) {
+      }).catch((err) => {
         console.log(err);
         // we got an error
       });
     }, error => {
-      localForage.getItem('TrafficVioList').then(function (value) {
+      localForage.getItem('TrafficVioList').then( (value) => {
         console.log(value);
+        this.violentsList = value;
         // we got our value
-      }).catch(function (err) {
+      }).catch((err) => {
         console.log(err);
         // we got an error
       });
@@ -174,6 +176,7 @@ export class AddViolationComponent {
       formData.append('file',file);
     });
     formData.append('VehicleImageFile','abstreg');
+
     this.violent.generateChallan(formData).subscribe((response: any) => {
       this.toastService.hideLoader();
       this.challanForm.value['ChallanId'] = response.ChallanId;
@@ -182,14 +185,65 @@ export class AddViolationComponent {
       this.challanForm.value['violations'] = this.violations;
       this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
       this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
+      this.challanForm.value['PaymentStatus'] = "P";
       this.challanForm.value['DutyOfficer'] = response.DutyOfficer;
       this.navCtrl.push(PrintReceiptPage, {data: this.challanForm.value, currentViolents: this.currentViolents});
       // const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
       // violenterModal.present();
       // this.navCtrl.popToRoot();
     },(error: any) => {
+      const challanForm = this.challanForm.value;
+      this.challanForm.value['ChallanId'] = null;
+      let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+      this.challanForm.value['ChallanDate'] = (new Date(<any>new Date() - tzoffset)).toISOString().slice(0, -5) + "Z";
+      this.challanForm.value['amount'] = this.totalCharge;
+      this.challanForm.value['violations'] = this.violations;
+      this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
+      this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
+      this.challanForm.value['PaymentStatus'] = "";
+      this.challanForm.value['DutyOfficer'] = "";
       this.toastService.hideLoader();
-    })
+      this.saveOffline(challanForm, this.challanForm.value);
+    });
+  }
+
+  saveOffline = (formData, jsonData) => {
+    const alert: Alert = this.alertCtrl.create({
+      title: 'You don\'t seem to have an active internet connection.',
+      message: 'Do you want to save offline ?',
+      buttons: [{
+        text: 'No',
+        role: 'cancel'
+      }, {
+        text: 'Yes',
+        handler: () => {
+          // const overlayView = this.appCtrl._appRoot._overlayPortal._views[0];
+          // if (overlayView && overlayView.dismiss) {
+          //   overlayView.dismiss();
+          // }
+          localForage.getItem('VehicleChallan').then((value: any[]) => {
+            debugger;
+            if(value){
+              value.push(formData);
+              localForage.setItem('VehicleChallan', value).then(() => {
+                return localForage.getItem('VehicleChallan');
+              });
+            }else {
+              localForage.setItem('VehicleChallan', [formData]).then(() => {
+                return localForage.getItem('VehicleChallan');
+              });
+            }
+          }).then(response => {
+            this.toastService.showToast("Data saved offline.");
+            this.navCtrl.push(PrintReceiptPage, {data: jsonData, currentViolents: this.currentViolents});
+            console.log(response);
+          })
+          
+        }
+      }]
+
+    });
+    alert.present();
   }
 
   seize(){

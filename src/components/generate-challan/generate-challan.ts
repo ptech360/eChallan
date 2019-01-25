@@ -59,10 +59,10 @@ export class GenerateChallanComponent {
           }, {
             text: 'Yes',
             handler: () => {
-              const overlayView = this.appCtrl._appRoot._overlayPortal._views[0];
-              if (overlayView && overlayView.dismiss) {
-                overlayView.dismiss();
-              }
+              // const overlayView = this.appCtrl._appRoot._overlayPortal._views[0];
+              // if (overlayView && overlayView.dismiss) {
+              //   overlayView.dismiss();
+              // }
               this.addViolation();
             }
           }]
