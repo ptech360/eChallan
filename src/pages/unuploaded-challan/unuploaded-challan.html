@@ -32,7 +32,7 @@
               <small>{{challan.ChallanDate | date}}</small><br>
               <small>₹ {{challan.amount}}</small><br>
             </ion-note><br>
-            <button ion-button outline icon-end small>
+            <button ion-button outline icon-end small (click)="generateChallan(challan)">
               Upload
               <ion-icon name='cloud-upload' is-active="false"></ion-icon>
             </button>

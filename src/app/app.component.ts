@@ -38,6 +38,7 @@ export class MyApp extends Activity {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
+      // localForage.clear();
       user.getAppInfo().subscribe(
         (response: any) => {
           statusBar.styleDefault();

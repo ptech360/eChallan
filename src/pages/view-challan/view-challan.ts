@@ -18,7 +18,7 @@ import * as localForage from "localforage";
 })
 export class ViewChallanPage {
   date: any = {
-    fromDate: this.getMorningTime(),
+    fromDate: this.getFromTime(),
     toDate: this.getCorrectISOStringDate()
   };
   challans: any = [];
@@ -27,6 +27,7 @@ export class ViewChallanPage {
               public navParams: NavParams, 
               public violenterService: ViolentsProvider,
               public toastService: ToastService) {
+                this.getChallan();
   }
 
   ionViewDidLoad() {
@@ -71,11 +72,13 @@ export class ViewChallanPage {
     return (new Date(today - tzoffset)).toISOString().slice(0, -5) + "Z";
   }
 
-  getMorningTime(){
+  getFromTime(){
     let today: any = new Date();
-    today.setHours(5);
-    today.setMinutes(0);
-    today.setSeconds(0);
+    today.setHours(today.getHours());
+    today.setDate(today.getDate() -1);
+    // today.setHours(5);
+    // today.setMinutes(0);
+    // today.setSeconds(0);
     let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     return (new Date(today - tzoffset)).toISOString().slice(0, -5) + "Z";
   }

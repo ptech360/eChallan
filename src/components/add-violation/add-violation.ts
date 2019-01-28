@@ -38,12 +38,13 @@ export class AddViolationComponent {
     destinationType    : this.camera.DestinationType.DATA_URL,
     encodingType       : this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
-    correctOrientation: true
+    correctOrientation: true,
+    cameraDirection:0
   };
   imageUrls: any = [];
   files: any = [];
-  geoLocation: string = "";
-  locationName: string = "";
+  geoLocation: string = "Gurgoan";
+  locationName: string = "Gurgoan";
 
 
   constructor(public violent:ViolentsProvider,
@@ -175,7 +176,7 @@ export class AddViolationComponent {
     this.files.forEach((file:any) => {
       formData.append('file',file);
     });
-    formData.append('VehicleImageFile','abstreg');
+    // formData.append('VehicleImageFile','');
 
     this.violent.generateChallan(formData).subscribe((response: any) => {
       this.toastService.hideLoader();
@@ -192,10 +193,10 @@ export class AddViolationComponent {
       // violenterModal.present();
       // this.navCtrl.popToRoot();
     },(error: any) => {
-      const challanForm = this.challanForm.value;
       this.challanForm.value['ChallanId'] = null;
       let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
       this.challanForm.value['ChallanDate'] = (new Date(<any>new Date() - tzoffset)).toISOString().slice(0, -5) + "Z";
+      const challanForm = this.challanForm.value;
       this.challanForm.value['amount'] = this.totalCharge;
       this.challanForm.value['violations'] = this.violations;
       this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
@@ -203,6 +204,7 @@ export class AddViolationComponent {
       this.challanForm.value['PaymentStatus'] = "";
       this.challanForm.value['DutyOfficer'] = "";
       this.toastService.hideLoader();
+      challanForm['files'] = this.files;
       this.saveOffline(challanForm, this.challanForm.value);
     });
   }
@@ -237,8 +239,7 @@ export class AddViolationComponent {
             this.toastService.showToast("Data saved offline.");
             this.navCtrl.push(PrintReceiptPage, {data: jsonData, currentViolents: this.currentViolents});
             console.log(response);
-          })
-          
+          });          
         }
       }]
 
@@ -256,7 +257,6 @@ export class AddViolationComponent {
       const fileName:string = 'img'+new Date().toISOString().substring(0,10)+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.jpeg'; 
       this.files.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess,fileName));
       console.log(this.files);
-      
     },(onError)=>{
       alert(onError);
     });
@@ -276,7 +276,7 @@ export class AddViolationComponent {
     this.files.splice(index,1);
   }
 
-  showError(message){
+  showError(message) {
     const alert = this.alertCtrl.create({
       title: 'Repeated Violation(s)',
       subTitle: message,

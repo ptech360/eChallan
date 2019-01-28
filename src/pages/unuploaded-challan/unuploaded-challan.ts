@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as localForage from 'localforage';
+import { ToastService } from '../../providers/toast/toast.service';
+import { ViolentsProvider } from '../../providers/providers';
 /**
  * Generated class for the UnuploadedChallanPage page.
  *
@@ -16,7 +18,7 @@ import * as localForage from 'localforage';
 export class UnuploadedChallanPage {
   challans: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastService: ToastService, public violent: ViolentsProvider) {
   }
 
   ionViewDidLoad() {
@@ -26,6 +28,28 @@ export class UnuploadedChallanPage {
         this.challans = challans;
       }
     })
+  }
+
+  generateChallan(challan:any){
+    this.toastService.showLoader();
+    const formData = new FormData();
+    challan.files.forEach((file:any) => {
+      formData.append('file',file);
+    });
+    delete challan.files;
+    Object.keys(challan).forEach(element => {
+      formData.append(element,challan[element]);
+    });
+    formData.append('VehicleImageFile','abstreg');
+    this.violent.generateChallan(formData).subscribe((response: any) => {
+      this.toastService.hideLoader();
+      this.toastService.showToast("Data Synchronized");
+      this.challans.splice(this.challans.indexOf(challan),1);
+      localForage.setItem('VehicleChallan',this.challans);
+    }, (error: any) =>{
+      this.toastService.hideLoader();
+      
+    });
   }
 
 }
