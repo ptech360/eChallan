@@ -22,28 +22,28 @@ export class HomePage {
   }
 
   open(feature:any){
-    if(feature.name==="Logout"){
-      let alert = this.alertCtrl.create({
-        title: 'Logout',
-        subTitle: 'Are you sure you want to log out from the application ?',
-        buttons: [
-        {
-          text: 'No',
-          role: 'cancel'
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            this.storage.clearData();
-            this.storage.isToken.next(false);
-            this.navCtrl.push(feature.component);
-          }
-        }]
-      });
-      alert.present();
-    } else {
       this.navCtrl.push(feature.component);
-    }    
+  }
+
+  logout(){
+    let alert = this.alertCtrl.create({
+      title: 'Logout',
+      subTitle: 'Are you sure you want to log out from the application ?',
+      buttons: [
+      {
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text: 'Yes',
+        handler: () => {
+          this.storage.clearData();
+          this.storage.isToken.next(false);
+          this.navCtrl.push('LoginComponent');
+        }
+      }]
+    });
+    alert.present();
   }
 
 }

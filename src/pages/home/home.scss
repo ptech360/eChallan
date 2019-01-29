@@ -1,4 +1,14 @@
 page-home {
+    ion-header{
+        .logout-btn{
+            position: absolute;
+            top: 0;
+            right: 15px;
+            height: 44px;
+            margin: 0;
+            padding: 0;
+        }
+    }
     .home{
         max-width: 400px;
         ion-row{
@@ -24,8 +34,6 @@ page-home {
          padding: 0;
 
          .box{
-            //  background:#ebf9f8;
-            background: $shadow-color;
             padding: 20px 0;
             border-radius: 8px;
             box-shadow: 0px 0 10px 3px #33333321;

@@ -35,12 +35,12 @@ export class FeaturesProvider {
       name: 'Upload Challans',
       icon: 'cloud-upload',
       component: 'UnuploadedChallanPage'
-    },
-    {
-      name: 'Logout',
-      icon: 'log-out',
-      component: LoginComponent
     }
+    // {
+    //   name: 'Logout',
+    //   icon: 'log-out',
+    //   component: LoginComponent
+    // }
   ]
   constructor(public api: Api) {
     console.log('Hello FeaturesProvider Provider');
