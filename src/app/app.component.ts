@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, Events, AlertController } from 'ionic-angular';
+import { Platform, Events, AlertController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import * as localForage from 'localforage';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginComponent } from '../components/login/login';
 import { User } from '../providers/user/user';
 import * as KMSWIPE from 'cordova-plugin-k-mswipe';
+import { Activity } from './app.activity';
+import { NetworkProvider } from '../providers/network/network';
+import { ToastService } from '../providers/toast/toast.service';
 declare const KMswipe: any;
 
 declare let jQuery: any;
@@ -16,20 +20,25 @@ declare let window: any;
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp extends Activity {
   rootPage: any;
 
   constructor(
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
+    public appCtrl: App,
+    public networkProvider: NetworkProvider,
+    public toastProvider: ToastService,
     public events: Events,
     public user: User,
     public alertCtrl: AlertController
   ) {
+    super(events, appCtrl, user, networkProvider, toastProvider);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
+      // localForage.clear();
       user.getAppInfo().subscribe(
         (response: any) => {
           statusBar.styleDefault();
@@ -48,6 +57,12 @@ export class MyApp {
             alert.present();
             alert.onDidDismiss(() => {
               platform.exitApp();
+            });
+          } else if(error.status == 0){
+            localForage.getItem('ProjectLogo').then((value) => {
+              this.intializeApp();
+            }).catch((err) => {
+              // platform.exitApp();
             });
           }
         }

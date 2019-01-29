@@ -28,7 +28,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="challans,length">
+  <ion-list *ngIf="challans.length">
     <ion-card *ngFor="let challan of challans;let i = index;" (click)="getChallanDetail(challan)">
       <ion-grid>
         <ion-row>
