@@ -25,23 +25,23 @@ page-home {
 
          .box{
             //  background:#ebf9f8;
-            background: rgba(0, 121, 107, 0.05);
+            background: $shadow-color;
             padding: 20px 0;
             border-radius: 8px;
             box-shadow: 0px 0 10px 3px #33333321;
 
              .icon{
                  font-size: 80px;
-                 color: #00796b;
+                 color: color($colors,primary) ;
              }
              .label-title{
-                color: #00796b;
+                color: color($colors,primary) ;
                 padding-top: 15px;
              }
              &:hover{
-                 background: #00796b;
+                 background: color($colors,primary) ;
                 .icon{
-                    color: white;
+                    color: color($colors,light);
                 }
                 .label-title{
                    color: white;
