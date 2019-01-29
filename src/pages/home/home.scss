@@ -2,13 +2,15 @@ page-home {
     ion-header{
         .logout-btn{
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 15px;
-            height: auto;
+            height: 30px;
             margin: 0;
             padding: 0;
             color: color($colors,light);
-            font-size: 25px;
+            box-shadow: none;
+            border: none;
+            outline: none;
         }
     }
     .home{
@@ -36,10 +38,10 @@ page-home {
          padding: 0;
 
          .box{
-            background: #f8fffe;
+            background: #ffffff;
             padding: 20px 0;
             border-radius: 8px;
-            box-shadow: 0px 0 10px 3px #33333321;
+            box-shadow: 0px 3px 7px 3px #a0a0a0;
 
              .icon{
                  font-size: 80px;

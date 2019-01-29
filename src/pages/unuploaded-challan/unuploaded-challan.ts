@@ -40,7 +40,6 @@ export class UnuploadedChallanPage {
     Object.keys(challan).forEach(element => {
       formData.append(element,challan[element]);
     });
-    formData.append('VehicleImageFile','abstreg');
     this.violent.generateChallan(formData).subscribe((response: any) => {
       this.toastService.hideLoader();
       this.toastService.showToast("Data Synchronized");

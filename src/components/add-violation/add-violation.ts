@@ -39,7 +39,7 @@ export class AddViolationComponent {
     encodingType       : this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true,
-    cameraDirection:0
+    cameraDirection: 0
   };
   imageUrls: any = [];
   files: any = [];
@@ -95,7 +95,7 @@ export class AddViolationComponent {
   ionViewDidLoad() {
     this.violenter = this.navParam.get('data');
     this.geolocation.getCurrentPosition().then(pos => {
-      this.geoLocation =  'lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude;
+      this.geoLocation =  'lat: ' + pos.coords.latitude.toFixed(6); + ', lon: ' + pos.coords.longitude.toFixed(6);;
       setTimeout(() => {
         this.getGeoLoacation(pos.coords.latitude,pos.coords.longitude);        
       }, 2000);

@@ -11,6 +11,7 @@ import * as KMSWIPE from 'cordova-plugin-k-mswipe';
 import { Activity } from './app.activity';
 import { NetworkProvider } from '../providers/network/network';
 import { ToastService } from '../providers/toast/toast.service';
+import { ViolentsProvider } from '../providers/violents/violents';
 declare const KMswipe: any;
 
 declare let jQuery: any;
@@ -32,9 +33,10 @@ export class MyApp extends Activity {
     public toastProvider: ToastService,
     public events: Events,
     public user: User,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController, 
+    public violent: ViolentsProvider
   ) {
-    super(events, appCtrl, user, networkProvider, toastProvider);
+    super(events, appCtrl, user, networkProvider, toastProvider, violent);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
