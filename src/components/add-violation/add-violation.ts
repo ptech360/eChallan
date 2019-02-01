@@ -8,7 +8,7 @@ import * as localForage from "localforage";
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { ToastService } from '../../providers/toast/toast.service';
 import { PrintReceiptPage } from '../../pages/print-receipt/print-receipt';
 
@@ -36,7 +36,7 @@ export class AddViolationComponent {
   cameraOptions: CameraOptions = {
     sourceType         : this.camera.PictureSourceType.CAMERA,
     destinationType    : this.camera.DestinationType.DATA_URL,
-    encodingType       : this.camera.EncodingType.JPEG,
+    encodingType       : this.camera.EncodingType.PNG,
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true,
     cameraDirection: 0
@@ -94,6 +94,7 @@ export class AddViolationComponent {
 
   ionViewDidLoad() {
     this.violenter = this.navParam.get('data');
+    this.challanForm = this.getChallanForm();
     this.geolocation.getCurrentPosition().then(pos => {
       this.geoLocation =  'lat: ' + pos.coords.latitude.toFixed(6); + ', lon: ' + pos.coords.longitude.toFixed(6);;
       setTimeout(() => {
@@ -105,10 +106,10 @@ export class AddViolationComponent {
   }
 
   getChallanForm(){
-    this.currentViolents.forEach(element => {
-      this.violationIds.push(element.ViolationId);
-      this.violations.push(element.ViolationName);
-    });
+    // this.currentViolents.forEach(element => {
+    //   this.violationIds.push(element.ViolationId);
+    //   this.violations.push(element.ViolationName);
+    // });
     return this.fb.group({
       BodyType: [''],
       ChassisNo: [''],
@@ -122,12 +123,13 @@ export class AddViolationComponent {
       OwnerAddress: [''],
       RegistrationNo: [''],
       VehicleNo: [''],
-      ViolationId:[this.violationIds.toString()],
+      ViolationId:[''],
       UserName: ["sa"],
       LocationName: [this.locationName],
       GeoLocation: [this.geoLocation],
       PaymentTypeName: [""],
-      PaymentId : [null] 
+      PaymentId : [null],
+      VehicleImageFile: this.fb.array([])
     });
   }
 
@@ -165,17 +167,30 @@ export class AddViolationComponent {
   }
 
   generateChallan(){
-    this.challanForm = this.getChallanForm();
+    // this.challanForm = this.getChallanForm();
+    this.violationIds = [];
+    this.violations = [];
+    this.currentViolents.forEach(element => {
+      this.violationIds.push(element.ViolationId);
+      this.violations.push(element.ViolationName);
+    });
     this.challanForm.patchValue(this.violenter);
+    this.challanForm.controls['ViolationId'].patchValue(this.violationIds.toString());
     this.challanForm.controls['VehicleNo'].patchValue(this.violenter.VehicleNo);
     this.toastService.showLoader();
     const formData = new FormData();
-    Object.keys(this.challanForm.value).forEach(element => {
-      formData.append(element,this.challanForm.value[element]);
+    Object.keys(this.challanForm.value).forEach(key => {
+      if (this.challanForm.value[key] instanceof Array) {
+        this.challanForm.value[key].forEach((element,index) => {
+          formData.append(`${key}[${index}]`, element);
+        });
+      } else {
+        formData.append(key,this.challanForm.value[key]);
+      }
     });
-    this.files.forEach((file:any) => {
-      formData.append('file',file);
-    });
+    // this.files.forEach((file:any) => {
+    //   formData.append('file',file);
+    // });
     // formData.append('VehicleImageFile','');
 
     this.violent.generateChallan(formData).subscribe((response: any) => {
@@ -204,7 +219,7 @@ export class AddViolationComponent {
       this.challanForm.value['PaymentStatus'] = "";
       this.challanForm.value['DutyOfficer'] = "";
       this.toastService.hideLoader();
-      challanForm['files'] = this.files;
+      // challanForm['files'] = this.files;
       this.saveOffline(challanForm, this.challanForm.value);
     });
   }
@@ -253,27 +268,32 @@ export class AddViolationComponent {
 
   private capture(){
     this.camera.getPicture(this.cameraOptions).then((onSuccess)=>{
-      this.imageUrls.push('data:image/jpeg;base64,' + onSuccess);
-      const fileName:string = 'img'+new Date().toISOString().substring(0,10)+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.jpeg'; 
-      this.files.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess,fileName));
-      console.log(this.files);
+      debugger
+      this.imageUrls.push('data:image/png;base64,' + onSuccess);
+      const vehicleImageFiles = <FormArray>this.challanForm.controls['VehicleImageFile'];
+      vehicleImageFiles.push(new FormControl(onSuccess));
+      // const fileName:string = 'img'+new Date().toISOString().substring(0,10)+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.jpeg'; 
+      // this.files.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess,fileName));
+      // console.log(this.files);
     },(onError)=>{
       alert(onError);
     });
   }
 
-  dataURLtoFile(dataurl, filename) {
-    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {type:mime});
-  }
+  // dataURLtoFile(dataurl, filename) {
+  //   var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+  //       bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  //   while(n--){
+  //       u8arr[n] = bstr.charCodeAt(n);
+  //   }
+  //   return new File([u8arr], filename, {type:mime});
+  // }
 
   delImage(index:number){
+    const vehicleImageFiles = <FormArray>this.challanForm.controls['VehicleImageFile'];
     this.imageUrls.splice(index,1);
-    this.files.splice(index,1);
+    vehicleImageFiles.removeAt(index);
+    // this.files.splice(index,1);
   }
 
   showError(message) {

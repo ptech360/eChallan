@@ -51,23 +51,25 @@ export class Activity {
   public online() {
     this.toastProvider.showToast('Back Online', 'top', true);
     localForage.getItem('VehicleChallan').then((challans: any[]) => {
+      console.log(challans);
+      
+      const vahanChallans = new FormData();
       if(challans){
-        challans.forEach(challan => {
-          const formData = new FormData();
-          challan.files.forEach((file:any) => {
-            formData.append('file',file);
+        challans.forEach((challan, indx) => {
+          Object.keys(challan).forEach(key => {
+            if (challan[key] instanceof Array) {
+              challan[key].forEach((element,index) => {
+                vahanChallans.append(`vahanChallans[${indx}].${key}[${index}]`, element);
+              });
+            } else {
+              vahanChallans.append(`vahanChallans[${indx}].${key}`,challan[key]);
+            }
           });
-          delete challan.files;
-          Object.keys(challan).forEach(element => {
-            formData.append(element,challan[element]);
-          });
-          this.violent.generateChallan(formData).subscribe((response: any) => {
-            challans.splice(challans.indexOf(challan),1);
-            localForage.setItem('VehicleChallan',challans);
-          }, (error: any) =>{
-            
-            
-          });
+        });
+        this.violent.generateOfflineChallan(vahanChallans).subscribe((response: any) => {
+          localForage.removeItem('VehicleChallan');
+        }, (error: any) =>{            
+          
         });
       }
     })

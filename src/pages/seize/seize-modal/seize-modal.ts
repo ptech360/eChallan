@@ -16,7 +16,7 @@ export class SeizeModal {
     cameraOptions: CameraOptions = {
         sourceType: this.camera.PictureSourceType.CAMERA,
         destinationType: this.camera.DestinationType.DATA_URL,
-        encodingType: this.camera.EncodingType.JPEG,
+        encodingType: this.camera.EncodingType.PNG,
         mediaType: this.camera.MediaType.PICTURE,
         correctOrientation: true
     };
@@ -71,7 +71,10 @@ export class SeizeModal {
         formData.append('ChallanId', this.challanObject.ChallanId);
         formData.append('VehicleTypId', this.vehicleTypeId);
         formData.append('VehicleName', this.vehicleName);
-        formData.append('VehicleImage', this.vehicleImages);
+        this.vehicleImages.forEach((element, index) => {
+            formData.append(`VehicleImage[${index}]`, element);
+        });
+        // formData.append('VehicleImage', this.vehicleImages);
         this.toastService.showLoader();
 
         this.violentService.vehicleSeize(formData).subscribe(response => {
@@ -92,7 +95,10 @@ export class SeizeModal {
         formData.append('ChallanId', this.challanObject.ChallanId);
         formData.append('DocsId', this.docsIds);
         formData.append('DocsInputId', this.docsInputIds);
-        formData.append('DocsImage', this.documentImages);
+        this.documentImages.forEach((element, index) => {
+            formData.append(`DocsImage[${index}]`, element);
+        });
+        // formData.append('DocsImage', this.documentImages);
         this.toastService.showLoader();
         
         this.violentService.documentSeize(formData).subscribe(response => {
@@ -111,9 +117,10 @@ export class SeizeModal {
 
     private captureVehicle() {
         this.camera.getPicture(this.cameraOptions).then((onSuccess) => {
-            this.vehicleUrls.push('data:image/jpeg;base64,' + onSuccess);
-            const fileName: string = 'vehicle-img' + new Date().toISOString().substring(0, 10) + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.jpeg';
-            this.vehicleImages.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess, fileName));
+            this.vehicleUrls.push('data:image/png;base64,' + onSuccess);
+            this.vehicleImages.push(onSuccess);
+            // const fileName: string = 'vehicle-img' + new Date().toISOString().substring(0, 10) + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.jpeg';
+            // this.vehicleImages.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess, fileName));
         }, (error) => {
 
         });
@@ -121,22 +128,23 @@ export class SeizeModal {
 
     private captureDocument() {
         this.camera.getPicture(this.cameraOptions).then((onSuccess) => {
-            this.documentUrls.push('data:image/jpeg;base64,' + onSuccess);
-            const fileName: string = 'doc-img' + new Date().toISOString().substring(0, 10) + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.jpeg';
-            this.documentImages.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess, fileName));
+            this.documentUrls.push('data:image/png;base64,' + onSuccess);
+            this.documentImages.push(onSuccess);            
+            // const fileName: string = 'doc-img' + new Date().toISOString().substring(0, 10) + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.jpeg';
+            // this.documentImages.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess, fileName));
         }, (error) => {
 
         });
     }
 
-    dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, { type: mime });
-    }
+    // dataURLtoFile(dataurl, filename) {
+    //     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+    //         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    //     while (n--) {
+    //         u8arr[n] = bstr.charCodeAt(n);
+    //     }
+    //     return new File([u8arr], filename, { type: mime });
+    // }
 
     delDocImage(index: number) {
         this.documentUrls.splice(index, 1);

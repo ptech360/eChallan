@@ -46,6 +46,10 @@ export class ViolentsProvider {
     return this.api.post('VehicleChallan',data);
   }
 
+  generateOfflineChallan(data: any){
+    return this.api.post('OfflineChallan',data);
+  }
+
   challanPayment(data:any){
     return this.api.put('ChallanPayment',data);
   }
