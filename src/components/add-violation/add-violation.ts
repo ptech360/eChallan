@@ -8,9 +8,10 @@ import * as localForage from "localforage";
 import { ViolentsProvider } from '../../providers/violents/violents';
 import { PaymentGatewayPage } from '../../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../../pages/seize/seize';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { ToastService } from '../../providers/toast/toast.service';
 import { PrintReceiptPage } from '../../pages/print-receipt/print-receipt';
+import { StorageService } from '../../providers/providers';
 
 /**
  * Generated class for the AddViolationComponent component.
@@ -34,17 +35,20 @@ export class AddViolationComponent {
   loading: Loading;
   challanForm:FormGroup
   cameraOptions: CameraOptions = {
+    targetWidth: 600,
+    targetHeight: 600,
     sourceType         : this.camera.PictureSourceType.CAMERA,
     destinationType    : this.camera.DestinationType.DATA_URL,
     encodingType       : this.camera.EncodingType.PNG,
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true,
-    cameraDirection: 0
+    cameraDirection: 0,
+    quality: 10
   };
   imageUrls: any = [];
   files: any = [];
-  geoLocation: string = "Gurgoan";
-  locationName: string = "Gurgoan";
+  geoLocation: string = "";
+  locationName: string = "";
 
 
   constructor(public violent:ViolentsProvider,
@@ -56,7 +60,8 @@ export class AddViolationComponent {
               public toastService:ToastService,
               public fb:FormBuilder,
               public httpClient: HttpClient,
-              public appCtrl: App
+              public appCtrl: App,
+              public localStorage: StorageService 
   ) {
     this.toastService.showLoader('Loading Violations...')
     this.violent.getViolents().subscribe(response => {
@@ -87,6 +92,7 @@ export class AddViolationComponent {
   getGeoLoacation(latitude, longitude){
     this.httpClient.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&key=AIzaSyC0fj5LBatMHxv2d-o6OTni7V1voRbQiKM').subscribe((response:any) => {
       this.locationName = response.results ? response.results[0].formatted_address : 'Not Locate';
+      this.challanForm.controls['LocationName'].patchValue(this.locationName);
       console.log(this.locationName);
       
     })
@@ -95,8 +101,12 @@ export class AddViolationComponent {
   ionViewDidLoad() {
     this.violenter = this.navParam.get('data');
     this.challanForm = this.getChallanForm();
-    this.geolocation.getCurrentPosition().then(pos => {
-      this.geoLocation =  'lat: ' + pos.coords.latitude.toFixed(6); + ', lon: ' + pos.coords.longitude.toFixed(6);;
+    debugger
+    this.geolocation.getCurrentPosition({timeout:60000}).then(pos => {
+      debugger
+      console.log(pos);
+      this.geoLocation =  'lat: ' + pos.coords.latitude.toFixed(6) + ', lon: ' + pos.coords.longitude.toFixed(6);
+      this.challanForm.controls['GeoLocation'].patchValue(this.geoLocation);
       setTimeout(() => {
         this.getGeoLoacation(pos.coords.latitude,pos.coords.longitude);        
       }, 2000);
@@ -115,20 +125,20 @@ export class AddViolationComponent {
       ChassisNo: [''],
       Colour: [''],
       EngNo: [''],
-      FatherName: [''],
+      VehicleNo: [''],
       MakerModel: [''],
       DlNo:[''],
-      MobileNumber: [''],
       OwnerName: [''],
+      FatherName: [''],
       OwnerAddress: [''],
-      RegistrationNo: [''],
-      VehicleNo: [''],
+      // RegistrationNo: [''],
+      MobileNumber: [''],
       ViolationId:[''],
-      UserName: ["sa"],
-      LocationName: [this.locationName],
-      GeoLocation: [this.geoLocation],
-      PaymentTypeName: [""],
-      PaymentId : [null],
+      UserName: [this.localStorage.getData('user-detail').Username],
+      LocationName: ['Varanasi'],
+      GeoLocation: ['Varanasi'],
+      // PaymentTypeName: [""],
+      // PaymentId : [''],
       VehicleImageFile: this.fb.array([])
     });
   }
@@ -177,6 +187,9 @@ export class AddViolationComponent {
     this.challanForm.patchValue(this.violenter);
     this.challanForm.controls['ViolationId'].patchValue(this.violationIds.toString());
     this.challanForm.controls['VehicleNo'].patchValue(this.violenter.VehicleNo);
+    let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    const date:any = (new Date(<any>new Date() - tzoffset)).toISOString().slice(0, -5) + "Z";
+    this.challanForm.value['ChallanDate'] = date.slice(0,-1).slice(0,10) + ' ' +  date.slice(0,-1).slice(11);
     this.toastService.showLoader();
     const formData = new FormData();
     Object.keys(this.challanForm.value).forEach(key => {
@@ -192,7 +205,6 @@ export class AddViolationComponent {
     //   formData.append('file',file);
     // });
     // formData.append('VehicleImageFile','');
-
     this.violent.generateChallan(formData).subscribe((response: any) => {
       this.toastService.hideLoader();
       this.challanForm.value['ChallanId'] = response.ChallanId;
@@ -208,23 +220,32 @@ export class AddViolationComponent {
       // violenterModal.present();
       // this.navCtrl.popToRoot();
     },(error: any) => {
-      this.challanForm.value['ChallanId'] = null;
-      let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-      this.challanForm.value['ChallanDate'] = (new Date(<any>new Date() - tzoffset)).toISOString().slice(0, -5) + "Z";
-      const challanForm = this.challanForm.value;
-      this.challanForm.value['amount'] = this.totalCharge;
-      this.challanForm.value['violations'] = this.violations;
-      this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
-      this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
-      this.challanForm.value['PaymentStatus'] = "";
-      this.challanForm.value['DutyOfficer'] = "";
+      // this.challanForm.value['ChallanId'] = null;
       this.toastService.hideLoader();
-      // challanForm['files'] = this.files;
-      this.saveOffline(challanForm, this.challanForm.value);
+      if(error.status == 0){
+        let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        const date:any = (new Date(<any>new Date() - tzoffset)).toISOString().slice(0, -5) + "Z";
+        this.challanForm.value['ChallanDate'] = date.slice(0,-1).slice(0,10) + ' ' +  date.slice(0,-1).slice(11);
+        const challanForm = Object.assign({}, this.challanForm.value);  
+        this.challanForm.value['amount'] = this.totalCharge;
+        this.challanForm.value['violations'] = this.violations;
+        this.challanForm.value['VehicleNo'] = this.violenter.VehicleNo;
+        this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
+        this.challanForm.value['PaymentStatus'] = "P";
+        this.challanForm.value['DutyOfficer'] = "";
+        // this.toastService.hideLoader();
+        // challanForm['files'] = this.files;
+        this.saveOffline(challanForm, this.challanForm.value);
+      }
     });
   }
 
   saveOffline = (formData, jsonData) => {
+    delete formData['amount'];
+    delete formData['violations'];
+    delete formData['VehicleClass'];
+    delete formData['PaymentStatus'];
+    delete formData['DutyOfficer'];
     const alert: Alert = this.alertCtrl.create({
       title: 'You don\'t seem to have an active internet connection.',
       message: 'Do you want to save offline ?',
@@ -239,7 +260,6 @@ export class AddViolationComponent {
           //   overlayView.dismiss();
           // }
           localForage.getItem('VehicleChallan').then((value: any[]) => {
-            debugger;
             if(value){
               value.push(formData);
               localForage.setItem('VehicleChallan', value).then(() => {
@@ -268,7 +288,6 @@ export class AddViolationComponent {
 
   private capture(){
     this.camera.getPicture(this.cameraOptions).then((onSuccess)=>{
-      debugger
       this.imageUrls.push('data:image/png;base64,' + onSuccess);
       const vehicleImageFiles = <FormArray>this.challanForm.controls['VehicleImageFile'];
       vehicleImageFiles.push(new FormControl(onSuccess));

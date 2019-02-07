@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { AddViolationComponent } from '../add-violation/add-violation';
 /**
  * Generated class for the VehicleDetailComponent component.
@@ -28,17 +28,16 @@ export class VehicleDetailComponent {
         ChassisNo: ['NA'],
         Colour: ['NA'],
         EngNo: ['NA'],
-        FatherName: ['NA'],
+        FatherName: ['NA',[Validators.required]],
         MakerModel: ['NA'],
-        MobileNumber: ['NA'],
-        OwnerName: ['NA'],
+        MobileNumber: ['NA',[Validators.required]],
+        OwnerName: ['NA',[Validators.required]],
         PastViolationCount: [0],
         PastViolations: [],
-        OwnerAddress: ['NA'],
-        // RegistrationNo: ['NA'],
+        OwnerAddress: ['NA',[Validators.required]],
         RegnDate: ['NA'],
         VehicleClass: ['NA'],
-        VehicleNo:['NA']
+        VehicleNo:['NA',[Validators.required]]
       });
   }
 

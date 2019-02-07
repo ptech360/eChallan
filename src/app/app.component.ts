@@ -7,7 +7,6 @@ import * as localForage from 'localforage';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginComponent } from '../components/login/login';
 import { User } from '../providers/user/user';
-import * as KMSWIPE from 'cordova-plugin-k-mswipe';
 import { Activity } from './app.activity';
 import { NetworkProvider } from '../providers/network/network';
 import { ToastService } from '../providers/toast/toast.service';

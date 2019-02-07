@@ -133,7 +133,8 @@
         <tr>
           <th style="vertical-align: baseline;">Payment</th>
           <td *ngIf="printScriptObject.DocsSeizeStatus || printScriptObject.VehicleSeizeStatus">: Not Done</td>
-          <td *ngIf="!printScriptObject.DocsSeizeStatus && !printScriptObject.VehicleSeizeStatus">: {{printScriptObject.PaymentId ? 'Done' : 'Pending'}}</td>
+          <td *ngIf="!printScriptObject.DocsSeizeStatus && !printScriptObject.VehicleSeizeStatus && printScriptObject.PaymentStatus==='P'">: {{printScriptObject.PaymentId ? 'Done' : 'Pending'}}</td>
+          <td *ngIf="printScriptObject.PaymentStatus==='C'">: Received Cash</td>
         </tr>
         <tr>
           <td colspan="2">
@@ -151,7 +152,7 @@
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
           <th style="vertical-align: baseline;">Seized Vehicle</th>
-          <td>{{printScriptObject['VehicleNo']}}</td>
+          <td>: {{printScriptObject['VehicleNo']}}</td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
           <td colspan="2">
@@ -191,7 +192,7 @@
   </div>
   <div text-center color="primary" class="flex" padding>
     <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">Done</button>
-    <button ion-button color="primary" padding full *ngIf="printScriptObject.VehicleSeizeStatus || printScriptObject.DocsSeizeStatus" (click)="unseize(printScriptObject)">Unseize</button>
+    <button ion-button color="primary" padding full *ngIf="printScriptObject.VehicleSeizeStatus || printScriptObject.DocsSeizeStatus" [hidden]="!printScriptObject.ChallanId" (click)="unseize(printScriptObject)">Unseize</button>
     <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="printScriptObject.PaymentStatus==='P'">Payment</button>
     <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">Print</button>
  

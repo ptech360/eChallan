@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Loading, LoadingController, NavController, AlertController } from 'ionic-angular';
+import { Loading, LoadingController, NavController, AlertController, Events } from 'ionic-angular';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { NoRecordsComponent } from '../no-records/no-records';
 import { User } from '../../providers/user/user';
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit{
   constructor(public loginCtrl:LoadingController, 
               private user: User,
               public nav: NavController,
-              public alertCtrl: AlertController) {              
+              public alertCtrl: AlertController,
+              public events: Events) {              
   }
 
   ngOnInit(){
@@ -40,7 +41,6 @@ export class LoginComponent implements OnInit{
         // we got an error
       });
     }, error => {
-      console.log("P")
       // if(error.status == 0){
       //   localForage.getItem('ProjectLogo').then(function (value) {
       //     console.log(value);
@@ -64,8 +64,10 @@ export class LoginComponent implements OnInit{
   login(){
     this.showLoading()
     this.user.login(this.loginCredentials).subscribe(response=>{
-      if(response)
+      if(response){
+        this.events.publish("user:login");
         this.nav.setRoot(TabsPage);
+      }
     }, error => {
       this.loading.dismiss();
     });

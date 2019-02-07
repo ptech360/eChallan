@@ -21,6 +21,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 @Injectable()
 export class Api {
   url: string = 'http://182.75.23.84:8002';
+  // url: string = 'http://172.21.0.54:8002';
   sub: any;
 
   constructor(public http: HttpClient,
@@ -122,30 +123,34 @@ export class Api {
   }
 
   extractData(response: HttpResponse<any>) {
+    if(response.status === 204){
+      this.showError("Data Not Found");
+    }
     return response.body || response.status;
   }
 
   handleError = (errorResponse: HttpErrorResponse) => {
     if (errorResponse.status)
-      switch (errorResponse.status) {
-        case 400:
-          if (errorResponse.url === this.url + '/Token')
-            this.showError('Access Denied');
-          break;
-        case 401:
-          if (errorResponse.url != this.url + '/ProjectLogo') {
-            this.showError('Session Expired');
-            this.localStorage.clearData();
-          }
-          break;
-        case 0:
-          this.showError('You don\'t seem to have an active internet connection. Please connect and try again.')
-          break;
+      this.showError(errorResponse.error.message || 'Somthing went wrong');
+      // switch (errorResponse.status) {
+      //   case 400:
+      //     if (errorResponse.url === this.url + '/Token')
+      //       this.showError('Access Denied');
+      //     break;
+      //   case 401:
+      //     if (errorResponse.url != this.url + '/ProjectLogo') {
+      //       this.showError('Session Expired');
+      //       this.localStorage.clearData();
+      //     }
+      //     break;
+      //   case 0:
+      //     this.showError('You don\'t seem to have an active internet connection. Please connect and try again.')
+      //     break;
 
-        default:
-          this.showError(errorResponse.error.message || 'Somthing went wrong');
-          break;
-      }
+      //   default:
+      //     this.showError(errorResponse.error.message || 'Somthing went wrong');
+      //     break;
+      // }
     return Observable.throw(errorResponse);
   }
 

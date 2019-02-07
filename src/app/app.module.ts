@@ -23,10 +23,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Uid } from '@ionic-native/uid';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
-import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService, ChartProvider} from '../providers/providers';
+import { Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService, ChartProvider } from '../providers/providers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrintReceiptPage } from '../pages/print-receipt/print-receipt';
-import { Printer } from '../../node_modules/@ionic-native/printer';
 import { VehicleDetailComponent } from '../components/vehicle-detail/vehicle-detail';
 import { Camera } from '../../node_modules/@ionic-native/camera';
 import { ToastService } from '../providers/toast/toast.service';
@@ -94,14 +93,13 @@ import { Network } from '@ionic-native/network';
     ChartProvider,
     StorageService,
     ToastService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Uid,
     AndroidPermissions,
-    Printer,
     Camera,
     Geolocation,
     NetworkProvider,
     Network
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Navbar } from 'ionic-angular';
-import { Printer, PrintOptions } from '@ionic-native/printer';
 import { PaymentGatewayPage } from '../payment-gateway/payment-gateway';
 import { ViolentsProvider } from '../../providers/providers';
 import { ToastService } from '../../providers/toast/toast.service';
@@ -26,20 +25,12 @@ export class PrintReceiptPage implements OnInit{
   @ViewChild('printContent') printContent;
   printScriptObject: any = {};
   printData: any = [];
-  options: PrintOptions = {
-    name: 'MyDocument',
-    printerId: 'printer007',
-    duplex: true,
-    landscape: true,
-    grayscale: true
-  };
   currentViolations: any;
 
   constructor(public navCtrl: NavController, 
               public viewCtrl: ViewController, 
               public navParams: NavParams,
-              public modalCtrl:ModalController, 
-              private printer: Printer,
+              public modalCtrl:ModalController,
               public violationService: ViolentsProvider,
               public toastService: ToastService) {
   }

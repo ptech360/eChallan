@@ -20,10 +20,10 @@
 
 
 <ion-content class="gray-back background">
-  <ion-list radio-group>
+  <ion-list radio-group [(ngModel)]="paymentTypeName">
     <ion-item>
       <ion-label>Credit/Debit Card</ion-label>
-      <ion-radio value="Credit-Debit-Card" checked></ion-radio>
+      <ion-radio value="Credit-Debit-Card" [checked]="online" [disabled]="!online"></ion-radio>
     </ion-item>
     <!-- <ion-item>
           <ion-label>UPI</ion-label>
@@ -35,7 +35,7 @@
         </ion-item> -->
     <ion-item>
       <ion-label>Cash</ion-label>
-      <ion-radio value="Cash" [disabled]="isDisabled"></ion-radio>
+      <ion-radio value="Cash" [checked]="!online"></ion-radio>
     </ion-item>
   </ion-list>
 

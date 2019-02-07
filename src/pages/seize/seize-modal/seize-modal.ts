@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { NavParams, ViewController, NavController } from "ionic-angular";
+import { NavParams, ViewController, NavController, Alert, AlertController } from "ionic-angular";
 import { ReceiptPage } from "../../receipt/receipt";
 import { ViolentsProvider } from "../../../providers/violents/violents";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ToastService } from "../../../providers/toast/toast.service";
-
+import * as localForage from 'localforage';
 
 
 @Component({
@@ -18,7 +18,10 @@ export class SeizeModal {
         destinationType: this.camera.DestinationType.DATA_URL,
         encodingType: this.camera.EncodingType.PNG,
         mediaType: this.camera.MediaType.PICTURE,
-        correctOrientation: true
+        correctOrientation: true,
+        targetWidth: 600,
+        targetHeight: 600,
+        quality:10
     };
 
     object: any;
@@ -47,7 +50,8 @@ export class SeizeModal {
         public navCtrl: NavController,
         private camera: Camera,
         public violentService: ViolentsProvider,
-        public toastService: ToastService
+        public toastService: ToastService,
+        public alertCtrl: AlertController
     ) {
         this.challanObject = this.navParams.get('challanObject');
         this.getVehicleType();
@@ -68,6 +72,13 @@ export class SeizeModal {
 
     seizeVehicle() {
         const formData = new FormData();
+        const object = {
+            ChallanId: this.challanObject.ChallanId,
+            VehicleTypId: this.vehicleTypeId,
+            VehicleName: this.vehicleName,
+            VehicleImage: this.vehicleImages,
+            ChallanDate: this.challanObject.ChallanDate
+        }
         formData.append('ChallanId', this.challanObject.ChallanId);
         formData.append('VehicleTypId', this.vehicleTypeId);
         formData.append('VehicleName', this.vehicleName);
@@ -87,11 +98,55 @@ export class SeizeModal {
              this.toastService.hideLoader();
              if (error.status === 401)
                 this.viewCtrl._nav.popAll();
+             else if(error.status === 0 )
+                this.saveOffline('VehicleSeized',object);
         });
     }
 
+    saveOffline = (keyForm,formData) => {
+        const alert: Alert = this.alertCtrl.create({
+          title: 'You don\'t seem to have an active internet connection.',
+          message: 'Do you want to save offline ?',
+          buttons: [{
+            text: 'No',
+            role: 'cancel'
+          }, {
+            text: 'Yes',
+            handler: () => {
+              localForage.getItem(keyForm).then((value: any[]) => {
+                if(value){
+                  value.push(formData);
+                  localForage.setItem(keyForm, value).then(() => {
+                    return localForage.getItem(keyForm);
+                  });
+                }else {
+                  localForage.setItem(keyForm, [formData]).then(() => {
+                    return localForage.getItem(keyForm);
+                  });
+                }
+              }).then(response => {
+                this.toastService.showToast("Data saved offline.");
+                if(keyForm == 'DocSeized') this.challanObject.DocsSeizeStatus = "S"
+                if(keyForm == 'VehicleSeized') this.challanObject.VehicleSeizeStatus = "S";
+                this.challanObject.PaymentStatus ='';
+                this.viewCtrl._nav.popAll();
+              });          
+            }
+          }]
+    
+        });
+        alert.present();
+      }
+
     seizeDocument() {
         const formData = new FormData();
+        const object = {
+            'ChallanId': this.challanObject.ChallanId,
+            'DocsId': this.docsIds,
+            'DocsInputId': this.docsInputIds,
+            'DocsImage': this.documentImages,
+            'ChallanDate': this.challanObject.ChallanDate
+        }
         formData.append('ChallanId', this.challanObject.ChallanId);
         formData.append('DocsId', this.docsIds);
         formData.append('DocsInputId', this.docsInputIds);
@@ -112,6 +167,8 @@ export class SeizeModal {
             this.toastService.hideLoader();
             if (error.status === 401)
                 this.viewCtrl._nav.popAll();
+            else if(error.status === 0 )
+                this.saveOffline('DocSeized',object);
         });
     }
 
@@ -159,16 +216,49 @@ export class SeizeModal {
     getVehicleType() {
         this.violentService.vehicleType().subscribe(response => {
             this.vehicleTypes = response;
-            console.log(response);
+            localForage.setItem('VehicleTypes', response).then(() => {
+                return localForage.getItem('VehicleTypes');
+              }).then((value) => {
+                console.log(value);
+                // we got our value
+              }).catch((err) => {
+                console.log(err);
+                // we got an error
+              });
+        }, error =>{
+            localForage.getItem('VehicleTypes').then( (value) => {
+                console.log(value);
+                this.vehicleTypes = value;
+                // we got our value
+              }).catch((err) => {
+                console.log(err);
+                // we got an error
+              });
         })
     }
 
     getVehicleDocs() {
         this.violentService.VehicleDocs().subscribe(response => {
             this.vehicleDocs = response;
-            console.log(response);
-
-        })
+            localForage.setItem('VehicleDocs', response).then(() => {
+                return localForage.getItem('VehicleDocs');
+              }).then((value) => {
+                console.log(value);
+                // we got our value
+              }).catch((err) => {
+                console.log(err);
+                // we got an error
+              });
+        }, error =>{
+            localForage.getItem('VehicleDocs').then( (value) => {
+                console.log(value);
+                this.vehicleDocs = value;
+                // we got our value
+              }).catch((err) => {
+                console.log(err);
+                // we got an error
+              });
+        });
     }
 
 }
