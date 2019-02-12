@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading, AlertController, Alert, App } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, AlertController, Alert, App, Events } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient } from '@angular/common/http';
@@ -61,7 +61,8 @@ export class AddViolationComponent {
               public fb:FormBuilder,
               public httpClient: HttpClient,
               public appCtrl: App,
-              public localStorage: StorageService 
+              public localStorage: StorageService,
+              public events: Events 
   ) {
     this.toastService.showLoader('Loading Violations...')
     this.violent.getViolents().subscribe(response => {
@@ -77,6 +78,9 @@ export class AddViolationComponent {
         // we got an error
       });
     }, error => {
+      if(error.status === 401) {
+        this.events.publish("user:logout");
+      }
       localForage.getItem('TrafficVioList').then( (value) => {
         console.log(value);
         this.violentsList = value;
@@ -101,10 +105,9 @@ export class AddViolationComponent {
   ionViewDidLoad() {
     this.violenter = this.navParam.get('data');
     this.challanForm = this.getChallanForm();
-    debugger
-    this.geolocation.getCurrentPosition({timeout:60000}).then(pos => {
-      debugger
+    this.geolocation.getCurrentPosition().then(pos => {
       console.log(pos);
+      
       this.geoLocation =  'lat: ' + pos.coords.latitude.toFixed(6) + ', lon: ' + pos.coords.longitude.toFixed(6);
       this.challanForm.controls['GeoLocation'].patchValue(this.geoLocation);
       setTimeout(() => {
@@ -236,6 +239,8 @@ export class AddViolationComponent {
         // this.toastService.hideLoader();
         // challanForm['files'] = this.files;
         this.saveOffline(challanForm, this.challanForm.value);
+      }else if(error.status === 401) {
+        this.events.publish("user:logout");
       }
     });
   }

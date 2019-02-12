@@ -53,14 +53,7 @@ export class PaymentGatewayPage implements OnInit {
   }
 
   ngOnInit() {
-    this.events.subscribe("online", () => {
-      console.log("online")
-      this.online = true;
-    });
-    this.events.subscribe("offline", () => {
-      console.log("offline")
-      this.online = false;
-    });
+
   }
 
   ionViewDidLoad() {
@@ -70,97 +63,139 @@ export class PaymentGatewayPage implements OnInit {
   }
 
   confirm() {
-    var Amount = this.charge;
-    var trackid = new Date().getTime();
-    var merchantId = '800081';
-    var sharedKey = '36PVB8S8CIC2KPXEIL4JBX7U';
-    var sUrl = '';
-    var email = 'kharetwal.pankaj111@gmail.com';
-    var mobile = this.generatedObject.MobileNumber;
-    var vehicleNo = this.generatedObject.VehicleNo;
-    var ownerName = this.generatedObject.OwnerName;
-    var challanId = this.generatedObject.ChallanId;
-    var reqpaymentMode = 'None';
-    var reqnoOfPayments = '1';
-    var paymentData = Array(Amount + '|0.00|' + trackid + '|12|' + '|' + vehicleNo + '|' + '|' + ownerName + '|' + mobile);
-    var nachData = challanId + '|Savings|Monthly|' + (new Date().getMonth() + 1) + '|' + this.generatedObject.ChallanDate;
-    if(this.online){
-      var payResp = IdProcessPay(merchantId, sharedKey, Amount, sUrl, email, mobile, reqpaymentMode, reqnoOfPayments, paymentData, nachData);
-      parseString(payResp, (err: any, result: any) => {
-        console.log(result);
-        if (result.Response && result.Response.RespCode[0] === '1000') {
-          const paymentObject = {
-            'ChallanId': this.generatedObject.ChallanId,
-            'PaymentId': result.Response.Payments[0].Payment1[0].TnxId[0],
-            'PaymentTypeName': result.Response.Payments[0].Payment1[0].PaymentType[0],
-            // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
-            'PaymentDate': this.generatedObject.ChallanDate
-          };
-          this.toastService.showLoader('Saving Payment info..');
-          this.violent.challanPayment(paymentObject).subscribe(response => {
-            this.toastService.hideLoader();
-            this.toastService.showToast('Payment Done');
-            this.generatedObject['PaymentId'] = paymentObject.PaymentId;
-            this.generatedObject.PaymentStatus =''; 
-            this.generatedObject.VehicleSeizeStatus=''; 
-            this.generatedObject.DocsSeizeStatus ='';
-            this.dismiss();
-          }, error => {
-            this.toastService.showToast('Error in Saving Payment Info');
-            this.toastService.hideLoader();
-          });
-        } else if (result.Error) {
-          this.toastService.showToast(result.Error.ErrorMessage[0]);
-        }
-      });  
-    } else {
+    if(this.paymentTypeName === 'Cash') {
+      this.saveCashPayment();
+    }  else {
+      var Amount = this.charge;
+      var trackid = new Date().getTime();
+      var merchantId = '800081';
+      var sharedKey = '36PVB8S8CIC2KPXEIL4JBX7U';
+      var sUrl = '';
+      var email = 'kharetwal.pankaj111@gmail.com';
+      var mobile = this.generatedObject.MobileNumber;
+      var vehicleNo = this.generatedObject.VehicleNo;
+      var ownerName = this.generatedObject.OwnerName;
+      var challanId = this.generatedObject.ChallanId;
+      var reqpaymentMode = 'None';
+      var reqnoOfPayments = '1';
+      var paymentData = Array(Amount + '|0.00|' + trackid + '|12|' + '|' + vehicleNo + '|' + '|' + ownerName + '|' + mobile);
+      var nachData = challanId + '|Savings|Monthly|' + (new Date().getMonth() + 1) + '|' + this.generatedObject.ChallanDate;
+        var payResp = IdProcessPay(merchantId, sharedKey, Amount, sUrl, email, mobile, reqpaymentMode, reqnoOfPayments, paymentData, nachData);
+        parseString(payResp, (err: any, result: any) => {
+          console.log(result);
+          if (result.Response && result.Response.RespCode[0] === '1000') {
+            const paymentObject = {
+              'ChallanId': this.generatedObject.ChallanId,
+              'PaymentId': result.Response.Payments[0].Payment1[0].TnxId[0],
+              'PaymentTypeName': result.Response.Payments[0].Payment1[0].PaymentType[0],
+              // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
+              'PaymentDate': this.generatedObject.ChallanDate
+            };
+            this.toastService.showLoader('Saving Payment info..');
+            this.violent.challanPayment(paymentObject).subscribe(response => {
+              this.toastService.hideLoader();
+              this.toastService.showToast('Payment Done');
+              this.generatedObject['PaymentId'] = paymentObject.PaymentId;
+              this.generatedObject.PaymentStatus =''; 
+              this.generatedObject.VehicleSeizeStatus=''; 
+              this.generatedObject.DocsSeizeStatus ='';
+              this.dismiss();
+            }, error => {
+              if(error.status === 401) {
+                this.events.publish("user:logout");
+              }
+              // this.toastService.showToast('Error in Saving Payment Info');
+              this.toastService.hideLoader();
+            });
+          } else if (result.Error) {
+            this.toastService.showToast(result.Error.ErrorMessage[0]);
+            this.offlinePay();
+          }
+        });
+    }
+  }
+
+  offlinePay(){
       const alert: Alert = this.alertCtrl.create({
         title: 'You don\'t seem to have an active internet connection.',
         message: 'You have to get Cash.',
         buttons: [{
           text: 'OK',
           handler: () => {
-            localForage.getItem('VehicleChallan').then((challans: any[]) => {
-              if(challans&&challans.length){
-                const index = challans.findIndex(challan => challan.ChallanDate == this.generatedObject.ChallanDate);
-                // challans[index].PaymentStatus = "";
-                const paymentObject = {
-                  'ChallanId': null,
-                  'PaymentId': 'CASH' + Math.floor(Math.random() *10000),
-                  'PaymentTypeName': "Cash",
-                  // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
-                  'PaymentDate': this.generatedObject.ChallanDate
-                };
-                localForage.getItem('ChallanPayment').then((value: any[]) => {
-                  if(value){
-                    value.push(paymentObject);
-                    localForage.setItem('ChallanPayment', value).then(() => {
-                      return localForage.getItem('ChallanPayment');
-                    });
-                  }else {
-                    localForage.setItem('ChallanPayment', [paymentObject]).then(() => {
-                      return localForage.getItem('ChallanPayment');
-                    });
-                  }
-                }).then(response => {
-                  this.toastService.showToast("Data saved offline.");
-                });
-                localForage.removeItem('VehicleChallan');
-                localForage.setItem('VehicleChallan',challans);
-              }
-            }).then(response => {
-              this.toastService.showToast("Data saved offline.");
-              this.generatedObject.PaymentStatus =''; 
-              this.generatedObject.VehicleSeizeStatus=''; 
-              this.generatedObject.DocsSeizeStatus ='';
-              this.dismiss();
-            });          
+            this.saveOfflinePayment();
           }
         }]
   
       });
       alert.present();
-    }
+  }
+
+  saveCashPayment(){
+    const paymentObject = {
+      'ChallanId': this.generatedObject.ChallanId,
+      'PaymentId': this.generatedObject.ChallanId + "C",
+      'PaymentTypeName': "Cash",
+      // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
+      'PaymentDate': this.generatedObject.ChallanDate
+    };
+    this.violent.challanPayment(paymentObject).subscribe(response => {
+      this.toastService.hideLoader();
+      this.toastService.showToast('Payment Done');
+      this.generatedObject['PaymentId'] = paymentObject.PaymentId;
+      this.generatedObject.PaymentStatus ='C'; 
+      this.generatedObject.VehicleSeizeStatus=''; 
+      this.generatedObject.DocsSeizeStatus ='';
+      this.dismiss();
+    }, error => {
+      if(error.status === 0) {
+        this.saveOfflinePayment();
+      }
+      else if(error.status === 401) {
+        this.events.publish("user:logout");
+      }
+      // this.toastService.showToast('Error in Saving Payment Info');
+      this.toastService.hideLoader();
+    });
+
+  }
+
+  saveOfflinePayment(){
+    localForage.getItem('VehicleChallan').then((challans: any[]) => {
+      if(challans&&challans.length){
+        const index = challans.findIndex(challan => challan.ChallanDate == this.generatedObject.ChallanDate);
+        // challans[index].PaymentStatus = "";
+        const paymentObject = {
+          'ChallanId': null,
+          'PaymentId': 'CASH' + Math.floor(Math.random() *10000),
+          'PaymentTypeName': "Cash",
+          // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
+          'PaymentDate': this.generatedObject.ChallanDate
+        };
+        localForage.getItem('ChallanPayment').then((value: any[]) => {
+          if(value){
+            value.push(paymentObject);
+            localForage.setItem('ChallanPayment', value).then(() => {
+              return localForage.getItem('ChallanPayment');
+            });
+          }else {
+            localForage.setItem('ChallanPayment', [paymentObject]).then(() => {
+              return localForage.getItem('ChallanPayment');
+            });
+          }
+        }).then(response => {
+          this.toastService.showToast("Data saved offline.");
+        });
+        localForage.removeItem('VehicleChallan');
+        localForage.setItem('VehicleChallan',challans);
+      }
+    }).then(response => {
+      this.toastService.showToast("Data saved offline.");
+      this.generatedObject.PaymentStatus ='C'; 
+      this.generatedObject.VehicleSeizeStatus=''; 
+      this.generatedObject.DocsSeizeStatus ='';
+      this.dismiss();
+    });
+
   }
 
 

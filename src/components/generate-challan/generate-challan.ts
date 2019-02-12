@@ -76,6 +76,8 @@ export class GenerateChallanComponent {
             }]    
           });
           alert.present();
+        } else if(error.status === 401) {
+          this.events.publish("user:logout");
         }
       });
   }
