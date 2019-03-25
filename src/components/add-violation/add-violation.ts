@@ -135,6 +135,7 @@ export class AddViolationComponent {
       FatherName: [''],
       OwnerAddress: [''],
       // RegistrationNo: [''],
+      EmailId: [''],
       MobileNumber: [''],
       ViolationId:[''],
       UserName: [this.localStorage.getData('user-detail').Username],
@@ -218,6 +219,7 @@ export class AddViolationComponent {
       this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
       this.challanForm.value['PaymentStatus'] = "P";
       this.challanForm.value['DutyOfficer'] = response.DutyOfficer;
+      this.sendSMSAndEmail(this.challanForm.value);
       this.navCtrl.push(PrintReceiptPage, {data: this.challanForm.value, currentViolents: this.currentViolents});
       // const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
       // violenterModal.present();
@@ -243,6 +245,39 @@ export class AddViolationComponent {
         this.events.publish("user:logout");
       }
     });
+  }
+
+  sendSMSAndEmail(challanObject) {
+      const object = {
+        "ChallanId": challanObject.ChallanId,
+        "ChallanDate": challanObject.ChallanDate,
+        "VehicleNo": challanObject.VehicleNo,
+        "OwnerName": challanObject.OwnerName,
+        "MobileNo": challanObject.MobileNumber,
+        "Location": challanObject.LocationName,
+        "ViolationAct": challanObject.violations.toString(),
+        "TotalFine": challanObject.amount,
+        "PaymentStatus": "Pending",
+        "SeizeStatus": "",
+        "MailRecipent": ""
+      };
+      if (challanObject.EmailId && this.validateEmail(challanObject.EmailId)) {
+        object['MailRecipent'] = challanObject.EmailId;
+      }
+      this.violent.sendEmail(object).subscribe(response => {
+        console.log(response);
+      });
+      if (challanObject.MobileNumber) {
+        object['MailRecipent'] = "";
+        this.violent.sendSMS(object).subscribe(response => {
+          console.log(response);
+        });
+      }
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 
   saveOffline = (formData, jsonData) => {

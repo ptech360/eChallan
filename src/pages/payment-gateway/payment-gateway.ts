@@ -46,7 +46,7 @@ export class PaymentGatewayPage implements OnInit {
     public events: Events,
     public network: NetworkProvider
   ) {
-    
+
     this.currenViolations = this.navParams.get('currentViolations')
     this.generatedObject = this.navParams.get('data');
     this.charge = this.generatedObject.amount;
@@ -63,9 +63,9 @@ export class PaymentGatewayPage implements OnInit {
   }
 
   confirm() {
-    if(this.paymentTypeName === 'Cash') {
+    if (this.paymentTypeName === 'Cash') {
       this.saveCashPayment();
-    }  else {
+    } else {
       var Amount = this.charge;
       var trackid = new Date().getTime();
       var merchantId = '800081';
@@ -80,57 +80,58 @@ export class PaymentGatewayPage implements OnInit {
       var reqnoOfPayments = '1';
       var paymentData = Array(Amount + '|0.00|' + trackid + '|12|' + '|' + vehicleNo + '|' + '|' + ownerName + '|' + mobile);
       var nachData = challanId + '|Savings|Monthly|' + (new Date().getMonth() + 1) + '|' + this.generatedObject.ChallanDate;
-        var payResp = IdProcessPay(merchantId, sharedKey, Amount, sUrl, email, mobile, reqpaymentMode, reqnoOfPayments, paymentData, nachData);
-        parseString(payResp, (err: any, result: any) => {
-          console.log(result);
-          if (result.Response && result.Response.RespCode[0] === '1000') {
-            const paymentObject = {
-              'ChallanId': this.generatedObject.ChallanId,
-              'PaymentId': result.Response.Payments[0].Payment1[0].TnxId[0],
-              'PaymentTypeName': result.Response.Payments[0].Payment1[0].PaymentType[0],
-              // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
-              'PaymentDate': this.generatedObject.ChallanDate
-            };
-            this.toastService.showLoader('Saving Payment info..');
-            this.violent.challanPayment(paymentObject).subscribe(response => {
-              this.toastService.hideLoader();
-              this.toastService.showToast('Payment Done');
-              this.generatedObject['PaymentId'] = paymentObject.PaymentId;
-              this.generatedObject.PaymentStatus =''; 
-              this.generatedObject.VehicleSeizeStatus=''; 
-              this.generatedObject.DocsSeizeStatus ='';
-              this.dismiss();
-            }, error => {
-              if(error.status === 401) {
-                this.events.publish("user:logout");
-              }
-              // this.toastService.showToast('Error in Saving Payment Info');
-              this.toastService.hideLoader();
-            });
-          } else if (result.Error) {
-            this.toastService.showToast(result.Error.ErrorMessage[0]);
-            this.offlinePay();
-          }
-        });
+      var payResp = IdProcessPay(merchantId, sharedKey, Amount, sUrl, email, mobile, reqpaymentMode, reqnoOfPayments, paymentData, nachData);
+      parseString(payResp, (err: any, result: any) => {
+        console.log(result);
+        if (result.Response && result.Response.RespCode[0] === '1000') {
+          const paymentObject = {
+            'ChallanId': this.generatedObject.ChallanId,
+            'PaymentId': result.Response.Payments[0].Payment1[0].TnxId[0],
+            'PaymentTypeName': result.Response.Payments[0].Payment1[0].PaymentType[0],
+            // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
+            'PaymentDate': this.generatedObject.ChallanDate
+          };
+          this.toastService.showLoader('Saving Payment info..');
+          this.violent.challanPayment(paymentObject).subscribe(response => {
+            this.toastService.hideLoader();
+            this.toastService.showToast('Payment Done');
+            this.generatedObject['PaymentId'] = paymentObject.PaymentId;
+            this.generatedObject.PaymentStatus = '';
+            this.generatedObject.VehicleSeizeStatus = '';
+            this.generatedObject.DocsSeizeStatus = '';
+            this.sendSMSAndEmail();
+            this.dismiss();
+          }, error => {
+            if (error.status === 401) {
+              this.events.publish("user:logout");
+            }
+            // this.toastService.showToast('Error in Saving Payment Info');
+            this.toastService.hideLoader();
+          });
+        } else if (result.Error) {
+          this.toastService.showToast(result.Error.ErrorMessage[0]);
+          this.offlinePay(result.Error.ErrorMessage[0]);
+        }
+      });
     }
   }
 
-  offlinePay(){
-      const alert: Alert = this.alertCtrl.create({
-        title: 'You don\'t seem to have an active internet connection.',
-        message: 'You have to get Cash.',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            this.saveOfflinePayment();
-          }
-        }]
-  
-      });
-      alert.present();
+  offlinePay(message) {
+    const alert: Alert = this.alertCtrl.create({
+      title: message,
+      message: 'You have to get Cash.',
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          // this.saveOfflinePayment();
+        }
+      }]
+
+    });
+    alert.present();
   }
 
-  saveCashPayment(){
+  saveCashPayment() {
     const paymentObject = {
       'ChallanId': this.generatedObject.ChallanId,
       'PaymentId': this.generatedObject.ChallanId + "C",
@@ -138,19 +139,21 @@ export class PaymentGatewayPage implements OnInit {
       // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
       'PaymentDate': this.generatedObject.ChallanDate
     };
+    this.toastService.showLoader();
     this.violent.challanPayment(paymentObject).subscribe(response => {
       this.toastService.hideLoader();
       this.toastService.showToast('Payment Done');
       this.generatedObject['PaymentId'] = paymentObject.PaymentId;
-      this.generatedObject.PaymentStatus ='C'; 
-      this.generatedObject.VehicleSeizeStatus=''; 
-      this.generatedObject.DocsSeizeStatus ='';
+      this.generatedObject.PaymentStatus = 'C';
+      this.generatedObject.VehicleSeizeStatus = '';
+      this.generatedObject.DocsSeizeStatus = '';
+      this.sendSMSAndEmail();
       this.dismiss();
     }, error => {
-      if(error.status === 0) {
+      if (error.status === 0) {
         this.saveOfflinePayment();
       }
-      else if(error.status === 401) {
+      else if (error.status === 401) {
         this.events.publish("user:logout");
       }
       // this.toastService.showToast('Error in Saving Payment Info');
@@ -159,25 +162,25 @@ export class PaymentGatewayPage implements OnInit {
 
   }
 
-  saveOfflinePayment(){
+  saveOfflinePayment() {
     localForage.getItem('VehicleChallan').then((challans: any[]) => {
-      if(challans&&challans.length){
+      if (challans && challans.length) {
         const index = challans.findIndex(challan => challan.ChallanDate == this.generatedObject.ChallanDate);
         // challans[index].PaymentStatus = "";
         const paymentObject = {
           'ChallanId': null,
-          'PaymentId': 'CASH' + Math.floor(Math.random() *10000),
+          'PaymentId': 'CASH' + Math.floor(Math.random() * 10000),
           'PaymentTypeName': "Cash",
           // 'PaymentDate': result.Response.Payments[0].Payment1[0].Date[0]
           'PaymentDate': this.generatedObject.ChallanDate
         };
         localForage.getItem('ChallanPayment').then((value: any[]) => {
-          if(value){
+          if (value) {
             value.push(paymentObject);
             localForage.setItem('ChallanPayment', value).then(() => {
               return localForage.getItem('ChallanPayment');
             });
-          }else {
+          } else {
             localForage.setItem('ChallanPayment', [paymentObject]).then(() => {
               return localForage.getItem('ChallanPayment');
             });
@@ -186,16 +189,49 @@ export class PaymentGatewayPage implements OnInit {
           this.toastService.showToast("Data saved offline.");
         });
         localForage.removeItem('VehicleChallan');
-        localForage.setItem('VehicleChallan',challans);
+        localForage.setItem('VehicleChallan', challans);
       }
     }).then(response => {
       this.toastService.showToast("Data saved offline.");
-      this.generatedObject.PaymentStatus ='C'; 
-      this.generatedObject.VehicleSeizeStatus=''; 
-      this.generatedObject.DocsSeizeStatus ='';
+      this.generatedObject.PaymentStatus = 'C';
+      this.generatedObject.VehicleSeizeStatus = '';
+      this.generatedObject.DocsSeizeStatus = '';
       this.dismiss();
     });
 
+  }
+
+  sendSMSAndEmail() {
+    const object = {
+      "ChallanId": this.generatedObject.ChallanId,
+      "ChallanDate": this.generatedObject.ChallanDate,
+      "VehicleNo": this.generatedObject.VehicleNo,
+      "OwnerName": this.generatedObject.OwnerName,
+      "MobileNo": this.generatedObject.MobileNumber,
+      "Location": this.generatedObject.LocationName,
+      "ViolationAct": this.generatedObject.violations.toString(),
+      "TotalFine": this.generatedObject.amount,
+      "PaymentStatus": this.generatedObject.PaymentStatus == "P" ? "Pending" : "Success",
+      "SeizeStatus": "",
+      "MailRecipent": ""
+    };
+    if (this.generatedObject.EmailId && this.validateEmail(this.generatedObject.EmailId)) {
+      object['MailRecipent'] = this.generatedObject.EmailId;
+    }
+    this.violent.sendEmail(object).subscribe(response => {
+      console.log(response);
+    });
+    if (this.generatedObject.MobileNumber) {
+      object['MailRecipent'] = "";
+      this.violent.sendSMS(object).subscribe(response => {
+        console.log(response);
+      });
+    }
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 
 

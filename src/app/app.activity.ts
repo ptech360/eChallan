@@ -1,4 +1,4 @@
-import { App, Events } from 'ionic-angular';
+import { App, Events, AlertController, Alert, Platform } from 'ionic-angular';
 import { NetworkProvider } from '../providers/network/network';
 import { HomePage } from '../pages/home/home';
 import { User } from '../providers/user/user';
@@ -6,24 +6,34 @@ import { ToastService } from '../providers/toast/toast.service';
 import { LoginComponent } from '../components/login/login';
 import * as localForage from 'localforage';
 import { ViolentsProvider } from '../providers/violents/violents';
+import { Api } from '../providers/api/api';
+import { Uid } from '@ionic-native/uid';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { StorageService } from '../providers/providers';
 export class Activity {
   rootPage: any;
   constructor(
+    public platform: Platform,
     public events: Events,
     public appCtrl: App,
+    public alertCtrl: AlertController,
     public authProvider: User,
     public networkProvider: NetworkProvider,
     public toastProvider: ToastService,
-    public violent: ViolentsProvider
+    public violent: ViolentsProvider,
+    public api: Api,
+    public uid: Uid,
+    public androidPermissions: AndroidPermissions,
+    public localStorage: StorageService
   ) {
     this.handleEvents();
     this.networkProvider.checkNetworkStatus();
-    this.isLoggedIn();
+    if(this.localStorage.getData('IMEI'))
+      this.isLoggedIn();
   }
 
   handleEvents() {
     this.events.subscribe('user:login', () => {
-      console.log("login");
       this.sync()
       this.login();
     });
@@ -38,6 +48,7 @@ export class Activity {
       this.online();
     });
   }
+  
   public logout() {
     localStorage.removeItem('ngStorage-token');
     localStorage.removeItem('user-detail');
@@ -124,6 +135,7 @@ export class Activity {
                 const index = data.findIndex(element => element.ChallanDate == challan.ChallanDate);
                 if (seizedData) {
                   seizedData['ChallanId'] = response.ChallanId;
+                  this.sendSMSAndEmail(challan);
                   this.seizeVehicle(seizedData, index,  data);
                 }
               }
@@ -134,6 +146,7 @@ export class Activity {
                 const index = data.findIndex(element => element.ChallanDate == challan.ChallanDate);
                 if (seizedData) {
                   seizedData['ChallanId'] = response.ChallanId;
+                  this.sendSMSAndEmail(challan);
                   this.seizeDocs(seizedData, index, data);
                 }
               }
@@ -144,6 +157,7 @@ export class Activity {
                 const index = data.findIndex(element => element.PaymentDate == challan.ChallanDate);
                 if (paymentObject) {
                   paymentObject['ChallanId'] = response.ChallanId;
+                  this.sendSMSAndEmail(challan);
                   this.challanPayment(paymentObject, index, data);
                 }
               }
@@ -231,5 +245,45 @@ export class Activity {
     } else {
       this.rootPage = LoginComponent;
     }
+  }
+
+  sendSMSAndEmail(challanObject) {
+      const object = {
+        "ChallanId": challanObject.ChallanId,
+        "ChallanDate": challanObject.ChallanDate,
+        "VehicleNo": challanObject.VehicleNo,
+        "OwnerName": challanObject.OwnerName,
+        "MobileNo": challanObject.MobileNumber,
+        "Location": challanObject.LocationName,
+        "ViolationAct": challanObject.violations,
+        "TotalFine": challanObject.amount,
+        "PaymentStatus": "",
+        "SeizeStatus": "",
+        "MailRecipent": ""
+      };
+      if(challanObject.PaymentStatus)
+        object['PaymentStatus'] = challanObject.PaymentStatus=="P"?"Pending":"Success";
+      else if(challanObject.DocsSeizeStatus)
+        object["SeizeStatus-"] = "Documents";
+      else if(challanObject.VehicleSeizeStatus)
+        object["SeizeStatus-"] = "Vehicle";
+
+      if (challanObject.EmailId && this.validateEmail(challanObject.EmailId)) {
+        object['MailRecipent'] = challanObject.EmailId;
+      }
+      this.violent.sendEmail(object).subscribe(response => {
+        console.log(response);
+      });
+      if (challanObject.MobileNumber) {
+        object['MailRecipent'] = "";
+        this.violent.sendSMS(object).subscribe(response => {
+          console.log(response);
+        });
+      }
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 }

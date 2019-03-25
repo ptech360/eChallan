@@ -12,8 +12,8 @@ import 'rxjs/add/observable/interval';
 
 
 import { StorageService } from '../localstorage/storage';
-import { Uid } from '@ionic-native/uid';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+// import { Uid } from '@ionic-native/uid';
+// import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
@@ -28,30 +28,7 @@ export class Api {
     public localStorage: StorageService,
     public events: Events,
     public alertCtrl: AlertController,
-    private uid: Uid,
-    private androidPermissions: AndroidPermissions) {
-    this.getImei();
-  }
-
-  async getImei() {
-    const { hasPermission } = await this.androidPermissions.checkPermission(
-      this.androidPermissions.PERMISSION.READ_PHONE_STATE
-    );
-
-    if (!hasPermission) {
-      const result = await this.androidPermissions.requestPermission(
-        this.androidPermissions.PERMISSION.READ_PHONE_STATE
-      );
-
-      if (!result.hasPermission) {
-        throw new Error('Permissions required');
-      }
-
-      // ok, a user gave us permission, we can get him identifiers after restart app
-      return;
-    }
-    this.localStorage.storeData('IMEI', this.uid.IMEI);
-    return this.uid.IMEI
+    ) {
   }
 
   getHeaders(optHeaders?: HttpHeaders) {
@@ -122,7 +99,7 @@ export class Api {
       .catch(this.handleError);
   }
 
-  extractData(response: HttpResponse<any>) {
+  extractData = (response: HttpResponse<any>) => {
     if(response.status === 204){
       this.showError("Data Not Found");
     }
@@ -131,7 +108,7 @@ export class Api {
 
   handleError = (errorResponse: HttpErrorResponse) => {
     if (errorResponse.status)
-      this.showError(errorResponse.error.message || 'Somthing went wrong');
+      this.showError(errorResponse.error.message || 'Something went wrong');
       // switch (errorResponse.status) {
       //   case 400:
       //     if (errorResponse.url === this.url + '/Token')

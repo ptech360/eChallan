@@ -48,6 +48,11 @@
             <ion-badge float-right text-wrap>Pending</ion-badge>
             <br>
           </ion-col>
+          <ion-col col-6 *ngIf="challan.PaymentStatus === 'S'" text-right>
+            <b>Payment: </b>
+            <ion-badge float-right text-wrap>Success</ion-badge>
+            <br>
+          </ion-col>
           <ion-col col-6 *ngIf="challan.DocsSeizeStatus === 'S'" text-right>
             <b>Document(s): </b>
             <ion-badge float-right text-wrap>Seized</ion-badge>

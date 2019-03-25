@@ -53,6 +53,14 @@ export class ViolentsProvider {
   challanPayment(data:any){
     return this.api.put('ChallanPayment',data);
   }
+
+  sendSMS(data: any){
+    return this.api.post('SendSms', data);
+  }
+
+  sendEmail(data: any){
+    return this.api.post('SendEmail', data);
+  }
   
   vehicleType() {
     return this.api.get('VehicleTypes');

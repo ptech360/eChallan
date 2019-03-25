@@ -30,6 +30,7 @@ export class VehicleDetailComponent {
         EngNo: ['NA'],
         FatherName: ['NA',[Validators.required]],
         MakerModel: ['NA'],
+        EmailId: ['NA'],
         MobileNumber: ['NA',[Validators.required]],
         OwnerName: ['NA',[Validators.required]],
         PastViolationCount: [0],
