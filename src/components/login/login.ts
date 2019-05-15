@@ -41,15 +41,7 @@ export class LoginComponent implements OnInit{
         // we got an error
       });
     }, error => {
-      // if(error.status == 0){
-      //   localForage.getItem('ProjectLogo').then(function (value) {
-      //     console.log(value);
-      //     // we got our value
-      //   }).catch(function (err) {
-      //     console.log(err);
-      //     // we got an error
-      //   });
-      // }
+
     });
   }
 

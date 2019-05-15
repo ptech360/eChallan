@@ -105,7 +105,6 @@ export class PaymentGatewayPage implements OnInit {
             if (error.status === 401) {
               this.events.publish("user:logout");
             }
-            // this.toastService.showToast('Error in Saving Payment Info');
             this.toastService.hideLoader();
           });
         } else if (result.Error) {

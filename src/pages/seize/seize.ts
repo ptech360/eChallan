@@ -28,9 +28,6 @@ export class SeizePage {
   }
 
   ionViewDidLoad() {
-    // this.currentViolents = this.navParams.get('data')
-    // this.charge = this.navParams.get('charge')
-    // this.violenter = this.navParams.get('violenter')
     this.challanObject = this.navParams.get('data');
 
   }

@@ -64,36 +64,6 @@
         </div>
       </ion-card>
     </div>
-
-    <!-- <div *ngIf="needManualDetails">
-      <h6 margin>Data not found, add details manually</h6>
-      <ion-item>
-        <ion-icon name="person" item-start color="primary"></ion-icon>
-        <ion-label stacked>Name</ion-label>
-        <ion-input [(ngModel)]="name" name="name" type="text" placeholder="eg. Komal Thakur"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="call" item-start color="primary"></ion-icon>
-        <ion-label stacked>Phone</ion-label>
-        <ion-input #phonen [(ngModel)]="phone" name="phone" type="number" placeholder="eg. 97383746355"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="card" item-start color="primary"></ion-icon>
-        <ion-label stacked>Driving License</ion-label>
-        <ion-input [(ngModel)]="driving_license" name="driving_license" type="text" placeholder="eg. 97383746355"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="card" item-start color="primary"></ion-icon>
-        <ion-label stacked>Registration Certificate</ion-label>
-        <ion-input [(ngModel)]="register_certificate" name="register_certificate" type="text" placeholder="eg. 21212311213"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="car" item-start color="primary"></ion-icon>
-        <ion-label stacked>Vehicle No</ion-label>
-        <ion-input [(ngModel)]="vehicle_no" name="vehicle_no" type="text" placeholder="eg. HR C 3920"></ion-input>
-      </ion-item>
-    </div> -->
-
     <div padding text-center>
       <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">Proceed</button>
     </div>

@@ -19,19 +19,15 @@
 </ion-header>
 
 <ion-content class="gray-back background">
-  <!-- <div id="violents_piechart" margin-bottom></div> -->
-
   <ion-list class="top-list-header">
     <ion-item>
       {{ violenter.OwnerName }}
       <br>
-      <!-- <p>Driving License: {{ violenter.driving_license }}</p> -->
     </ion-item>
     <ion-item>
       <ion-label>Filter Violents</ion-label>
       <ion-select [selectOptions]="violentOpts" multiple="true" (ngModelChange)="filterHistory($event)" cancelText="Cancel"
         okText="Ok" ngModel>
-        <!-- <ion-option value="0">All</ion-option> -->
         <ion-option *ngFor="let violent of violentsList" [value]="violent.ViolationId" style="white-space:pre-line">{{violent.ViolationName}}</ion-option>
       </ion-select>
     </ion-item>

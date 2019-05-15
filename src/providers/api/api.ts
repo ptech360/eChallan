@@ -12,8 +12,6 @@ import 'rxjs/add/observable/interval';
 
 
 import { StorageService } from '../localstorage/storage';
-// import { Uid } from '@ionic-native/uid';
-// import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
@@ -109,25 +107,6 @@ export class Api {
   handleError = (errorResponse: HttpErrorResponse) => {
     if (errorResponse.status)
       this.showError(errorResponse.error.message || 'Something went wrong');
-      // switch (errorResponse.status) {
-      //   case 400:
-      //     if (errorResponse.url === this.url + '/Token')
-      //       this.showError('Access Denied');
-      //     break;
-      //   case 401:
-      //     if (errorResponse.url != this.url + '/ProjectLogo') {
-      //       this.showError('Session Expired');
-      //       this.localStorage.clearData();
-      //     }
-      //     break;
-      //   case 0:
-      //     this.showError('You don\'t seem to have an active internet connection. Please connect and try again.')
-      //     break;
-
-      //   default:
-      //     this.showError(errorResponse.error.message || 'Somthing went wrong');
-      //     break;
-      // }
     return Observable.throw(errorResponse);
   }
 

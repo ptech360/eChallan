@@ -1,6 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavParams } from 'ionic-angular';
-import { ChartProvider } from '../../providers/chart/chart';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import { ViolentsProvider } from '../../providers/violents/violents';
 
@@ -31,14 +30,6 @@ export class ViolenterHistoryPage implements OnInit {
   }
 
   ngOnInit() {
-    // var timmer = Observable.interval(1000).subscribe((val) => {
-    //   if(google){
-    //     google.charts.load('current', {packages: ['corechart', 'bar']});
-    //     google.charts.setOnLoadCallback(this.chartService.violstionChart);
-    //     timmer.unsubscribe();
-    //   }
-    // });
-
     this.violentOpts = {
       title: 'Violents Made',
       subTitle: 'Select violents to display'
@@ -51,7 +42,6 @@ export class ViolenterHistoryPage implements OnInit {
       this.violenter = this.navParams.get('data');
       this.violencList = this.violenter['PastViolations'];
       this.violencListCopy = this.violencList;
-      
   }
 
   dismiss() {

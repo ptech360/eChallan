@@ -94,28 +94,7 @@ export class Activity {
       }
     });
     localForage.getItem('VehicleChallan').then((challans: any[]) => {
-      console.log(challans);
-
-      // const vahanChallans = new FormData();
-      // if(challans){
-      //   challans.forEach((challan, indx) => {
-      //     Object.keys(challan).forEach(key => {
-      //       if (challan[key] instanceof Array) {
-      //         challan[key].forEach((element,index) => {
-      //           vahanChallans.append(`vahanChallans[${indx}].${key}[${index}]`, element);
-      //         });
-      //       } else {
-      //         vahanChallans.append(`vahanChallans[${indx}].${key}`,challan[key]);
-      //       }
-      //     });
-      //   });
-      //   this.violent.generateOfflineChallan(vahanChallans).subscribe((response: any) => {
-      //     localForage.removeItem('VehicleChallan');
-      //   }, (error: any) =>{            
-
-      //   });
-      // }
-      
+      console.log(challans);      
       if (challans) {
         challans.forEach(challan => {
           const formData = new FormData();

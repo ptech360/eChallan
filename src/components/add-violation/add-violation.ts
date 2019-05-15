@@ -119,10 +119,6 @@ export class AddViolationComponent {
   }
 
   getChallanForm(){
-    // this.currentViolents.forEach(element => {
-    //   this.violationIds.push(element.ViolationId);
-    //   this.violations.push(element.ViolationName);
-    // });
     return this.fb.group({
       BodyType: [''],
       ChassisNo: [''],
@@ -205,10 +201,6 @@ export class AddViolationComponent {
         formData.append(key,this.challanForm.value[key]);
       }
     });
-    // this.files.forEach((file:any) => {
-    //   formData.append('file',file);
-    // });
-    // formData.append('VehicleImageFile','');
     this.violent.generateChallan(formData).subscribe((response: any) => {
       this.toastService.hideLoader();
       this.challanForm.value['ChallanId'] = response.ChallanId;
@@ -221,9 +213,6 @@ export class AddViolationComponent {
       this.challanForm.value['DutyOfficer'] = response.DutyOfficer;
       this.sendSMSAndEmail(this.challanForm.value);
       this.navCtrl.push(PrintReceiptPage, {data: this.challanForm.value, currentViolents: this.currentViolents});
-      // const violenterModal =  this.modalCtrl.create(PrintReceiptPage, {data: this.challanForm.value});
-      // violenterModal.present();
-      // this.navCtrl.popToRoot();
     },(error: any) => {
       // this.challanForm.value['ChallanId'] = null;
       this.toastService.hideLoader();
@@ -238,8 +227,6 @@ export class AddViolationComponent {
         this.challanForm.value['VehicleClass'] = this.violenter.VehicleClass;
         this.challanForm.value['PaymentStatus'] = "P";
         this.challanForm.value['DutyOfficer'] = "";
-        // this.toastService.hideLoader();
-        // challanForm['files'] = this.files;
         this.saveOffline(challanForm, this.challanForm.value);
       }else if(error.status === 401) {
         this.events.publish("user:logout");
@@ -331,28 +318,15 @@ export class AddViolationComponent {
       this.imageUrls.push('data:image/png;base64,' + onSuccess);
       const vehicleImageFiles = <FormArray>this.challanForm.controls['VehicleImageFile'];
       vehicleImageFiles.push(new FormControl(onSuccess));
-      // const fileName:string = 'img'+new Date().toISOString().substring(0,10)+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.jpeg'; 
-      // this.files.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess,fileName));
-      // console.log(this.files);
     },(onError)=>{
       alert(onError);
     });
   }
 
-  // dataURLtoFile(dataurl, filename) {
-  //   var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-  //       bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-  //   while(n--){
-  //       u8arr[n] = bstr.charCodeAt(n);
-  //   }
-  //   return new File([u8arr], filename, {type:mime});
-  // }
-
   delImage(index:number){
     const vehicleImageFiles = <FormArray>this.challanForm.controls['VehicleImageFile'];
     this.imageUrls.splice(index,1);
     vehicleImageFiles.removeAt(index);
-    // this.files.splice(index,1);
   }
 
   showError(message) {

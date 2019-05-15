@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { NavParams, ViewController, NavController, Alert, AlertController } from "ionic-angular";
-import { ReceiptPage } from "../../receipt/receipt";
 import { ViolentsProvider } from "../../../providers/violents/violents";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ToastService } from "../../../providers/toast/toast.service";
@@ -213,8 +212,6 @@ export class SeizeModal {
     this.camera.getPicture(this.cameraOptions).then((onSuccess) => {
       this.vehicleUrls.push('data:image/png;base64,' + onSuccess);
       this.vehicleImages.push(onSuccess);
-      // const fileName: string = 'vehicle-img' + new Date().toISOString().substring(0, 10) + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.jpeg';
-      // this.vehicleImages.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess, fileName));
     }, (error) => {
 
     });

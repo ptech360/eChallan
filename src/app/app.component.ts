@@ -15,11 +15,9 @@ import { Api } from '../providers/api/api';
 import { Uid } from '@ionic-native/uid';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { StorageService } from '../providers/providers';
-declare const KMswipe: any;
 
 declare let jQuery: any;
 declare let window: any;
-// declare let IdPayPrint: any;
 
 @Component({
   templateUrl: 'app.html'
@@ -48,7 +46,6 @@ export class MyApp extends Activity {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
       // localForage.clear();
-      debugger
       this.getImei().then((response)=>{
         if(response != undefined){
           this.localStorage.storeData('IMEI', response);
@@ -73,22 +70,6 @@ export class MyApp extends Activity {
         }
         
       })
-
-      // this.intializeApp();
-
-      // KMswipe.config({
-      //     environment: KMSWIPE.GatewayEnvironment.LABS,
-      //     network: KMSWIPE.NetworkSource.WIFI
-      //   },
-      //   success => {
-      //     alert(JSON.stringify(success));
-      //   },
-      //   err => {
-      //     alert(JSON.stringify(err));
-      //   }
-      // );
-
-
     });
 
     
@@ -104,11 +85,6 @@ export class MyApp extends Activity {
       '?ts=' +
       new Date().getTime();
     document.getElementsByTagName('head')[0].appendChild(scr1);
-    // scr.addEventListener('load', (event: any) => {
-    //   scr1.addEventListener('load', (event: any) => {
-    //     IdPayPrint('CA6HRAN6S8W1C5KZK7WRSO1I','6HY3YE1HEE7ZDM4J5GH2RCP2');
-    //   });
-    // });
   }
 
   async getImei() {
