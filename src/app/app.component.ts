@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Platform, Events, AlertController, App, Alert } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import * as localForage from 'localforage';
+import { Component, OnInit } from "@angular/core";
+import { Platform, Events, AlertController, App, Alert } from "ionic-angular";
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
+import * as localForage from "localforage";
 
-import { TabsPage } from '../pages/tabs/tabs';
-import { LoginComponent } from '../components/login/login';
-import { User } from '../providers/user/user';
-import { Activity } from './app.activity';
-import { NetworkProvider } from '../providers/network/network';
-import { ToastService } from '../providers/toast/toast.service';
-import { ViolentsProvider } from '../providers/violents/violents';
-import { Api } from '../providers/api/api';
-import { Uid } from '@ionic-native/uid';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
-import { StorageService } from '../providers/providers';
+import { TabsPage } from "../pages/tabs/tabs";
+import { LoginComponent } from "../components/login/login";
+import { User } from "../providers/user/user";
+import { Activity } from "./app.activity";
+import { NetworkProvider } from "../providers/network/network";
+import { ToastService } from "../providers/toast/toast.service";
+import { ViolentsProvider } from "../providers/violents/violents";
+import { Api } from "../providers/api/api";
+import { Uid } from "@ionic-native/uid";
+import { AndroidPermissions } from "@ionic-native/android-permissions";
+import { StorageService } from "../providers/providers";
 
 declare let jQuery: any;
 declare let window: any;
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: "app.html"
 })
 export class MyApp extends Activity {
   rootPage: any;
@@ -41,17 +41,31 @@ export class MyApp extends Activity {
     public androidPermissions: AndroidPermissions,
     public localStorage: StorageService
   ) {
-    super(platform,events, appCtrl, alertCtrl, user, networkProvider, toastProvider, violent, api, uid, androidPermissions, localStorage);
+    super(
+      platform,
+      events,
+      appCtrl,
+      alertCtrl,
+      user,
+      networkProvider,
+      toastProvider,
+      violent,
+      api,
+      uid,
+      androidPermissions,
+      localStorage
+    );
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
       // localForage.clear();
-      this.getImei().then((response)=>{
-        if(response != undefined){
-          this.localStorage.storeData('IMEI', response);
+      this.getImei().then(response => {
+        if (response != undefined) {
+          this.localStorage.storeData("IMEI", response);
           user.getAppInfo().subscribe(
             (response: any) => {
               statusBar.styleDefault();
+              statusBar.styleBlackTranslucent();
               splashScreen.hide();
               this.intializeApp();
             },
@@ -60,31 +74,32 @@ export class MyApp extends Activity {
               if (error.status == 401) {
                 platform.exitApp();
               } else if (error.status == 0) {
-                localForage.getItem('ProjectLogo').then((value) => {
-                  this.intializeApp();
-                }).catch((err) => {
-                  // platform.exitApp();
-                });
+                localForage
+                  .getItem("ProjectLogo")
+                  .then(value => {
+                    this.intializeApp();
+                  })
+                  .catch(err => {
+                    // platform.exitApp();
+                  });
               }
-          });
+            }
+          );
         }
-        
-      })
+      });
     });
 
-    
-
-    if (typeof jQuery == 'undefined' || !window.jQuery) {
-      var scr = document.createElement('script');
-      scr.src = 'https://mdm.digitsecure.com/plugin/Idpay/jquery.min.js';
-      document.getElementsByTagName('head')[0].appendChild(scr);
+    if (typeof jQuery == "undefined" || !window.jQuery) {
+      var scr = document.createElement("script");
+      scr.src = "https://mdm.digitsecure.com/plugin/Idpay/jquery.min.js";
+      document.getElementsByTagName("head")[0].appendChild(scr);
     }
-    var scr1 = document.createElement('script');
+    var scr1 = document.createElement("script");
     scr1.src =
-      'https://mdm.digitsecure.com/plugin/Idpay/IdPayInvokev1_0.js' +
-      '?ts=' +
+      "https://mdm.digitsecure.com/plugin/Idpay/IdPayInvokev1_0.js" +
+      "?ts=" +
       new Date().getTime();
-    document.getElementsByTagName('head')[0].appendChild(scr1);
+    document.getElementsByTagName("head")[0].appendChild(scr1);
   }
 
   async getImei() {
@@ -98,29 +113,30 @@ export class MyApp extends Activity {
       );
 
       if (!result.hasPermission) {
-        throw new Error('Permissions required');
+        throw new Error("Permissions required");
       }
 
       const alert: Alert = this.alertCtrl.create({
-        title: 'Yehh you have Permission to use this app.',
-        message: 'You can access this app after restarting.',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // this.platform.exitApp();
-            this.splashScreen.show();
-            window.location.reload();
+        title: "Yehh you have Permission to use this app.",
+        message: "You can access this app after restarting.",
+        buttons: [
+          {
+            text: "OK",
+            handler: () => {
+              // this.platform.exitApp();
+              this.splashScreen.show();
+              window.location.reload();
+            }
           }
-        }]
-  
+        ]
       });
       alert.present();
 
       // ok, a user gave us permission, we can get him identifiers after restart app
       return;
     }
-    this.localStorage.storeData('IMEI', this.uid.IMEI);
-    return this.uid.IMEI
+    this.localStorage.storeData("IMEI", this.uid.IMEI);
+    return this.uid.IMEI;
   }
 
   intializeApp() {

@@ -158,7 +158,6 @@ export class PeopleProvider {
     }
   ]
   constructor(public api: Api) {
-    console.log('Hello PeopleProvider Provider');
   }
 
   getPerson(type,value){

@@ -43,7 +43,6 @@ export class FeaturesProvider {
     // }
   ]
   constructor(public api: Api) {
-    console.log('Hello FeaturesProvider Provider');
   }
 
 }

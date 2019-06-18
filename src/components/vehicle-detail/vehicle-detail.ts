@@ -45,7 +45,6 @@ export class VehicleDetailComponent {
   ionViewDidLoad() {    
     this.violenter = this.navParam.get('data');    
     this.violationForm.patchValue(this.violenter);
-    console.log(this.violenter);    
   }
 
   addViolation(){

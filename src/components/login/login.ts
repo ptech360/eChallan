@@ -34,10 +34,8 @@ export class LoginComponent implements OnInit{
       localForage.setItem('ProjectLogo', response).then(function () {
         return localForage.getItem('ProjectLogo');
       }).then(function (value) {
-        console.log(value);
         // we got our value
       }).catch(function (err) {
-        console.log(err);
         // we got an error
       });
     }, error => {

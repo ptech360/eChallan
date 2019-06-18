@@ -22,7 +22,6 @@ export class UnuploadedChallanPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UnuploadedChallanPage');
     localForage.getItem('VehicleChallan').then((challans: any[]) => {
       if(challans){
         this.challans = challans;

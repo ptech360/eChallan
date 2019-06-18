@@ -57,9 +57,7 @@ export class PaymentGatewayPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PaymentGatewayPage');
-    console.log('payment', this.navParams.get('data'));
-    console.log('currentViolations', this.navParams.get('currentViolations'));
+
   }
 
   confirm() {
@@ -82,7 +80,6 @@ export class PaymentGatewayPage implements OnInit {
       var nachData = challanId + '|Savings|Monthly|' + (new Date().getMonth() + 1) + '|' + this.generatedObject.ChallanDate;
       var payResp = IdProcessPay(merchantId, sharedKey, Amount, sUrl, email, mobile, reqpaymentMode, reqnoOfPayments, paymentData, nachData);
       parseString(payResp, (err: any, result: any) => {
-        console.log(result);
         if (result.Response && result.Response.RespCode[0] === '1000') {
           const paymentObject = {
             'ChallanId': this.generatedObject.ChallanId,
@@ -216,14 +213,12 @@ export class PaymentGatewayPage implements OnInit {
     };
     if (this.generatedObject.EmailId && this.validateEmail(this.generatedObject.EmailId)) {
       object['MailRecipent'] = this.generatedObject.EmailId;
+      this.violent.sendEmail(object).subscribe(response => {
+      });
     }
-    this.violent.sendEmail(object).subscribe(response => {
-      console.log(response);
-    });
     if (this.generatedObject.MobileNumber) {
       object['MailRecipent'] = "";
       this.violent.sendSMS(object).subscribe(response => {
-        console.log(response);
       });
     }
   }

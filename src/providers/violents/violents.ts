@@ -11,7 +11,6 @@ import { Api } from '../api/api';
 export class ViolentsProvider {
 
   constructor(public api: Api) {
-    console.log('Hello ViolentsProvider Provider');
   }
 
   getViolents(){

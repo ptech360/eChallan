@@ -49,7 +49,6 @@ export class ViolenterHistoryPage implements OnInit {
   }
 
   stpSelect() {
-    console.log('STP selected');
   }
 
   filterHistory(event:any[]){
