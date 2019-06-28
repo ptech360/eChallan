@@ -6,7 +6,8 @@ import {
   ViewController,
   ModalController,
   Navbar,
-  Platform
+  Platform,
+  App
 } from "ionic-angular";
 import { PaymentGatewayPage } from "../payment-gateway/payment-gateway";
 import { ViolentsProvider } from "../../providers/providers";
@@ -43,10 +44,11 @@ export class PrintReceiptPage implements OnInit {
     public modalCtrl: ModalController,
     public violationService: ViolentsProvider,
     public toastService: ToastService,
-    private platform: Platform
-  ) {}
+    private platform: Platform,
+    public appCtrl: App
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewDidLoad() {
     this.overrideBackBtnFunctionality();
@@ -65,7 +67,7 @@ export class PrintReceiptPage implements OnInit {
       $(this.printContent.nativeElement)[0].innerText
     );
     let that = this;
-    parseString(response, function(err, result) {
+    parseString(response, function (err, result) {
       if (result && result.Response.ResponseCode[0] === "1000") {
         // that.dismiss();
         that.navCtrl.popToRoot();
@@ -90,8 +92,7 @@ export class PrintReceiptPage implements OnInit {
       currentViolations: this.currentViolations
     });
     violenterModal.present();
-    violenterModal.onDidDismiss(() => {
-    });
+    violenterModal.onDidDismiss(() => { });
   }
 
   done() {
@@ -143,16 +144,5 @@ export class PrintReceiptPage implements OnInit {
       ev.stopPropagation();
       this.navCtrl.popToRoot();
     };
-
-    /**handle the android hardware back btn for the same purpose*/
-    if (this.platform.is("android")) {
-      this.unregisterBackButtonActionForAndroid = this.platform.registerBackButtonAction(
-        () => {
-          // check any overlay like alert overlay, datetime overlay etc
-          // if it is present, close that overlay
-        },
-        1
-      );
-    }
   }
 }

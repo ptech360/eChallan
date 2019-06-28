@@ -123,14 +123,13 @@ export class AddViolationComponent {
           "&key=AIzaSyC0fj5LBatMHxv2d-o6OTni7V1voRbQiKM"
       )
       .subscribe((response: any) => {
-        debugger;
         try {
-          this.locationName = response.results
-            ? response.results[0].formatted_address
-            : "Not Locate";
+          this.locationName = response.results[0].formatted_address;
         } catch (error) {}
 
-        this.challanForm.controls["LocationName"].patchValue(this.locationName);
+        this.challanForm.controls["LocationName"].patchValue(
+          this.locationName || "Not Locate"
+        );
       });
   }
 
@@ -307,15 +306,11 @@ export class AddViolationComponent {
     };
     if (challanObject.EmailId && this.validateEmail(challanObject.EmailId)) {
       object["MailRecipent"] = challanObject.EmailId;
-      this.violent.sendEmail(object).subscribe(response => {
-
-      });
+      this.violent.sendEmail(object).subscribe(response => {});
     }
     if (challanObject.MobileNumber) {
       object["MailRecipent"] = "";
-      this.violent.sendSMS(object).subscribe(response => {
-        
-      });
+      this.violent.sendSMS(object).subscribe(response => {});
     }
   }
 

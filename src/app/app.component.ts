@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Platform, Events, AlertController, App, Alert } from "ionic-angular";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Platform, Events, AlertController, App, Alert, Nav } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import * as localForage from "localforage";
@@ -23,7 +23,9 @@ declare let window: any;
   templateUrl: "app.html"
 })
 export class MyApp extends Activity {
+  @ViewChild(Nav) nav: Nav;
   rootPage: any;
+  unregisterBackButtonActionForAndroid: Function;
 
   constructor(
     platform: Platform,
@@ -39,7 +41,7 @@ export class MyApp extends Activity {
     public api: Api,
     public uid: Uid,
     public androidPermissions: AndroidPermissions,
-    public localStorage: StorageService
+    public localStorage: StorageService,
   ) {
     super(
       platform,
@@ -59,6 +61,9 @@ export class MyApp extends Activity {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
       // localForage.clear();
+      this.unregisterBackButtonActionForAndroid &&
+        this.unregisterBackButtonActionForAndroid();
+      this.overrideBackBtnFunctionality();
       this.getImei().then(response => {
         if (response != undefined) {
           this.localStorage.storeData("IMEI", response);
@@ -141,9 +146,37 @@ export class MyApp extends Activity {
 
   intializeApp() {
     if (this.user.isLoggedIn()) {
-      this.rootPage = TabsPage;
+      this.nav.setRoot(TabsPage);
     } else {
-      this.rootPage = LoginComponent;
+      this.nav.setRoot(LoginComponent);
+    }
+  }
+
+  overrideBackBtnFunctionality() {
+    /**overides the defult behaviour of navbar back btn
+     * Show an alert stating: 'any filled data in form will be lost on going back'
+     */
+
+    /**handle the android hardware back btn for the same purpose*/
+    if (this.platform.is("android")) {
+      this.unregisterBackButtonActionForAndroid = this.platform.registerBackButtonAction(
+        () => {
+          // check any overlay like alert overlay, datetime overlay etc
+          // if it is present, close that overlay
+          const overlayView = this.appCtrl._appRoot._overlayPortal._views[0];
+          if (overlayView && overlayView.dismiss) {
+            overlayView.dismiss();
+          } else if (this.nav.getActive().index === 0) {
+            this.platform.exitApp();
+          }
+          else if (this.nav.getActive().component.name === "PrintReceiptPage") {
+            this.nav.popToRoot();
+          } else {
+            this.nav.pop();
+          }
+        },
+        1
+      );
     }
   }
 }

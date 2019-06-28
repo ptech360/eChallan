@@ -33,7 +33,7 @@ export class Activity {
 
   handleEvents() {
     this.events.subscribe("user:login", () => {
-      this.sync();
+      // this.sync();
       this.login();
     });
 
@@ -60,7 +60,7 @@ export class Activity {
 
   public online() {
     this.toastProvider.showToast("Back Online", "top", true);
-    this.sync();
+    // this.sync();
   }
 
   public sync() {
@@ -271,11 +271,11 @@ export class Activity {
 
     if (challanObject.EmailId && this.validateEmail(challanObject.EmailId)) {
       object["MailRecipent"] = challanObject.EmailId;
-      this.violent.sendEmail(object).subscribe(response => {});
+      this.violent.sendEmail(object).subscribe(response => { });
     }
     if (challanObject.MobileNumber) {
       object["MailRecipent"] = "";
-      this.violent.sendSMS(object).subscribe(response => {});
+      this.violent.sendSMS(object).subscribe(response => { });
     }
   }
 
