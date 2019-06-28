@@ -15,7 +15,6 @@ export class NoRecordsComponent {
   text: string;
 
   constructor() {
-    console.log('Hello NoRecordsComponent Component');
     this.text = 'Hello World';
   }
 

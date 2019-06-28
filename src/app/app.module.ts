@@ -14,7 +14,6 @@ import { AddViolationComponent } from '../components/add-violation/add-violation
 import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../pages/seize/seize';
 import { SeizeModal } from '../pages/seize/seize-modal/seize-modal';
-import { ReceiptPage } from '../pages/receipt/receipt';
 import { ProfileComponent } from '../components/profile/profile';
 import { NoRecordsComponent } from '../components/no-records/no-records';
 
@@ -23,10 +22,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Uid } from '@ionic-native/uid';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
-import {Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService, ChartProvider} from '../providers/providers';
+import { Api, User, FeaturesProvider, ProfileProvider, PeopleProvider, ViolentsProvider, ContactsProvider, StorageService } from '../providers/providers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrintReceiptPage } from '../pages/print-receipt/print-receipt';
-import { Printer } from '../../node_modules/@ionic-native/printer';
 import { VehicleDetailComponent } from '../components/vehicle-detail/vehicle-detail';
 import { Camera } from '../../node_modules/@ionic-native/camera';
 import { ToastService } from '../providers/toast/toast.service';
@@ -50,7 +48,6 @@ import { Network } from '@ionic-native/network';
     PrintReceiptPage,
     SeizePage,
     SeizeModal,
-    ReceiptPage,
     ProfileComponent,
     NoRecordsComponent
   ],
@@ -77,7 +74,6 @@ import { Network } from '@ionic-native/network';
     PrintReceiptPage,
     SeizePage,
     SeizeModal,
-    ReceiptPage,
     ProfileComponent,
     NoRecordsComponent
   ],
@@ -91,17 +87,15 @@ import { Network } from '@ionic-native/network';
     PeopleProvider,
     ViolentsProvider,
     ContactsProvider,
-    ChartProvider,
     StorageService,
     ToastService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Uid,
     AndroidPermissions,
-    Printer,
     Camera,
     Geolocation,
     NetworkProvider,
     Network
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -6,7 +6,6 @@ import { PeopleProvider } from './people/people';
 import { ViolentsProvider } from './violents/violents';
 import { ContactsProvider } from './contacts/contacts';
 import { StorageService } from './localstorage/storage';
-import { ChartProvider } from './chart/chart';
 
 export {
     Api,
@@ -16,6 +15,5 @@ export {
     PeopleProvider,
     ViolentsProvider,
     ContactsProvider,
-    ChartProvider,
     StorageService
 };

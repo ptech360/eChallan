@@ -19,7 +19,6 @@ export class ProfileProvider {
 
   }
   constructor(public api: Api) {
-    console.log('Hello ProfileProvider Provider');
   }
 
   getProfile(){

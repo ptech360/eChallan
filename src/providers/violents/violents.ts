@@ -10,35 +10,10 @@ import { Api } from '../api/api';
 @Injectable()
 export class ViolentsProvider {
 
-  violentsList = [
-      {
-        name: 'No Helmet',
-        code: '001',
-        charge: '100'
-      },
-      {
-        name: 'Crossing Red Light',
-        code: '002',
-        charge: '150'
-      },
-      {
-        name: 'Over Speed',
-        code: '003',
-        charge: '50'
-      },
-      {
-        name: 'Hit & Run',
-        code: '004',
-        charge: '1500'
-      }
-  ]
-
   constructor(public api: Api) {
-    console.log('Hello ViolentsProvider Provider');
   }
 
   getViolents(){
-    // return this.violentsList;
     return this.api.get('TrafficVioList');
   }
 
@@ -46,8 +21,20 @@ export class ViolentsProvider {
     return this.api.post('VehicleChallan',data);
   }
 
+  generateOfflineChallan(data: any){
+    return this.api.post('OfflineChallan',data);
+  }
+
   challanPayment(data:any){
     return this.api.put('ChallanPayment',data);
+  }
+
+  sendSMS(data: any){
+    return this.api.post('SendSms', data);
+  }
+
+  sendEmail(data: any){
+    return this.api.post('SendEmail', data);
   }
   
   vehicleType() {

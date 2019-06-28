@@ -91,11 +91,7 @@ export class User {
   }
 
   getAppInfo(){
-    if(this.appInfo){
-      return Observable.of(this.appInfo);
-    }else{
-      return this.api.get('ProjectLogo').map(response => this.appInfo = response);
-    }
+    return this.api.get('ProjectLogo');
   }
   
 }

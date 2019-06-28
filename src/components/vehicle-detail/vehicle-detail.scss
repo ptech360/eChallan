@@ -1,6 +1,9 @@
 vehicle-detail {
-.item-inner{
-  border-bottom: 0!important;
-  -webkit-box-shadow:none!important;
-}
+  .item-inner {
+    border-bottom: 0 !important;
+    -webkit-box-shadow: none !important;
+  }
+  .error {
+    border-bottom: 1px solid red !important;
+  }
 }

@@ -29,7 +29,7 @@ export class ToastService {
         const toast = this.toastCtrl.create({
             message: msg,
             duration: 3000,
-            position: pos || 'bottom',
+            position: pos || 'top',
             showCloseButton: showCloseBtn,
             closeButtonText: 'Ok'
         });

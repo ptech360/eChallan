@@ -22,6 +22,7 @@
   <div #printContent padding>
     <h4 text-center class="primaryColor">CHALLAN</h4>
     <table style="text-align: left;;padding-bottom: 20px; font-size: 18px;">
+      <!-- <caption>Uttar Pradesh Traffic Police(Varanasi)<br>Challaned for below Vehicle details are:</caption> -->
       <thead>
         <th style="width: 40%;"></th>
         <th style="width: 60%;"></th>
@@ -31,170 +32,249 @@
           <th style="vertical-align: baseline;">
             <u>Challan No</u>
           </th>
-          <td>: {{printScriptObject['ChallanId'] || 'Not Generated'}}</td>
+          <td>: {{ printScriptObject["ChallanId"] || "Not Generated" }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Challan Date</th>
-          <td>: {{printScriptObject['ChallanDate'] | date}} {{printScriptObject['ChallanDate'] | date:'h:mm a'}}</td>
+          <td>
+            : {{ printScriptObject["ChallanDate"] | date }}
+            {{ printScriptObject["ChallanDate"] | date: "h:mm a" }}
+          </td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Vehicle No</th>
-          <td>: {{printScriptObject['VehicleNo']}}</td>
+          <td>: {{ printScriptObject["VehicleNo"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Vehicle Class</th>
-          <td>: {{printScriptObject['VehicleClass']}}</td>
+          <td>: {{ printScriptObject["VehicleClass"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Location</th>
-          <td>: {{printScriptObject['LocationName']}}</td>
+          <td>: {{ printScriptObject["LocationName"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Owner Name</th>
-          <td>: {{printScriptObject['OwnerName']}}</td>
+          <td>: {{ printScriptObject["OwnerName"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Owner Address</th>
-          <td>: {{printScriptObject['OwnerAddress']}}</td>
+          <td>: {{ printScriptObject["OwnerAddress"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Amount</th>
-          <td>: {{printScriptObject['amount']}}</td>
+          <td>: {{ printScriptObject["amount"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Violation(s)</th>
-          <td>: {{printScriptObject['violations']}}</td>
+          <td>: {{ printScriptObject["violations"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Mobile</th>
-          <td>: {{printScriptObject['MobileNumber']}}</td>
+          <td>: {{ printScriptObject["MobileNumber"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <th style="vertical-align: baseline;">Duty Officer</th>
-          <td>: {{printScriptObject['DutyOfficer']}}</td>
+          <td>: {{ printScriptObject["DutyOfficer"] }}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <th style="vertical-align: baseline;">Payment</th>
-          <td *ngIf="printScriptObject.DocsSeizeStatus || printScriptObject.VehicleSeizeStatus">: Not Done</td>
-          <td *ngIf="!printScriptObject.DocsSeizeStatus && !printScriptObject.VehicleSeizeStatus">: {{printScriptObject.PaymentId ? 'Done' : 'Pending'}}</td>
+          <td
+            *ngIf="
+              printScriptObject.DocsSeizeStatus ||
+              printScriptObject.VehicleSeizeStatus
+            "
+          >
+            : Not Done
+          </td>
+          <td
+            *ngIf="
+              !printScriptObject.DocsSeizeStatus &&
+              !printScriptObject.VehicleSeizeStatus &&
+              printScriptObject.PaymentStatus === 'P'
+            "
+          >
+            : {{ printScriptObject.PaymentId ? "Done" : "Pending" }}
+          </td>
+          <td
+            *ngIf="
+              printScriptObject.PaymentStatus === 'C' ||
+              printScriptObject.PaymentTypeName === 'Cash'
+            "
+          >
+            : Received Cash
+          </td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr *ngIf="printScriptObject.DocsSeizeStatus">
           <th style="vertical-align: baseline;">Seized Document</th>
-          <td>: <span *ngFor="let doc of printScriptObject.vehicleDocsModel;let i = index;">{{doc.DocumentName}}<i *ngIf="i < printScriptObject.vehicleDocsModel.length-1">, </i></span></td>
+          <td>
+            :
+            <span
+              *ngFor="
+                let doc of printScriptObject.vehicleDocsModel;
+                let i = index
+              "
+              >{{ doc.DocumentName
+              }}<i *ngIf="i < printScriptObject.vehicleDocsModel.length - 1"
+                >,
+              </i></span
+            >
+          </td>
         </tr>
         <tr *ngIf="printScriptObject.DocsSeizeStatus">
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
           <th style="vertical-align: baseline;">Seized Vehicle</th>
-          <td>{{printScriptObject['VehicleNo']}}</td>
+          <td>: {{ printScriptObject["VehicleNo"] }}</td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr *ngIf="printScriptObject.PaymentId">
           <th style="vertical-align: baseline;">Transaction Id</th>
-          <td>: {{printScriptObject.PaymentId}}</td>
+          <td>: {{ printScriptObject.PaymentId }}</td>
         </tr>
         <tr *ngIf="printScriptObject.PaymentId">
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline; padding-top: 45px!important;">Name/Sign of Owner </th>
+          <th style="vertical-align: baseline; padding-top: 45px!important;">
+            Name/Sign of Owner
+          </th>
           <td style="padding-top: 45px!important;">: _________________</td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
         <tr>
           <td colspan="2">
-            <br>
+            <br />
           </td>
         </tr>
       </tfoot>
     </table>
   </div>
   <div text-center color="primary" class="flex" padding>
-    <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">Done</button>
-    <button ion-button color="primary" padding full *ngIf="printScriptObject.VehicleSeizeStatus || printScriptObject.DocsSeizeStatus" (click)="unseize(printScriptObject)">Unseize</button>
-    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length" *ngIf="printScriptObject.PaymentStatus==='P'">Payment</button>
-    <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">Print</button>
- 
+    <button
+      ion-button
+      color="primary"
+      padding
+      full
+      (click)="done()"
+      *ngIf="printScriptObject.PaymentId"
+    >
+      Done
+    </button>
+    <button
+      ion-button
+      color="primary"
+      padding
+      full
+      *ngIf="
+        printScriptObject.ChallanId &&
+        (printScriptObject.VehicleSeizeStatus == 'S' ||
+          printScriptObject.DocsSeizeStatus == 'S')
+      "
+      (click)="unseize(printScriptObject)"
+    >
+      Unseize
+    </button>
+    <button
+      ion-button
+      color="primary"
+      padding
+      full
+      (click)="pay()"
+      [disabled]="!printData.length"
+      *ngIf="printScriptObject.PaymentStatus === 'P'"
+    >
+      Payment
+    </button>
+    <button
+      ion-button
+      color="primary"
+      padding
+      full
+      (click)="print()"
+      [disabled]="!printData.length"
+    >
+      Print
+    </button>
   </div>
-
 </ion-content>

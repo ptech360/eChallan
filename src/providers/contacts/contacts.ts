@@ -49,7 +49,6 @@ export class ContactsProvider {
   ]
 
   constructor(public api: Api) {
-    console.log('Hello ContactsProvider Provider');
   }
 
   getContacts(){

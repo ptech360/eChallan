@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { SeizeModal } from './seize-modal/seize-modal';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController,
+  ViewController
+} from "ionic-angular";
+import { SeizeModal } from "./seize-modal/seize-modal";
 
 /**
  * Generated class for the SeizePage page.
@@ -11,34 +17,35 @@ import { SeizeModal } from './seize-modal/seize-modal';
 
 @IonicPage()
 @Component({
-  selector: 'page-seize',
-  templateUrl: 'seize.html',
+  selector: "page-seize",
+  templateUrl: "seize.html"
 })
 export class SeizePage {
-
   public currentViolents;
   public charge;
   public violenter;
   challanObject: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public modalCtrl: ModalController
-  ) {
-
-  }
+  ) {}
 
   ionViewDidLoad() {
-    // this.currentViolents = this.navParams.get('data')
-    // this.charge = this.navParams.get('charge')
-    // this.violenter = this.navParams.get('violenter')
-    this.challanObject = this.navParams.get('data');
-
+    this.challanObject = this.navParams.get("data");
   }
 
   seize(object) {
-    const modal = this.modalCtrl.create(SeizeModal, { data: object, challanObject: this.challanObject });
-    modal.present()
+    const modal = this.modalCtrl.create(SeizeModal, {
+      data: object,
+      challanObject: this.challanObject
+    });
+    modal.present();
   }
 
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }
-

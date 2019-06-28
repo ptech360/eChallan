@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController, AlertController} from 'ionic-angular';
+import { NavController, AlertController, Events} from 'ionic-angular';
 import { FeaturesProvider } from '../../providers/features/features';
 import { StorageService } from '../../providers/localstorage/storage';
 import { ToastService } from '../../providers/toast/toast.service';
@@ -15,7 +15,8 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               public features:FeaturesProvider, 
               public storage: StorageService,
-              public alertCtrl: AlertController
+              public alertCtrl: AlertController,
+              public events: Events
   ) {
     this.pages = this.features.appFeatures;
 
@@ -37,9 +38,10 @@ export class HomePage {
       {
         text: 'Yes',
         handler: () => {
-          this.storage.clearData();
-          this.storage.isToken.next(false);
-          this.navCtrl.push('LoginComponent');
+          // this.storage.clearData();
+          // this.storage.isToken.next(false);
+          // this.navCtrl.push('LoginComponent');
+          this.events.publish("user:logout");
         }
       }]
     });
