@@ -13,19 +13,19 @@
         <ion-label stacked>Body Type</ion-label>
         <ion-input type="text" formControlName="BodyType"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.ChassisNo.invalid ? 'error' : ''">
         <ion-label stacked>Chassis No</ion-label>
         <ion-input type="text" formControlName="ChassisNo"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.Colour.invalid ? 'error' : ''">
         <ion-label stacked>Colour</ion-label>
         <ion-input type="text" formControlName="Colour"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.EngNo.invalid ? 'error' : ''">
         <ion-label stacked>Eng No</ion-label>
         <ion-input type="text" formControlName="EngNo"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.FatherName.invalid ? 'error' : ''">
         <ion-label stacked>Father Name</ion-label>
         <ion-input type="text" formControlName="FatherName"></ion-input>
       </ion-item>
@@ -33,15 +33,16 @@
         <ion-label stacked>Maker Model</ion-label>
         <ion-input type="text" formControlName="MakerModel"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.EmailId.invalid ? 'error' : ''">
         <ion-label stacked>Email</ion-label>
         <ion-input type="email" formControlName="EmailId"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.MobileNumber.invalid ? 'error' : ''">
         <ion-label stacked>Mobile Number</ion-label>
-        <ion-input type="number" maxlength="10" pattern="[0-9]{10}" formControlName="MobileNumber"></ion-input>
+        <ion-input type="number" maxlength="10" formControlName="MobileNumber" name="MobileNumber">
+        </ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.OwnerName.invalid ? 'error' : ''">
         <ion-label stacked>Owner Name</ion-label>
         <ion-input type="text" formControlName="OwnerName"></ion-input>
       </ion-item>
@@ -59,15 +60,15 @@
         <ion-label stacked>Vehicle Class</ion-label>
         <ion-input type="text" formControlName="VehicleClass"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item [ngClass]="violationForm.controls.VehicleNo.invalid ? 'error' : ''">
         <ion-label stacked>Vehicle No</ion-label>
         <ion-input type="text" formControlName="VehicleNo"></ion-input>
       </ion-item>
-
     </ion-card>
     <div padding text-center>
-      <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">Add
-        Violation</button>
+      <button ion-button center round class="center" [disabled]="violationForm.invalid" (click)="addViolation()">
+        Add Violation
+      </button>
     </div>
   </form>
 </ion-content>
