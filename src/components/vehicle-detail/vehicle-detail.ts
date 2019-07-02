@@ -40,7 +40,7 @@ export class VehicleDetailComponent {
       EngNo: ["", [Validators.pattern("^[a-zA-Z0-9]+(s{0,1}[a-zA-Z])*$")]],
       FatherName: ["", [Validators.pattern("^[a-zA-Z-,]+(s{0,1}[a-zA-Z-, ])*$")]],
       MakerModel: [""],
-      EmailId: ["", [Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$")]],
+      EmailId: ["", [Validators.pattern("^(([^<>()\[\]\\.,;:\s@]+(\.[^<>()\[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$")]],
       MobileNumber: ["", [Validators.required, Validators.pattern("[0-9]{10}")]],
       OwnerName: ["", [Validators.pattern("^[a-zA-Z-,]+(s{0,1}[a-zA-Z-, ])*$")]],
       PastViolationCount: [0],

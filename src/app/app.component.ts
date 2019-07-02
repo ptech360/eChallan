@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Platform, Events, AlertController, App, Alert, Nav } from "ionic-angular";
+import { Platform, Events, AlertController, App, Alert, Nav, IonicApp } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import * as localForage from "localforage";
@@ -15,6 +15,8 @@ import { Api } from "../providers/api/api";
 import { Uid } from "@ionic-native/uid";
 import { AndroidPermissions } from "@ionic-native/android-permissions";
 import { StorageService } from "../providers/providers";
+import { HomePage } from "../pages/home/home";
+import { LanguageProvider } from "../providers/language/language";
 
 declare let jQuery: any;
 declare let window: any;
@@ -26,6 +28,7 @@ export class MyApp extends Activity {
   @ViewChild(Nav) nav: Nav;
   rootPage: any;
   unregisterBackButtonActionForAndroid: Function;
+  la: any;
 
   constructor(
     platform: Platform,
@@ -42,6 +45,8 @@ export class MyApp extends Activity {
     public uid: Uid,
     public androidPermissions: AndroidPermissions,
     public localStorage: StorageService,
+    public ionApp: IonicApp,
+    private langProvider: LanguageProvider
   ) {
     super(
       platform,
@@ -57,6 +62,7 @@ export class MyApp extends Activity {
       androidPermissions,
       localStorage
     );
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
@@ -72,6 +78,7 @@ export class MyApp extends Activity {
               statusBar.styleDefault();
               statusBar.styleBlackTranslucent();
               splashScreen.hide();
+              this.langProvider.setInitialAppLanguage();
               this.intializeApp();
             },
             (error: any) => {
@@ -146,9 +153,10 @@ export class MyApp extends Activity {
 
   intializeApp() {
     if (this.user.isLoggedIn()) {
-      this.nav.setRoot(TabsPage);
+      this.rootPage = HomePage;
     } else {
-      this.nav.setRoot(LoginComponent);
+      this.rootPage = LoginComponent;
+
     }
   }
 
@@ -163,16 +171,22 @@ export class MyApp extends Activity {
         () => {
           // check any overlay like alert overlay, datetime overlay etc
           // if it is present, close that overlay
-          const overlayView = this.appCtrl._appRoot._overlayPortal._views[0];
+          const overlayView = this.ionApp._loadingPortal.getActive() ||
+            this.ionApp._modalPortal.getActive() ||
+            this.ionApp._toastPortal.getActive() ||
+            this.ionApp._overlayPortal.getActive();
+
           if (overlayView && overlayView.dismiss) {
             overlayView.dismiss();
-          } else if (this.nav.getActive().index === 0) {
+          }
+          else if (!this.nav.canGoBack()) {
             this.platform.exitApp();
           }
-          else if (this.nav.getActive().component.name === "PrintReceiptPage") {
-            this.nav.popToRoot();
-          } else {
-            this.nav.pop();
+          else if (this.appCtrl.getRootNav().getActive().component.name === "PrintReceiptPage") {
+            this.appCtrl.getRootNav().popToRoot();
+          }
+          else {
+            this.appCtrl.getRootNav().pop();
           }
         },
         1

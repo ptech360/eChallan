@@ -12,46 +12,24 @@
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
           <ion-label stacked>Driving License</ion-label>
-          <ion-input
-            type="text"
-            placeholder="Driving License"
-            [(ngModel)]="dl"
-            name="dl"
-            disabled
-          ></ion-input>
+          <ion-input type="text" placeholder="Driving License" [(ngModel)]="dl" name="dl" disabled></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
           <ion-label stacked>Registration Certificate</ion-label>
-          <ion-input
-            type="text"
-            placeholder=" Registration certificate"
-            disabled
-          ></ion-input>
+          <ion-input type="text" placeholder=" Registration certificate" disabled></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="car" item-start color="primary"></ion-icon>
           <ion-label stacked>Vehicle Number</ion-label>
-          <ion-input
-            type="text"
-            placeholder="Vehicle Number"
-            [(ngModel)]="vehicleNo"
-            (ngModelChange)="vehicleNo = $event.toLocaleUpperCase()"
-            name="vehicleNo"
-            maxlength="10"
-            autofocus
-          ></ion-input>
+          <ion-input type="text" placeholder="Vehicle Number" [(ngModel)]="vehicleNo"
+            (ngModelChange)="vehicleNo = $event.toLocaleUpperCase()" name="vehicleNo"
+            pattern="^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}?[0-9]{4}$" autofocus></ion-input>
         </ion-item>
       </div>
     </ion-card>
     <div padding>
-      <button
-        ion-button
-        full
-        color="primary"
-        (click)="getInfo()"
-        [disabled]="vehicleNo.length < 10"
-      >
+      <button ion-button full color="primary" (click)="getInfo()" [disabled]="vehicleNo.length < 10">
         Check
       </button>
     </div>
@@ -85,29 +63,14 @@
         </ion-item>
 
         <div padding-left padding-right margin-bottom>
-          <button
-            ion-button
-            small
-            block
-            round
-            color="danger"
-            icon-start
-            (click)="viewViolations()"
-          >
+          <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
             View Previous Violations
           </button>
         </div>
       </ion-card>
     </div>
     <div padding text-center>
-      <button
-        ion-button
-        center
-        round
-        class="center"
-        [disabled]="!violenter && !phone"
-        (click)="addViolation()"
-      >
+      <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">
         Proceed
       </button>
     </div>

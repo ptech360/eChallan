@@ -62,9 +62,9 @@ export class PaymentGatewayPage implements OnInit {
     this.charge = this.generatedObject.amount;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() { }
 
   confirm() {
     if (this.paymentTypeName === "Cash") {
@@ -84,16 +84,16 @@ export class PaymentGatewayPage implements OnInit {
       var reqnoOfPayments = "1";
       var paymentData = Array(
         Amount +
-          "|0.00|" +
-          trackid +
-          "|12|" +
-          "|" +
-          vehicleNo +
-          "|" +
-          "|" +
-          ownerName +
-          "|" +
-          mobile
+        "|0.00|" +
+        trackid +
+        "|12|" +
+        "|" +
+        vehicleNo +
+        "|" +
+        "|" +
+        ownerName +
+        "|" +
+        mobile
       );
       var nachData =
         challanId +
@@ -267,11 +267,11 @@ export class PaymentGatewayPage implements OnInit {
       this.validateEmail(this.generatedObject.EmailId)
     ) {
       object["MailRecipent"] = this.generatedObject.EmailId;
-      this.violent.sendEmail(object).subscribe(response => {});
+      this.violent.sendEmail(object).subscribe(response => { });
     }
     if (this.generatedObject.MobileNumber) {
       object["MailRecipent"] = "";
-      this.violent.sendSMS(object).subscribe(response => {});
+      this.violent.sendSMS(object).subscribe(response => { });
     }
   }
 

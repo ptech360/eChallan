@@ -1,7 +1,13 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { IonicStorageModule } from '@ionic/storage';
+
+
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -31,6 +37,11 @@ import { ToastService } from '../providers/toast/toast.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NetworkProvider } from '../providers/network/network';
 import { Network } from '@ionic-native/network';
+import { LanguageProvider } from '../providers/language/language';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -53,6 +64,14 @@ import { Network } from '@ionic-native/network';
   ],
   imports: [
     BrowserModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     FormsModule,
@@ -95,7 +114,8 @@ import { Network } from '@ionic-native/network';
     Camera,
     Geolocation,
     NetworkProvider,
-    Network
+    Network,
+    LanguageProvider
   ]
 })
 export class AppModule { }

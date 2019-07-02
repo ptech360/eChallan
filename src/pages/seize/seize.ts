@@ -31,13 +31,14 @@ export class SeizePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController
-  ) {}
+  ) { }
 
   ionViewDidLoad() {
     this.challanObject = this.navParams.get("data");
   }
 
   seize(object) {
+    debugger
     const modal = this.modalCtrl.create(SeizeModal, {
       data: object,
       challanObject: this.challanObject
