@@ -53,17 +53,13 @@ login{
           }
         .login{
           width:100%;
-          border-radius:0 100px 100px 0;
-          
+          border-radius:0;
           box-shadow:0 0 10px rgba(0,0,0,0.1);
-          // animation:slidein 0.5s ease-in;
-          //  animation-delay:0.3s;
           transform-origin:center;
-          // opacity:0;
-          // animation-fill-mode:forwards;
           color:#8fa1b7;
           position: relative;
           margin: auto;
+
           .inputs{
             input:placeholder{
               color:#8fa1b7;
@@ -72,7 +68,7 @@ login{
               border:0px;
               border-bottom:1px solid #8fa1b7;
               font-size:1.1em;
-              background:transparent;
+              background:#ffffff;
               color:#8fa1b7;
               padding: 0px 10px;
               
