@@ -1,44 +1,43 @@
 <div class="mobile-login">
-
   <div class="content">
-    <div class="logo logo1">
-      <img *ngIf="appInfo.ProjectSiteLogo" class="login-logo" [src]="appInfo.ProjectSiteLogo" />
+    <div class="logo">
+      <!-- <img *ngIf="appInfo.ProjectSiteLogo" class="login-logo" [src]="appInfo.ProjectSiteLogo" /> -->
+      <img src="/assets/imgs/UPPolice.png" alt="UPPolice" />
     </div>
-
-
     <form class="loginForm" (ngSubmit)="login()" #loginForm="ngForm">
+      <h3>{{appInfo.ProjectName}}</h3>
       <div class="login">
         <!-- <label class="label">Login</label> -->
-        <label class="label">{{appInfo.ProjectName}}</label>
-
         <div class="inputs">
           <div class="input username">
-            <label for="username"> ☻ </label>
+            <label>
+              <ion-icon name="contact"></ion-icon>
+            </label>
+
             <input type="text" value="" name="username" color="primary" placeholder="Username" [(ngModel)]="loginCredentials.Username"
               required>
-
           </div>
           <div class="input password">
-            <label for="password"> ✄ </label>
-            <input type="password" name="password" placeholder="password" [(ngModel)]="loginCredentials.Password"
-              required>
-
-
+            <label>
+              <ion-icon name="key"></ion-icon>
+            </label>
+            <input type="password" name="password" placeholder="password" [(ngModel)]="loginCredentials.Password" required>
           </div>
+
         </div>
 
-        <button class="login-btn" type="submit" [disabled]="!loginForm.form.valid">
-          >
-        </button>
       </div>
+      <button class="login-btn" type="submit" [disabled]="!loginForm.form.valid">
+        LOGIN
+      </button>
+
+
     </form>
-    <div class="logo logo2">
-      <!-- <img src="assets/imgs/logo.png" /> -->
-      <img src="assets/imgs/logo.png" />
-    </div>
+
   </div>
 </div>
 <ion-footer text-center>
-  <div><b>Copyright © {{currentYear}} EfkonIndia.</b></div>
-  <div><b>All rights reserved</b></div>
+  <div class="login_footer">Copyright © {{currentYear}}
+    <img src="assets/icon/Efkon.png" alt="" /> EfkonIndia.
+    <br>All rights reserved</div>
 </ion-footer>
