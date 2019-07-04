@@ -1,10 +1,14 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Home</ion-title>
-    <button class="logout-btn" ion-button icon-only (click)='logout()' end>
-      <ion-icon name="log-out"></ion-icon>
-    </button>
-    <!-- <ion-icon class="logout-btn" (click)='logout()' name="log-out" end></ion-icon> -->
+    <ion-title>{{'Home' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openLanguagePopover($event)">
+        <ion-icon>{{selectedLanguage }}</ion-icon>
+      </button>
+      <button ion-button icon-only (click)='logout()'>
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -15,7 +19,7 @@
         <div class="box">
           <!-- <img [src]="feature.img"> -->
           <ion-icon color="secondary" [name]="feature.icon"></ion-icon>
-          <div class="label-title">{{ feature.name }}</div>
+          <div class="label-title">{{ feature.name | translate}}</div>
         </div>
       </ion-col>
     </ion-row>

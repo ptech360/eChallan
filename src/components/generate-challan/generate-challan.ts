@@ -32,7 +32,7 @@ export class GenerateChallanComponent {
   vc: string;
   violenter: any;
   needManualDetails: boolean = false;
-  vehicleNo: string = "UP65CY7918";
+  vehicleNo: string = "UP14FT4253";
   loading: Loading;
   online: boolean = true;
 
@@ -45,9 +45,9 @@ export class GenerateChallanComponent {
     public generateCtrl: LoadingController,
     public alertCtrl: AlertController,
     public network: NetworkProvider
-  ) {}
+  ) { }
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() { }
 
   getInfo() {
     this.showLoading();

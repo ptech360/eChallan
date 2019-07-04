@@ -1,28 +1,29 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Generate Challan</ion-title>
+    <ion-title>{{'Generate Challan'| translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="gray-back background">
-  <h6 text-center class="primaryColor">Violenter Detail</h6>
+  <h6 text-center class="primaryColor">{{'Violenter Detail'|translate}}</h6>
   <form>
     <ion-card>
       <div class="block">
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
-          <ion-label stacked>Driving License</ion-label>
-          <ion-input type="text" placeholder="Driving License" [(ngModel)]="dl" name="dl" disabled></ion-input>
+          <ion-label stacked>{{'Driving License' | translate}}</ion-label>
+          <ion-input type="text" placeholder="{{'Driving License' | translate}}" [(ngModel)]="dl" name="dl" disabled>
+          </ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="card" item-start color="primary"></ion-icon>
-          <ion-label stacked>Registration Certificate</ion-label>
-          <ion-input type="text" placeholder=" Registration certificate" disabled></ion-input>
+          <ion-label stacked>{{'Registration Certificate' | translate}}</ion-label>
+          <ion-input type="text" placeholder="{{'Registration Certificate' | translate}}" disabled></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="car" item-start color="primary"></ion-icon>
-          <ion-label stacked>Vehicle Number</ion-label>
-          <ion-input type="text" placeholder="Vehicle Number" [(ngModel)]="vehicleNo"
+          <ion-label stacked>{{'Vehicle Number' | translate}}</ion-label>
+          <ion-input type="text" placeholder="{{'Vehicle Number' | translate}}" [(ngModel)]="vehicleNo"
             (ngModelChange)="vehicleNo = $event.toLocaleUpperCase()" name="vehicleNo"
             pattern="^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}?[0-9]{4}$" autofocus></ion-input>
         </ion-item>
@@ -30,33 +31,30 @@
     </ion-card>
     <div padding>
       <button ion-button full color="primary" (click)="getInfo()" [disabled]="vehicleNo.length < 10">
-        Check
+        {{'Check' | translate}}
       </button>
     </div>
 
     <div *ngIf="violenter">
       <ion-card>
-        <!-- <ion-col col-4>
-          <img src="https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg" />
-        </ion-col> -->
         <ion-item class="border">
-          <b class="primaryColor" item-left>Name:</b>
+          <b class="primaryColor" item-left>{{'Name' | translate}}:</b>
           <p margin-left text-right>{{ violenter.OwnerName }}</p>
         </ion-item>
         <ion-item class="border">
-          <b class="primaryColor" item-left>S/O:</b>
+          <b class="primaryColor" item-left>{{'S/O' | translate}} :</b>
           <p margin-left text-right>{{ violenter.FatherName }}</p>
         </ion-item>
         <ion-item class="border">
-          <b class="primaryColor" item-left>EngNo: </b>
+          <b class="primaryColor" item-left>{{'EngNo'| translate}}: </b>
           <p margin-left text-right>{{ violenter.EngNo }}</p>
         </ion-item>
         <ion-item class="border">
-          <b class="primaryColor" item-left>Vehicle No: </b>
+          <b class="primaryColor" item-left>{{'Vehicle No' | translate}}: </b>
           <p margin-left text-right>{{ violenter.VehicleNo }}</p>
         </ion-item>
         <ion-item>
-          <b class="primaryColor" item-left>Previous Violations:</b>
+          <b class="primaryColor" item-left>{{'Previous Violations'| translate}}:</b>
           <p margin-left *ngIf="violenter.PastViolations" text-right>
             {{ violenter.PastViolations.length }}
           </p>
@@ -64,14 +62,14 @@
 
         <div padding-left padding-right margin-bottom>
           <button ion-button small block round color="danger" icon-start (click)="viewViolations()">
-            View Previous Violations
+            {{'View Previous Violations' | translate}}
           </button>
         </div>
       </ion-card>
     </div>
     <div padding text-center>
       <button ion-button center round class="center" [disabled]="!violenter && !phone" (click)="addViolation()">
-        Proceed
+        {{'Proceed' | translate}}
       </button>
     </div>
   </form>

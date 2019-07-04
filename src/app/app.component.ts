@@ -67,6 +67,7 @@ export class MyApp extends Activity {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need
       // localForage.clear();
+      this.langProvider.setInitialAppLanguage();
       this.unregisterBackButtonActionForAndroid &&
         this.unregisterBackButtonActionForAndroid();
       this.overrideBackBtnFunctionality();
@@ -78,7 +79,6 @@ export class MyApp extends Activity {
               statusBar.styleDefault();
               statusBar.styleBlackTranslucent();
               splashScreen.hide();
-              this.langProvider.setInitialAppLanguage();
               this.intializeApp();
             },
             (error: any) => {

@@ -6,10 +6,10 @@
 -->
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Payment Gateway</ion-title>
+    <ion-title>{{'Payment Gateway' | translate}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <span ion-text color="primary" showWhen="ios">{{'Cancel' | translate}}</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,7 +19,7 @@
 <ion-content class="gray-back background">
   <ion-list radio-group [(ngModel)]="paymentTypeName">
     <ion-item>
-      <ion-label>Credit/Debit Card</ion-label>
+      <ion-label>{{'Credit/Debit Card' | translate}}</ion-label>
       <ion-radio value="Credit-Debit-Card"></ion-radio>
     </ion-item>
     <!-- <ion-item>
@@ -31,13 +31,17 @@
           <ion-radio value="Net-Banking"></ion-radio>
         </ion-item> -->
     <ion-item>
-      <ion-label>Cash</ion-label>
+      <ion-label>{{'Cash' | translate}}</ion-label>
       <ion-radio value="Cash"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{'Unable to pay' | translate}}</ion-label>
+      <ion-radio value="Unable-to-pay"></ion-radio>
     </ion-item>
   </ion-list>
 
   <ion-list-header text-center class="details">
-    <span>Details</span>
+    <span>{{'Details' | translate}}</span>
   </ion-list-header>
   <ion-card *ngIf="currenViolations">
     <ion-item *ngFor="let violation of currenViolations" class="preline">
@@ -47,14 +51,15 @@
   </ion-card>
   <ion-card>
     <ion-item class="preline">
-      Total
+      {{'Total' | translate}}
       <div item-right class="totalCharge">₹ {{ charge }}</div>
     </ion-item>
   </ion-card>
   <br />
-  <button ion-button full (click)="confirm()" [disabled]="!paymentTypeName">
-    Continue to Pay
+  <button ion-button full (click)="confirm()" [disabled]="!paymentTypeName || paymentTypeName==='Unable-to-pay'">
+    {{'Continue to Pay' | translate}}
   </button>
   <br />
-  <button ion-button full (click)="seize()">Unable to pay</button>
+  <button ion-button full (click)="seize()"
+    [disabled]="paymentTypeName!=='Unable-to-pay'">{{'Seize'| translate}}</button>
 </ion-content>

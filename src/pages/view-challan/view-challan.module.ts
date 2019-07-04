@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ViewChallanPage } from './view-challan';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { ViewChallanPage } from './view-challan';
   ],
   imports: [
     IonicPageModule.forChild(ViewChallanPage),
+    TranslateModule
   ],
 })
-export class ViewChallanPageModule {}
+export class ViewChallanPageModule { }

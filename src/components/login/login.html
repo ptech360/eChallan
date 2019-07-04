@@ -5,30 +5,30 @@
       <img src="/assets/imgs/UPPolice.png" alt="UPPolice" />
     </div>
     <form class="loginForm" (ngSubmit)="login()" #loginForm="ngForm">
-      <h3>{{appInfo.ProjectName}}</h3>
+      <h3>{{appInfo.ProjectName | translate}}</h3>
       <div class="login">
-        <!-- <label class="label">Login</label> -->
         <div class="inputs">
           <div class="input username">
             <label>
               <ion-icon name="contact"></ion-icon>
             </label>
 
-            <input type="text" value="" name="username" color="primary" placeholder="Username" [(ngModel)]="loginCredentials.Username"
-              required>
+            <input type="text" value="" name="username" color="primary" placeholder="Username"
+              [(ngModel)]="loginCredentials.Username" required>
           </div>
           <div class="input password">
             <label>
               <ion-icon name="key"></ion-icon>
             </label>
-            <input type="password" name="password" placeholder="Password" [(ngModel)]="loginCredentials.Password" required>
+            <input type="password" name="password" placeholder="Password" [(ngModel)]="loginCredentials.Password"
+              required>
           </div>
 
         </div>
 
       </div>
       <button class="login-btn" type="submit" [disabled]="!loginForm.form.valid">
-        LOGIN
+        {{'Login' | translate}}
       </button>
 
 
@@ -37,7 +37,7 @@
   </div>
 </div>
 <ion-footer text-center>
-  <div class="login_footer">Copyright © {{currentYear}}
+  <div class="login_footer">{{'Copyright' | translate}} © {{currentYear}}
     <img src="assets/icon/Efkon.png" alt="" /> EfkonIndia.
-    <br>All rights reserved</div>
+    <br>{{'All rights reserved' | translate}}</div>
 </ion-footer>

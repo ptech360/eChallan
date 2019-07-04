@@ -65,7 +65,7 @@ export class ViewChallanPage {
     const violations = [];
     const currentViolents: any[] = challan.PastViolations.filter(c => {
       if (c.ChallanId === challan.ChallanId) {
-        violations.push(c.ViolationDesc);
+        violations.push(c.ViolationName);
         challan["LocationName"] = c.LocationName;
       }
       return c.ChallanId === challan.ChallanId;

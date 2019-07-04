@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>View Challan</ion-title>
+    <ion-title>{{'View Challan' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,15 +16,17 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>From Date</ion-label>
-      <ion-datetime pickerFormat="YYYY-MM-DDTHH:mm" displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="date.fromDate"> </ion-datetime>
+      <ion-label>{{'From Date' | translate}}</ion-label>
+      <ion-datetime pickerFormat="YYYY-MM-DDTHH:mm" displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="date.fromDate">
+      </ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>To Date</ion-label>
-      <ion-datetime pickerFormat="YYYY-MM-DDTHH:mm" displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="date.toDate"> </ion-datetime>
+      <ion-label>{{'To Date' | translate}}</ion-label>
+      <ion-datetime pickerFormat="YYYY-MM-DDTHH:mm" displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="date.toDate">
+      </ion-datetime>
     </ion-item>
     <ion-item>
-      <button ion-button block (click)="getChallan()">Get</button>
+      <button ion-button block (click)="getChallan()">{{'Get' | translate}}</button>
     </ion-item>
   </ion-list>
 
@@ -33,7 +35,7 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6 text-wrap>
-            <b>Challan Id: </b>{{challan.ChallanId}}
+            <b>{{'Challan Id' | translate}}: </b>{{challan.ChallanId}}
           </ion-col>
           <ion-col col-6 text-wrap text-right>
             <small>{{challan.ChallanDate | date}}</small>
@@ -41,26 +43,26 @@
         </ion-row>
         <ion-row>
           <ion-col col-6 text-wrap>
-            <b>Vehicle No: </b>{{challan.VehicleNo}}
+            <b>{{'Vehicle No' | translate}}: </b>{{challan.VehicleNo}}
           </ion-col>
           <ion-col col-6 *ngIf="challan.PaymentStatus === 'P'" text-right>
-            <b>Payment: </b>
-            <ion-badge float-right text-wrap>Pending</ion-badge>
+            <b>{{'Payment' | translate}}: </b>
+            <ion-badge float-right text-wrap>{{'Pending' | translate}}</ion-badge>
             <br>
           </ion-col>
           <ion-col col-6 *ngIf="challan.PaymentStatus === 'S'" text-right>
-            <b>Payment: </b>
-            <ion-badge float-right text-wrap>Success</ion-badge>
+            <b>{{'Payment' | translate}}: </b>
+            <ion-badge float-right text-wrap>{{'Success' | translate}}</ion-badge>
             <br>
           </ion-col>
           <ion-col col-6 *ngIf="challan.DocsSeizeStatus === 'S'" text-right>
-            <b>Document(s): </b>
+            <b>{{'Documents'| translate}}: </b>
             <ion-badge float-right text-wrap>Seized</ion-badge>
             <br>
-          </ion-col> 
+          </ion-col>
           <ion-col col-6 *ngIf="challan.VehicleSeizeStatus === 'S'" text-right>
-            <b>Vehicle: </b>
-            <ion-badge float-right text-wrap>Seized</ion-badge>
+            <b>{{'Vehicle' | translate}}: </b>
+            <ion-badge float-right text-wrap>{{'Seized' | translate}}</ion-badge>
             <br>
           </ion-col>
         </ion-row>

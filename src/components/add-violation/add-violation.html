@@ -1,56 +1,59 @@
 <!-- Generated template for the AddViolationComponent component -->
 <ion-header>
-    <ion-navbar color="primary">
-      <ion-title>
-        Add Violation
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content class="gray-back background">
-    <div class="total-charge">
-      <div class="inner-box">
-          <small>Rupees</small>
-          {{ totalCharge }}
+  <ion-navbar color="primary">
+    <ion-title>
+      {{'Add Violation' | translate}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="gray-back background">
+  <div class="total-charge">
+    <div class="inner-box">
+      <small>{{'Rupees' | translate}}</small>
+      {{ totalCharge }}
+    </div>
+  </div>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>{{'Select Violation' | translate}}</ion-label>
+      <ion-select [(ngModel)]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok"
+        (ionChange)="subTotal()">
+        <ion-option class="preline" *ngFor="let violent of violentsList" [value]="violent">{{ violent.ViolationName }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card class="violation_details">
+    <ion-item *ngFor="let violation of currentViolents" style="white-space:pre-line;">
+      {{ violation.ViolationName }}
+      <div item-right>₹ {{ violation.ViolationFine }}</div>
+    </ion-item>
+  </ion-card>
+
+  <div>
+    <ion-card *ngFor="let url of imageUrls;let i = index;">
+      <div text-right>
+        <ion-icon class="img-close" name="close" (click)="delImage(i)"></ion-icon>
       </div>
-    </div>
-
-    <ion-card>
-        <ion-item>
-            <ion-label>Select Violation</ion-label>
-            <ion-select [(ngModel)]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok" (ionChange)="subTotal()">
-              <ion-option class="preline" *ngFor="let violent of violentsList" [value]="violent">{{ violent.ViolationName }}</ion-option>
-            </ion-select> 
-          </ion-item>
+      <img [src]="url" />
     </ion-card>
+  </div>
 
-    <ion-card class="violation_details">
-      <ion-item *ngFor="let violation of currentViolents" style="white-space:pre-line;">
-        {{ violation.ViolationName }}
-        <div item-right>₹ {{ violation.ViolationFine }}</div>
-      </ion-item>
-    </ion-card>
 
-    <div>      
-      <ion-card *ngFor="let url of imageUrls;let i = index;">
-        <div text-right>
-          <ion-icon class="img-close" name="close" (click)="delImage(i)"></ion-icon>
-        </div>
-        <img [src]="url"/>
-      </ion-card>      
+  <div text-center>
+
+
+    <button ion-button icon-only class="center" (click)="capture()" [disabled]="!currentViolents.length">
+      <span class="addImage">{{'Add Image' | translate}}</span>
+      <ion-icon name="camera"></ion-icon>
+    </button>
+    <div padding>
+      <button ion-button full (click)="generateChallan()"
+        [disabled]="!currentViolents.length">{{'Generate Challan'|translate}}</button>
     </div>
 
-
-    <div text-center>
-      
-       
-      <button ion-button icon-only class="center" (click)="capture()" [disabled]="!currentViolents.length">
-       <span class="addImage">Add Image</span> <ion-icon name="camera"></ion-icon>
-      </button>
-      <div padding>
-        <button ion-button full (click)="generateChallan()" [disabled]="!currentViolents.length">Generate Challan</button>
-      </div>
-     
-    </div>
-  </ion-content>
-  
+  </div>
+</ion-content>

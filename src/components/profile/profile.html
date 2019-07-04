@@ -1,25 +1,25 @@
 <!-- Generated template for the ProfileComponent component -->
 <ion-header>
-    <ion-navbar color="primary">
-      <ion-title>
-        Profile
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content class="profile gray-back">
-      <div class="card">
-          <img src="{{ profile.img }}" alt="John" style="width:100%">
-          <h1>{{ userDetails.FullName }}</h1>
-          <p class="title">{{ userDetails.UserEmail }}</p>
-          <!-- <p>{{ userDetails.area }}, {{ userDetails.address }}</p> -->
-          <div style="margin: 24px 0;">
-            <ion-icon name="star" style="color:orange"></ion-icon>
-            <ion-icon name="star" style="color:orange"></ion-icon>
-            <ion-icon name="star" style="color:orange"></ion-icon>
-            <ion-icon name="star" style="color:orange"></ion-icon>
-            <ion-icon name="star" style="color:orange"></ion-icon>
-         </div>
-         <p><button (click)="logout()">Logout</button></p>
-        </div>
-  </ion-content>
+  <ion-navbar color="primary">
+    <ion-title>
+      {{'Profile' | translate}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="profile gray-back">
+  <div class="card">
+    <img src="{{ profile.img }}" alt="John" style="width:100%">
+    <h1>{{ userDetails.FullName }}</h1>
+    <p class="title">{{ userDetails.UserEmail }}</p>
+    <!-- <p>{{ userDetails.area }}, {{ userDetails.address }}</p> -->
+    <div style="margin: 24px 0;">
+      <ion-icon name="star" style="color:orange"></ion-icon>
+      <ion-icon name="star" style="color:orange"></ion-icon>
+      <ion-icon name="star" style="color:orange"></ion-icon>
+      <ion-icon name="star" style="color:orange"></ion-icon>
+      <ion-icon name="star" style="color:orange"></ion-icon>
+    </div>
+    <p><button (click)="logout()">{{'Logout' | translate}}</button></p>
+  </div>
+</ion-content>

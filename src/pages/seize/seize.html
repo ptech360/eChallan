@@ -6,10 +6,10 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Seize</ion-title>
+    <ion-title>{{'Seize' | translate}}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <span ion-text color="primary" showWhen="ios">{{'Cancel' | translate}}</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
     </ion-buttons>
@@ -21,17 +21,17 @@
     <ion-row>
       <ion-col col-12>
         <div class="btn">
-          <img src="assets/imgs/document.png" (click)="seize('document')" />
+          <img src="assets/imgs/document.png" (click)="seize('Documents')" />
           <div>
-            Seize Document
+            {{'Seize Document' | translate}}
           </div>
         </div>
       </ion-col>
       <ion-col col-12>
         <div class="btn">
-          <img src="assets/imgs/vehicle.png" (click)="seize('vehicle')" />
+          <img src="assets/imgs/vehicle.png" (click)="seize('Vehicle')" />
           <div>
-            Seize Vehicle
+            {{'Seize Vehicle' | translate}}
           </div>
         </div>
       </ion-col>

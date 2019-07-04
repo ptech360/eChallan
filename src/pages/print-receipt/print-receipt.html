@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Generated Challan
+      {{'Generated Challan' | translate}}
     </ion-title>
     <!-- <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -20,7 +20,7 @@
 
 <ion-content class="background">
   <div #printContent padding>
-    <h4 text-center class="primaryColor">CHALLAN</h4>
+    <h4 text-center class="primaryColor">{{'CHALLAN' | translate}}</h4>
     <table style="text-align: left;;padding-bottom: 20px; font-size: 18px;">
       <!-- <caption>Uttar Pradesh Traffic Police(Varanasi)<br>Challaned for below Vehicle details are:</caption> -->
       <thead>
@@ -30,7 +30,7 @@
       <tbody>
         <tr>
           <th style="vertical-align: baseline;">
-            <u>Challan No</u>
+            <u>{{'Challan No' | translate}}</u>
           </th>
           <td>: {{ printScriptObject["ChallanId"] || "Not Generated" }}</td>
         </tr>
@@ -40,7 +40,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Challan Date</th>
+          <th style="vertical-align: baseline;">{{'Challan Date' | translate}}</th>
           <td>
             : {{ printScriptObject["ChallanDate"] | date }}
             {{ printScriptObject["ChallanDate"] | date: "h:mm a" }}
@@ -52,7 +52,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Vehicle No</th>
+          <th style="vertical-align: baseline;">{{'Vehicle No' | translate}}</th>
           <td>: {{ printScriptObject["VehicleNo"] }}</td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Vehicle Class</th>
+          <th style="vertical-align: baseline;">{{'Vehicle Class' | translate}}</th>
           <td>: {{ printScriptObject["VehicleClass"] }}</td>
         </tr>
         <tr>
@@ -70,7 +70,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Location</th>
+          <th style="vertical-align: baseline;">{{'Location' | translate}}</th>
           <td>: {{ printScriptObject["LocationName"] }}</td>
         </tr>
         <tr>
@@ -79,7 +79,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Owner Name</th>
+          <th style="vertical-align: baseline;">{{'Owner Name' | translate}}</th>
           <td>: {{ printScriptObject["OwnerName"] }}</td>
         </tr>
         <tr>
@@ -88,7 +88,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Owner Address</th>
+          <th style="vertical-align: baseline;">{{'Owner Address' | translate}}</th>
           <td>: {{ printScriptObject["OwnerAddress"] }}</td>
         </tr>
         <tr>
@@ -97,7 +97,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Amount</th>
+          <th style="vertical-align: baseline;">{{'Amount' | translate}}</th>
           <td>: {{ printScriptObject["amount"] }}</td>
         </tr>
         <tr>
@@ -106,7 +106,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Violation(s)</th>
+          <th style="vertical-align: baseline;">{{'Violations' | translate}}</th>
           <td>: {{ printScriptObject["violations"] }}</td>
         </tr>
         <tr>
@@ -115,7 +115,7 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Mobile</th>
+          <th style="vertical-align: baseline;">{{'Mobile' | translate}}</th>
           <td>: {{ printScriptObject["MobileNumber"] }}</td>
         </tr>
         <tr>
@@ -126,7 +126,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <th style="vertical-align: baseline;">Duty Officer</th>
+          <th style="vertical-align: baseline;">{{'Duty Officer'| translate}}</th>
           <td>: {{ printScriptObject["DutyOfficer"] }}</td>
         </tr>
         <tr>
@@ -135,31 +135,25 @@
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">Payment</th>
-          <td
-            *ngIf="
+          <th style="vertical-align: baseline;">{{'Payment' | translate}}</th>
+          <td *ngIf="
               printScriptObject.DocsSeizeStatus ||
               printScriptObject.VehicleSeizeStatus
-            "
-          >
-            : Not Done
+            ">
+            : {{'Not Done' | translate}}
           </td>
-          <td
-            *ngIf="
+          <td *ngIf="
               !printScriptObject.DocsSeizeStatus &&
               !printScriptObject.VehicleSeizeStatus &&
               printScriptObject.PaymentStatus === 'P'
-            "
-          >
-            : {{ printScriptObject.PaymentId ? "Done" : "Pending" }}
+            ">
+            : {{ printScriptObject.PaymentId ? "Done" : "Pending" | translate }}
           </td>
-          <td
-            *ngIf="
+          <td *ngIf="
               printScriptObject.PaymentStatus === 'C' ||
               printScriptObject.PaymentTypeName === 'Cash'
-            "
-          >
-            : Received Cash
+            ">
+            : {{'Received Cash' | translate}}
           </td>
         </tr>
         <tr>
@@ -168,19 +162,15 @@
           </td>
         </tr>
         <tr *ngIf="printScriptObject.DocsSeizeStatus">
-          <th style="vertical-align: baseline;">Seized Document</th>
+          <th style="vertical-align: baseline;">{{'Seized Document' | translate}}</th>
           <td>
             :
-            <span
-              *ngFor="
+            <span *ngFor="
                 let doc of printScriptObject.vehicleDocsModel;
                 let i = index
-              "
-              >{{ doc.DocumentName
-              }}<i *ngIf="i < printScriptObject.vehicleDocsModel.length - 1"
-                >,
-              </i></span
-            >
+              ">{{ doc.DocumentName
+              }}<i *ngIf="i < printScriptObject.vehicleDocsModel.length - 1">,
+              </i></span>
           </td>
         </tr>
         <tr *ngIf="printScriptObject.DocsSeizeStatus">
@@ -189,7 +179,7 @@
           </td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
-          <th style="vertical-align: baseline;">Seized Vehicle</th>
+          <th style="vertical-align: baseline;">{{'Seized Vehicle' | translate}}</th>
           <td>: {{ printScriptObject["VehicleNo"] }}</td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
@@ -198,7 +188,7 @@
           </td>
         </tr>
         <tr *ngIf="printScriptObject.PaymentId">
-          <th style="vertical-align: baseline;">Transaction Id</th>
+          <th style="vertical-align: baseline;">{{'Transaction Id' | translate}}</th>
           <td>: {{ printScriptObject.PaymentId }}</td>
         </tr>
         <tr *ngIf="printScriptObject.PaymentId">
@@ -208,7 +198,7 @@
         </tr>
         <tr>
           <th style="vertical-align: baseline; padding-top: 45px!important;">
-            Name/Sign of Owner
+            {{'Name/Sign of Owner' | translate}}
           </th>
           <td style="padding-top: 45px!important;">: _________________</td>
         </tr>
@@ -231,50 +221,22 @@
     </table>
   </div>
   <div text-center color="primary" class="flex" padding>
-    <button
-      ion-button
-      color="primary"
-      padding
-      full
-      (click)="done()"
-      *ngIf="printScriptObject.PaymentId"
-    >
-      Done
+    <button ion-button color="primary" padding full (click)="done()" *ngIf="printScriptObject.PaymentId">
+      {{'Done'| translate}}
     </button>
-    <button
-      ion-button
-      color="primary"
-      padding
-      full
-      *ngIf="
+    <button ion-button color="primary" padding full *ngIf="
         printScriptObject.ChallanId &&
         (printScriptObject.VehicleSeizeStatus == 'S' ||
           printScriptObject.DocsSeizeStatus == 'S')
-      "
-      (click)="unseize(printScriptObject)"
-    >
-      Unseize
+      " (click)="unseize(printScriptObject)">
+      {{'Unseize' | translate}}
     </button>
-    <button
-      ion-button
-      color="primary"
-      padding
-      full
-      (click)="pay()"
-      [disabled]="!printData.length"
-      *ngIf="printScriptObject.PaymentStatus === 'P'"
-    >
-      Payment
+    <button ion-button color="primary" padding full (click)="pay()" [disabled]="!printData.length"
+      *ngIf="printScriptObject.PaymentStatus === 'P'">
+      {{'Payment' | translate}}
     </button>
-    <button
-      ion-button
-      color="primary"
-      padding
-      full
-      (click)="print()"
-      [disabled]="!printData.length"
-    >
-      Print
+    <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">
+      {{'Print' | translate}}
     </button>
   </div>
 </ion-content>

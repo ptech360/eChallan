@@ -38,7 +38,6 @@ export class SeizePage {
   }
 
   seize(object) {
-    debugger
     const modal = this.modalCtrl.create(SeizeModal, {
       data: object,
       challanObject: this.challanObject

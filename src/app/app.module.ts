@@ -38,6 +38,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NetworkProvider } from '../providers/network/network';
 import { Network } from '@ionic-native/network';
 import { LanguageProvider } from '../providers/language/language';
+import { LanguagePopoverPage } from '../pages/language-popover/language-popover';
+import { LanguagePopoverPageModule } from '../pages/language-popover/language-popover.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,7 +62,7 @@ export function createTranslateLoader(http: HttpClient) {
     SeizePage,
     SeizeModal,
     ProfileComponent,
-    NoRecordsComponent
+    NoRecordsComponent, LanguagePopoverPage
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
+    // LanguagePopoverPageModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
@@ -94,7 +97,8 @@ export function createTranslateLoader(http: HttpClient) {
     SeizePage,
     SeizeModal,
     ProfileComponent,
-    NoRecordsComponent
+    NoRecordsComponent,
+    LanguagePopoverPage
   ],
   providers: [
     StatusBar,

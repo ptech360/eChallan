@@ -15,6 +15,7 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/observable/interval";
 
 import { StorageService } from "../localstorage/storage";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
@@ -30,8 +31,9 @@ export class Api {
     public http: HttpClient,
     public localStorage: StorageService,
     public events: Events,
-    public alertCtrl: AlertController
-  ) {}
+    public alertCtrl: AlertController,
+    private translate: TranslateService
+  ) { }
 
   getHeaders(optHeaders?: HttpHeaders) {
     let headers = new HttpHeaders();
@@ -120,8 +122,8 @@ export class Api {
 
   showError(message) {
     const alert = this.alertCtrl.create({
-      title: "Error",
-      subTitle: message,
+      title: this.translate.instant("Error"),
+      subTitle: this.translate.instant(message),
       buttons: ["OK"]
     });
     alert.present();

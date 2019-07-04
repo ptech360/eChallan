@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Challans</ion-title>
+    <ion-title>{{'Challans' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
 <ion-content>
   <ion-list *ngIf="!challans.length">
     <ion-card>
-      <h2 text-center>Nothing to Upload</h2>
+      <h2 text-center>{{'Nothing to Upload' | translate}}</h2>
     </ion-card>
   </ion-list>
   <ion-list *ngIf="challans.length">
@@ -24,8 +24,8 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6 text-wrap>
-            <h2><b>Vehicle No: </b>{{challan.VehicleNo}}</h2>
-            <p><strong>OwnerName: </strong>{{challan.OwnerName}}</p>
+            <h2><b>{{'Vehicle No' | translate}}: </b>{{challan.VehicleNo}}</h2>
+            <p><strong>{{'Owner Name' | translate}}: </strong>{{challan.OwnerName}}</p>
           </ion-col>
           <ion-col col-6 text-right>
             <ion-note>
@@ -33,7 +33,7 @@
               <small>₹ {{challan.amount}}</small><br>
             </ion-note><br>
             <button ion-button outline icon-end small (click)="generateChallan(challan)">
-              Upload
+              {{'Upload' | translate}}
               <ion-icon name='cloud-upload' is-active="false"></ion-icon>
             </button>
           </ion-col>

@@ -7,11 +7,11 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>
-      Violation Record
+      {{'Violation Record'| translate}}
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <span ion-text color="primary" showWhen="ios">{{'Cancel'|translate}}</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
     </ion-buttons>
@@ -25,10 +25,11 @@
       <br>
     </ion-item>
     <ion-item>
-      <ion-label>Filter Violents</ion-label>
-      <ion-select [selectOptions]="violentOpts" multiple="true" (ngModelChange)="filterHistory($event)" cancelText="Cancel"
-        okText="Ok" ngModel>
-        <ion-option *ngFor="let violent of violentsList" [value]="violent.ViolationId" style="white-space:pre-line">{{violent.ViolationName}}</ion-option>
+      <ion-label>{{'Filter Violents' | translate}}</ion-label>
+      <ion-select [selectOptions]="violentOpts" multiple="true" (ngModelChange)="filterHistory($event)"
+        cancelText="Cancel" okText="Ok" ngModel>
+        <ion-option *ngFor="let violent of violentsList" [value]="violent.ViolationId" style="white-space:pre-line">
+          {{violent.ViolationName}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
@@ -45,10 +46,10 @@
       </div>
       <div class="violation">
         <div class="name">
-          {{ violation.ViolationDesc }}
+          {{ violation.ViolationName }}
         </div>
         <div class="incharge">
-          <b>Incharge: Nathuram Singh</b>
+          <b>{{'Incharge' | translate}}: Nathuram Singh</b>
         </div>
         <div class="date">
           {{ violation.CreatedDate | date}}
@@ -59,27 +60,27 @@
       </div>
     </div>
   </ion-card>
-<div class="tableContainer" *ngIf="violencList && violencList.length">
-  <table>
-    <tr>
-      <th>Area</th>
-      <th>Violation</th>
-      <th>Incharge</th>
-      <th>Date</th>
-      <th>Time</th>
-    </tr>
-    <tr *ngFor="let violation of violencList" >
-      <td>
-        <div style="text-transform: lowercase;">{{ violation.GeoLocation }}</div>
-       
-      </td>
-      <td>{{ violation.ViolationDesc }}</td>
-      <td>Nathuram Singh</td>
-      <td>{{ violation.CreatedDate | date}}</td>
-      <td>{{ violation.CreatedDate | date:"HH:mm" }}</td>
-    </tr>
-    
-  </table>
+  <div class="tableContainer" *ngIf="violencList && violencList.length">
+    <table>
+      <tr>
+        <th>{{'Area' | translate}}</th>
+        <th>{{'Violation' |translate}}</th>
+        <th>{{'Incharge' |translate}}</th>
+        <th>{{'Date' |translate}}</th>
+        <th>{{'Time' |translate}}</th>
+      </tr>
+      <tr *ngFor="let violation of violencList">
+        <td>
+          <div style="text-transform: lowercase;">{{ violation.GeoLocation }}</div>
+
+        </td>
+        <td>{{ violation.ViolationName }}</td>
+        <td>Nathuram Singh</td>
+        <td>{{ violation.CreatedDate | date}}</td>
+        <td>{{ violation.CreatedDate | date:"HH:mm" }}</td>
+      </tr>
+
+    </table>
   </div>
 
 </ion-content>

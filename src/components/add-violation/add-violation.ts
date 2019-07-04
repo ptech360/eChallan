@@ -27,6 +27,7 @@ import {
 import { ToastService } from "../../providers/toast/toast.service";
 import { PrintReceiptPage } from "../../pages/print-receipt/print-receipt";
 import { StorageService } from "../../providers/providers";
+import { TranslateService } from "@ngx-translate/core";
 
 /**
  * Generated class for the AddViolationComponent component.
@@ -76,7 +77,8 @@ export class AddViolationComponent {
     public httpClient: HttpClient,
     public appCtrl: App,
     public localStorage: StorageService,
-    public events: Events
+    public events: Events,
+    private translate: TranslateService
   ) {
     this.toastService.showLoader("Loading Violations...");
     this.violent.getViolents().subscribe(
@@ -117,18 +119,18 @@ export class AddViolationComponent {
     this.httpClient
       .get(
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-          latitude +
-          "," +
-          longitude +
-          "&key=AIzaSyC0fj5LBatMHxv2d-o6OTni7V1voRbQiKM"
+        latitude +
+        "," +
+        longitude +
+        "&key=AIzaSyC0fj5LBatMHxv2d-o6OTni7V1voRbQiKM"
       )
       .subscribe((response: any) => {
         try {
           this.locationName = response.results[0].formatted_address;
-        } catch (error) {}
+        } catch (error) { }
 
         this.challanForm.controls["LocationName"].patchValue(
-          this.locationName || "Not Locate"
+          this.locationName || this.translate.instant("Not Locate")
         );
       });
   }
@@ -306,11 +308,11 @@ export class AddViolationComponent {
     };
     if (challanObject.EmailId && this.validateEmail(challanObject.EmailId)) {
       object["MailRecipent"] = challanObject.EmailId;
-      this.violent.sendEmail(object).subscribe(response => {});
+      this.violent.sendEmail(object).subscribe(response => { });
     }
     if (challanObject.MobileNumber) {
       object["MailRecipent"] = "";
-      this.violent.sendSMS(object).subscribe(response => {});
+      this.violent.sendSMS(object).subscribe(response => { });
     }
   }
 
