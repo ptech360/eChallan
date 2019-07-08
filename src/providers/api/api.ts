@@ -115,7 +115,7 @@ export class Api {
 
   handleError = (errorResponse: HttpErrorResponse) => {
     if (errorResponse.status)
-      this.showError(errorResponse.error.message || "Something went wrong");
+      this.showError(errorResponse.error.message || this.translate.instant("Something went wrong"));
     if (errorResponse.status === 401) this.events.publish("user:logout");
     return Observable.throw(errorResponse);
   };

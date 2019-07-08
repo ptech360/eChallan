@@ -18,8 +18,8 @@ export class LanguageProvider {
   selectedLanguage = new Subject<string>();
   languages: { text: string; value: string; ch: string; }[] = [
     { text: 'English', value: 'en', ch: 'En' },
-    { text: 'Hindi', value: 'hi', ch: 'हिं' },
-    { text: 'Kannada', value: 'kn', ch: 'ಕ' }
+    { text: 'Hindi', value: 'hi', ch: 'हिं' }
+    // { text: 'Kannada', value: 'ka', ch: 'ಕ' }
   ];
 
   constructor(private translate: TranslateService, private storage: Storage) {

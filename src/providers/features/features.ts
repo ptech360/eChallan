@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GenerateChallanComponent } from '../../components/generate-challan/generate-challan';
 import { ProfileComponent } from '../../components/profile/profile';
-import { NoRecordsComponent } from '../../components/no-records/no-records';
 import { Api } from '../api/api';
 import { LoginComponent } from '../../components/login/login';
 

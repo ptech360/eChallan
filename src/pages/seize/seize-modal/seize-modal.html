@@ -17,18 +17,22 @@
       <ion-item>
         <ion-icon name="car" color="primary" item-start></ion-icon>
         <ion-label>{{'Documents' | translate}}</ion-label>
-        <ion-select [(ngModel)]="selectedDocs" name="selectedDocs" interface="popover" multiple="true">
+        <ion-select [(ngModel)]="selectedDocs" name="selectedDocs" interface="popover" multiple="true"
+          (ngModelChange)="initDocForm()">
           <ion-option *ngFor="let doc of vehicleDocs" [value]="doc">{{
             doc.DocumentName
           }}</ion-option>
         </ion-select>
       </ion-item>
-      <div *ngIf="selectedDocs.length">
-        <ion-item *ngFor="let doc of selectedDocs; let i = index">
-          <ion-label stacked color="primary">{{ doc.DocumentName }}</ion-label>
-          <ion-input [(ngModel)]="docsInputIds[i]"></ion-input>
-        </ion-item>
-      </div>
+      <form [formGroup]="documentsForm" *ngIf="selectedDocs.length">
+        <div formArrayName="docs">
+          <ion-item *ngFor="let doc of selectedDocs; let i = index">
+            <ion-label stacked color="primary">{{ doc.DocumentName }}</ion-label>
+            <ion-input formControlName="{{i}}" [(ngModel)]="docsInputIds[i]">
+            </ion-input>
+          </ion-item>
+        </div>
+      </form>
     </ion-card>
     <div>
       <ion-card *ngFor="let url of documentUrls; let i = index">
@@ -100,7 +104,8 @@
   <button full ion-button (click)="seizeVehicle()" *ngIf="object == 'Vehicle'" [disabled]="!vehicleImages.length">
     {{'Seize' | translate}}
   </button>
-  <button full ion-button (click)="seizeDocument()" *ngIf="object == 'Documents'" [disabled]="!documentImages.length">
+  <button full ion-button (click)="seizeDocument()" *ngIf="object == 'Documents'"
+    [disabled]="documentsForm.invalid && documentImages.length==selectedDocs.length">
     {{'Seize' | translate}}
   </button>
 </ion-footer>

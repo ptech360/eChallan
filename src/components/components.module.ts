@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login';
 import { GenerateChallanComponent } from './generate-challan/generate-challan';
 import { AddViolationComponent } from './add-violation/add-violation';
 import { ProfileComponent } from './profile/profile';
-import { NoRecordsComponent } from './no-records/no-records';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail';
     GenerateChallanComponent,
     AddViolationComponent,
     ProfileComponent,
-    NoRecordsComponent,
     VehicleDetailComponent
   ],
   imports: [CommonModule],
@@ -22,8 +20,7 @@ import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail';
     GenerateChallanComponent,
     AddViolationComponent,
     ProfileComponent,
-    NoRecordsComponent,
     VehicleDetailComponent
   ]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

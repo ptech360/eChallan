@@ -21,7 +21,6 @@ import { PaymentGatewayPage } from '../pages/payment-gateway/payment-gateway';
 import { SeizePage } from '../pages/seize/seize';
 import { SeizeModal } from '../pages/seize/seize-modal/seize-modal';
 import { ProfileComponent } from '../components/profile/profile';
-import { NoRecordsComponent } from '../components/no-records/no-records';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -62,7 +61,7 @@ export function createTranslateLoader(http: HttpClient) {
     SeizePage,
     SeizeModal,
     ProfileComponent,
-    NoRecordsComponent, LanguagePopoverPage
+    LanguagePopoverPage
   ],
   imports: [
     BrowserModule,
@@ -97,7 +96,6 @@ export function createTranslateLoader(http: HttpClient) {
     SeizePage,
     SeizeModal,
     ProfileComponent,
-    NoRecordsComponent,
     LanguagePopoverPage
   ],
   providers: [

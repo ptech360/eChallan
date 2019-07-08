@@ -10,6 +10,7 @@ import { ViolentsProvider } from "../../../providers/violents/violents";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { ToastService } from "../../../providers/toast/toast.service";
 import * as localForage from "localforage";
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "page-seize",
@@ -48,6 +49,7 @@ export class SeizeModal {
   docsInputIds: any = [];
   selectedVehicleDocs: any = [];
   selectedDocs: any[] = [];
+  documentsForm: FormGroup;
 
   constructor(
     public navParams: NavParams,
@@ -56,11 +58,15 @@ export class SeizeModal {
     private camera: Camera,
     public violentService: ViolentsProvider,
     public toastService: ToastService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private fb: FormBuilder
   ) {
     this.challanObject = this.navParams.get("challanObject");
     this.getVehicleType();
     this.getVehicleDocs();
+    this.documentsForm = this.fb.group({
+      "docs": this.fb.array([])
+    });
   }
 
   ionViewDidLoad() {
@@ -231,7 +237,7 @@ export class SeizeModal {
         this.vehicleUrls.push("data:image/png;base64," + onSuccess);
         this.vehicleImages.push(onSuccess);
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -243,7 +249,7 @@ export class SeizeModal {
         // const fileName: string = 'doc-img' + new Date().toISOString().substring(0, 10) + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.jpeg';
         // this.documentImages.push(this.dataURLtoFile('data:image/jpeg;base64,' + onSuccess, fileName));
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -324,5 +330,12 @@ export class SeizeModal {
           });
       }
     );
+  }
+
+  initDocForm() {
+    const docs = <FormArray>this.documentsForm.controls['docs'];
+    this.selectedDocs.forEach((e, index) => {
+      docs.push(new FormControl('', Validators.required));
+    })
   }
 }
