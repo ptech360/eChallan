@@ -98,9 +98,9 @@ export class AddViolationComponent {
           });
       },
       error => {
-        if (error.status === 401) {
-          this.events.publish("user:logout");
-        }
+        // if (error.status === 401) {
+        //   this.events.publish("user:logout");
+        // }
         localForage
           .getItem("TrafficVioList")
           .then(value => {
@@ -285,9 +285,10 @@ export class AddViolationComponent {
           this.challanForm.value["PaymentStatus"] = "P";
           this.challanForm.value["DutyOfficer"] = "";
           this.saveOffline(challanForm, this.challanForm.value);
-        } else if (error.status === 401) {
-          this.events.publish("user:logout");
         }
+        // else if (error.status === 401) {
+        //   this.events.publish("user:logout");
+        // }
       }
     );
   }

@@ -136,9 +136,9 @@ export class PaymentGatewayPage implements OnInit {
               this.dismiss();
             },
             error => {
-              if (error.status === 401) {
-                this.events.publish("user:logout");
-              }
+              // if (error.status === 401) {
+              //   this.events.publish("user:logout");
+              // }
               this.toastService.hideLoader();
             }
           );

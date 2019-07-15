@@ -31,7 +31,7 @@ export class User {
   accountInfo: any;
   appInfo: any;
 
-  constructor(public api: Api, public localStorage: StorageService) { 
+  constructor(public api: Api, public localStorage: StorageService) {
   }
 
   /**
@@ -77,21 +77,24 @@ export class User {
    * Process a login/signup response to store user data
    */
   _loggedIn(resp) {
+    const t = new Date();
+    t.setSeconds(t.getSeconds() + resp.Expire_In);
+    this.localStorage.storeData("token-expired-time", t.getTime());
     this.localStorage.storeData('ngStorage-token', resp.Token);
-    this.localStorage.storeData('user-detail', resp.userDetails);
-    this.localStorage.storeData('IMEI',this.accountInfo.IMEI);
+    this.localStorage.storeData('user-detail', resp.UserInfo);
+    this.localStorage.storeData('IMEI', this.accountInfo.IMEI);
   }
 
-  isLoggedIn(){
-    if(this.localStorage.getData('ngStorage-token')){
+  isLoggedIn() {
+    if (this.localStorage.getData('ngStorage-token')) {
       return true;
     } else {
       return false;
     }
   }
 
-  getAppInfo(){
+  getAppInfo() {
     return this.api.get('ProjectLogo');
   }
-  
+
 }

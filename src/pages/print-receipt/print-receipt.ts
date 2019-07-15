@@ -132,7 +132,10 @@ export class PrintReceiptPage implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    // this.viewCtrl.dismiss();
+
+
+    this.navCtrl.popToRoot();
   }
 
   overrideBackBtnFunctionality() {
@@ -142,7 +145,10 @@ export class PrintReceiptPage implements OnInit {
     this.navBar.backButtonClick = (ev: any) => {
       ev.preventDefault();
       ev.stopPropagation();
-      this.navCtrl.popToRoot();
+      if (this.navCtrl.getPrevious().component.name == "ViewChallanPage")
+        this.navCtrl.pop();
+      else
+        this.navCtrl.popToRoot();
     };
   }
 }

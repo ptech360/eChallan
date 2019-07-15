@@ -18,8 +18,8 @@ export class LanguageProvider {
   selectedLanguage = new Subject<string>();
   languages: { text: string; value: string; ch: string; }[] = [
     { text: 'English', value: 'en', ch: 'En' },
-    { text: 'Hindi', value: 'hi', ch: 'हिं' }
-    // { text: 'Kannada', value: 'ka', ch: 'ಕ' }
+    { text: 'Hindi', value: 'hi', ch: 'हिं' },
+    { text: 'Kannada', value: 'ka', ch: 'ಕ' }
   ];
 
   constructor(private translate: TranslateService, private storage: Storage) {
@@ -28,17 +28,17 @@ export class LanguageProvider {
 
   setInitialAppLanguage() {
     let language = this.translate.getBrowserLang();
-    this.selectedLanguage.next(language);
     this.translate.setDefaultLang(language);
-
+    this.selectedLanguage.next(language);
     this.storage.get(LNG_KEY).then(val => {
       if (val) {
         this.setLanguage(val);
         this.selected = val;
-      } else {
-        this.setLanguage(language);
-        this.selected = language;
       }
+      // else {
+      //   this.setLanguage(language);
+      //   this.selected = language;
+      // }
     })
   }
 
@@ -50,7 +50,7 @@ export class LanguageProvider {
     this.translate.use(lng);
     this.selected = lng;
     this.storage.set(LNG_KEY, lng);
-    this.selectedLanguage.next(this.languages.find(lang => lang.value === lng).ch);
+    this.selectedLanguage.next(lng);
   }
 
 }

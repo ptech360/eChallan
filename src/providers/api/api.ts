@@ -59,7 +59,7 @@ export class Api {
     return this.http
       .get(this.url + "/" + endpoint, { headers: headers, observe: "response" })
       .map(this.extractData)
-      .catch(this.handleError);
+    // .catch(this.handleError);
   }
 
   post(endpoint: string, body: any, optHeaders?: HttpHeaders) {
@@ -70,7 +70,7 @@ export class Api {
         observe: "response"
       })
       .map(this.extractData)
-      .catch(this.handleError);
+    // .catch(this.handleError);
   }
 
   put(endpoint: string, body: any, optHeaders?: HttpHeaders) {
@@ -81,7 +81,7 @@ export class Api {
         observe: "response"
       })
       .map(this.extractData)
-      .catch(this.handleError);
+    // .catch(this.handleError);
   }
 
   delete(endpoint: string, optHeaders?: HttpHeaders) {
@@ -92,7 +92,7 @@ export class Api {
         observe: "response"
       })
       .map(this.extractData)
-      .catch(this.handleError);
+    // .catch(this.handleError);
   }
 
   patch(endpoint: string, body: any, optHeaders?: HttpHeaders) {
@@ -103,7 +103,7 @@ export class Api {
         observe: "response"
       })
       .map(this.extractData)
-      .catch(this.handleError);
+    // .catch(this.handleError);
   }
 
   extractData = (response: HttpResponse<any>) => {
@@ -114,9 +114,12 @@ export class Api {
   };
 
   handleError = (errorResponse: HttpErrorResponse) => {
-    if (errorResponse.status)
+    debugger
+    if (errorResponse.status !== 401 && !errorResponse.error.message.include("Expired")) {
       this.showError(errorResponse.error.message || this.translate.instant("Something went wrong"));
-    if (errorResponse.status === 401) this.events.publish("user:logout");
+    }
+    // this.events.publish("user:logout");
+    // if (errorResponse.status)
     return Observable.throw(errorResponse);
   };
 

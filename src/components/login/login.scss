@@ -165,3 +165,38 @@ ion-footer{
   }
   
 }
+
+
+//rahul
+.language{
+  max-width: 230px;
+  width: 100%;
+  position: absolute; 
+    .language-list{
+      background: transparent;
+      border: none !important;
+      ion-label{
+        max-width: 20px;
+        img{
+          width: 20px;
+        }
+    }
+
+    ion-select{
+      padding: 0px;
+      width: 100%;
+      .select-icon-inner{
+        left: 1px;
+        color: #fff;
+        margin-top: -1px;
+      }
+      }
+      .select-text{
+        color: white;
+        
+      }
+
+}
+
+
+}

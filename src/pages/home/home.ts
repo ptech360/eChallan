@@ -15,7 +15,6 @@ declare let IdPayPrint: any;
 })
 export class HomePage {
   pages: any;
-  selectedLanguage: string;
 
   constructor(public navCtrl: NavController,
     public features: FeaturesProvider,
@@ -28,9 +27,6 @@ export class HomePage {
   ) {
     this.pages = this.features.appFeatures;
     this.languageService.setInitialAppLanguage();
-    this.languageService.selectedLanguage.subscribe(val => {
-      this.selectedLanguage = val;
-    });
 
   }
 

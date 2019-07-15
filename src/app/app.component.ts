@@ -182,7 +182,7 @@ export class MyApp extends Activity {
           else if (!this.nav.canGoBack()) {
             this.platform.exitApp();
           }
-          else if (this.appCtrl.getRootNav().getActive().component.name === "PrintReceiptPage") {
+          else if (this.appCtrl.getRootNav().getActive().component.name === "PrintReceiptPage" && this.nav.getPrevious().component.name != "ViewChallanPage") {
             this.appCtrl.getRootNav().popToRoot();
           }
           else {

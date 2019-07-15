@@ -53,9 +53,9 @@ export class ViewChallanPage {
         this.challans = response;
       },
       error => {
-        if (error.status === 401) {
-          this.events.publish("user:logout");
-        }
+        // if (error.status === 401) {
+        //   this.events.publish("user:logout");
+        // }
         this.toastService.hideLoader();
       }
     );

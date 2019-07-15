@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -39,6 +39,7 @@ import { Network } from '@ionic-native/network';
 import { LanguageProvider } from '../providers/language/language';
 import { LanguagePopoverPage } from '../pages/language-popover/language-popover';
 import { LanguagePopoverPageModule } from '../pages/language-popover/language-popover.module';
+import { AuthInterceptor } from '../providers/interceptor/auth.interceptor';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -117,7 +118,12 @@ export function createTranslateLoader(http: HttpClient) {
     Geolocation,
     NetworkProvider,
     Network,
-    LanguageProvider
+    LanguageProvider,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
 export class AppModule { }
