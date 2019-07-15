@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Storage } from '@ionic/storage';
 import { Subject } from 'rxjs/Subject';
-
+import * as localForage from "localforage";
 /*
   Generated class for the ProvidersLanguageProvider provider.
 
@@ -22,7 +21,7 @@ export class LanguageProvider {
     { text: 'Kannada', value: 'ka', ch: 'ಕ' }
   ];
 
-  constructor(private translate: TranslateService, private storage: Storage) {
+  constructor(private translate: TranslateService) {
 
   }
 
@@ -30,7 +29,7 @@ export class LanguageProvider {
     let language = this.translate.getBrowserLang();
     this.translate.setDefaultLang(language);
     this.selectedLanguage.next(language);
-    this.storage.get(LNG_KEY).then(val => {
+    localForage.getItem(LNG_KEY).then(val => {
       if (val) {
         this.setLanguage(val);
         this.selected = val;
@@ -49,7 +48,7 @@ export class LanguageProvider {
   setLanguage(lng: any) {
     this.translate.use(lng);
     this.selected = lng;
-    this.storage.set(LNG_KEY, lng);
+    localForage.setItem(LNG_KEY, lng);
     this.selectedLanguage.next(lng);
   }
 

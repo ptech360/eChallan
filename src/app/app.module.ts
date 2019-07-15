@@ -5,7 +5,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { IonicStorageModule } from '@ionic/storage';
 
 
 import { MyApp } from './app.component';
@@ -73,7 +72,6 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
     // LanguagePopoverPageModule,
     HttpClientModule,
