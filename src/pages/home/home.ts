@@ -26,7 +26,7 @@ export class HomePage {
     private languageService: LanguageProvider
   ) {
     this.pages = this.features.appFeatures;
-    this.languageService.setInitialAppLanguage();
+    // this.languageService.setInitialAppLanguage();
 
   }
 

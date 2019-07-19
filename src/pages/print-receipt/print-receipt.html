@@ -20,151 +20,171 @@
 
 <ion-content class="background">
   <div #printContent padding>
-    <h4 text-center class="primaryColor">{{'CHALLAN' | translate}}</h4>
-    <table style="text-align: left;;padding-bottom: 20px; font-size: 18px;">
+    <table style="text-align: left;;padding-bottom: 20px;width: 100%;">
       <!-- <caption>Uttar Pradesh Traffic Police(Varanasi)<br>Challaned for below Vehicle details are:</caption> -->
+      <colgroup>
+        <col style="width: 45%;">
+        <col style="width: 10%;">
+        <col style="width: 45%;">
+      </colgroup>
       <thead>
-        <th style="width: 40%;"></th>
-        <th style="width: 60%;"></th>
+        <tr>
+          <td style="vertical-align: baseline" colspan="3">
+            <h4 style="font-weight: bold;text-align: center;font-size: 20px;text-decoration: underline !important">
+              {{'CHALLAN' | translate}}</h4>
+          </td>
+        </tr>
       </thead>
+
       <tbody>
         <tr>
-          <th style="vertical-align: baseline;">
+          <td style="vertical-align: baseline">
             <u>{{'Challan No' | translate}}</u>
-          </th>
-          <td>: {{ printScriptObject["ChallanId"] || "Not Generated" }}</td>
+          </td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["ChallanId"] || "Not Generated" }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Challan Date' | translate}}</th>
-          <td>
-            : {{ printScriptObject["ChallanDate"] | date }}
+          <td style="vertical-align: baseline" class="colon">{{'Challan Date' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">
+            {{ printScriptObject["ChallanDate"] | date }}
             {{ printScriptObject["ChallanDate"] | date: "h:mm a" }}
           </td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
+            <br />
+          </td>
+        </tr>
+
+        <tr>
+          <td style="vertical-align: baseline" class="colon">{{'Vehicle No' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["VehicleNo"] }}</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Vehicle No' | translate}}</th>
-          <td>: {{ printScriptObject["VehicleNo"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Vehicle Class' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["VehicleClass"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Vehicle Class' | translate}}</th>
-          <td>: {{ printScriptObject["VehicleClass"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Location' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["LocationName"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Location' | translate}}</th>
-          <td>: {{ printScriptObject["LocationName"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Owner Name' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">{{ printScriptObject["OwnerName"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Owner Name' | translate}}</th>
-          <td>: {{ printScriptObject["OwnerName"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Owner Address' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">{{ printScriptObject["OwnerAddress"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Owner Address' | translate}}</th>
-          <td>: {{ printScriptObject["OwnerAddress"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Amount' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">{{ printScriptObject["amount"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Amount' | translate}}</th>
-          <td>: {{ printScriptObject["amount"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Violations' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">{{ printScriptObject["violations"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Violations' | translate}}</th>
-          <td>: {{ printScriptObject["violations"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Mobile' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["MobileNumber"] || 'NA' }}</td>
         </tr>
         <tr>
-          <td colspan="2">
-            <br />
-          </td>
-        </tr>
-        <tr>
-          <th style="vertical-align: baseline;">{{'Mobile' | translate}}</th>
-          <td>: {{ printScriptObject["MobileNumber"] || 'NA' }}</td>
-        </tr>
-        <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <th style="vertical-align: baseline;">{{'Duty Officer'| translate}}</th>
-          <td>: {{ printScriptObject["DutyOfficer"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Duty Officer'| translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["DutyOfficer"] }}</td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline;">{{'Payment' | translate}}</th>
-          <td *ngIf="
-              printScriptObject.DocsSeizeStatus ||
-              printScriptObject.VehicleSeizeStatus
+          <td style="vertical-align: baseline" class="colon">{{'Payment' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline" *ngIf="
+              printScriptObject.DocsSeizeStatus=='S' ||
+              printScriptObject.VehicleSeizeStatus=='S'
             ">
-            : {{'Not Done' | translate}}
+            {{'Not Done' | translate}}
           </td>
-          <td *ngIf="
-              !printScriptObject.DocsSeizeStatus &&
-              !printScriptObject.VehicleSeizeStatus &&
+          <td style="vertical-align: baseline" *ngIf="
               printScriptObject.PaymentStatus === 'P'
             ">
-            : {{ printScriptObject.PaymentId ? "Done" : "Pending" | translate }}
+            {{ "Pending" | translate }}
           </td>
-          <td *ngIf="
+          <td style="vertical-align: baseline" *ngIf="
               printScriptObject.PaymentStatus === 'C' ||
-              printScriptObject.PaymentTypeName === 'Cash'
+              printScriptObject.PaymentStatus === 'S'
             ">
-            : {{'Received Cash' | translate}}
+            {{ printScriptObject.PaymentTypeName === 'Cash' ? 'Received Cash' : 'Done' | translate}}
           </td>
         </tr>
         <tr>
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr *ngIf="printScriptObject.DocsSeizeStatus">
-          <th style="vertical-align: baseline;">{{'Seized Document' | translate}}</th>
-          <td>
-            :
+          <td style="vertical-align: baseline" class="colon">{{'Seized Document' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">
             <span *ngFor="
                 let doc of printScriptObject.vehicleDocsModel;
                 let i = index
@@ -174,48 +194,51 @@
           </td>
         </tr>
         <tr *ngIf="printScriptObject.DocsSeizeStatus">
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
-          <th style="vertical-align: baseline;">{{'Seized Vehicle' | translate}}</th>
-          <td>: {{ printScriptObject["VehicleNo"] }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Seized Vehicle' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject["VehicleNo"] }}</td>
         </tr>
         <tr *ngIf="printScriptObject.VehicleSeizeStatus">
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr *ngIf="printScriptObject.PaymentId">
-          <th style="vertical-align: baseline;">{{'Transaction Id' | translate}}</th>
-          <td>: {{ printScriptObject.PaymentId }}</td>
+          <td style="vertical-align: baseline" class="colon">{{'Transaction Id' | translate}}</td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline"> {{ printScriptObject.PaymentId }}</td>
         </tr>
         <tr *ngIf="printScriptObject.PaymentId">
-          <td colspan="2">
+          <td style="vertical-align: baseline" colspan="3">
             <br />
           </td>
         </tr>
         <tr>
-          <th style="vertical-align: baseline; padding-top: 45px!important;">
+          <td style="vertical-align: baseline" colspan="3">
+            <br />
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: baseline" colspan="3">
+            <br />
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: baseline" colspan="3">
+            <br />
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: baseline">
             {{'Name/Sign of Owner' | translate}}
-          </th>
-          <td style="padding-top: 45px!important;">: _________________</td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <br />
           </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <br />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <br />
-          </td>
+          <td style="vertical-align: baseline">:</td>
+          <td style="vertical-align: baseline">_________________</td>
         </tr>
       </tfoot>
     </table>
@@ -235,8 +258,11 @@
       *ngIf="printScriptObject.PaymentStatus === 'P'">
       {{'Payment' | translate}}
     </button>
-    <button ion-button color="primary" padding full (click)="print()" [disabled]="!printData.length">
+    <button ion-button color="primary" padding full (click)="printUsingIdPayPrint()" [disabled]="!printData.length">
       {{'Print' | translate}}
+    </button>
+    <button ion-button color="primary" padding full (click)="saveChallanAsPdf()" [disabled]="!printData.length">
+      {{'Save PDF' | translate}}
     </button>
   </div>
 </ion-content>

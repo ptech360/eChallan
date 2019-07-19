@@ -257,8 +257,8 @@ export class AddViolationComponent {
         this.challanForm.value["ChallanDate"] = response.ChallanDate;
         this.challanForm.value["amount"] = this.totalCharge;
         this.challanForm.value["violations"] = this.violations;
-        this.challanForm.value["VehicleNo"] = this.violenter.VehicleNo;
-        this.challanForm.value["VehicleClass"] = this.violenter.VehicleClass;
+        this.challanForm.value["VehicleNo"] = response.VehicleNo;
+        this.challanForm.value["VehicleClass"] = response.VehicleClass;
         this.challanForm.value["PaymentStatus"] = "P";
         this.challanForm.value["DutyOfficer"] = response.DutyOfficer;
         this.sendSMSAndEmail(this.challanForm.value);

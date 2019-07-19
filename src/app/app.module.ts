@@ -39,6 +39,7 @@ import { LanguageProvider } from '../providers/language/language';
 import { LanguagePopoverPage } from '../pages/language-popover/language-popover';
 import { LanguagePopoverPageModule } from '../pages/language-popover/language-popover.module';
 import { AuthInterceptor } from '../providers/interceptor/auth.interceptor';
+import { Printer } from '@ionic-native/printer';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -113,6 +114,7 @@ export function createTranslateLoader(http: HttpClient) {
     Uid,
     AndroidPermissions,
     Camera,
+    Printer,
     Geolocation,
     NetworkProvider,
     Network,

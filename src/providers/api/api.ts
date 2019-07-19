@@ -114,7 +114,6 @@ export class Api {
   };
 
   handleError = (errorResponse: HttpErrorResponse) => {
-    debugger
     if (errorResponse.status !== 401 && !errorResponse.error.message.include("Expired")) {
       this.showError(errorResponse.error.message || this.translate.instant("Something went wrong"));
     }

@@ -1,17 +1,29 @@
 page-print-receipt {
-    .signtaure{
-        margin-top: 60px;
-        // display: flex;
-        // justify-content: space-between;
-    }
-  th{
-      padding: 10px!important;
+  .signtaure{
+      margin-top: 60px;
+      // display: flex;
+      // justify-content: space-between;
   }
+  // th{
+  //     padding: 10px!important;
+  // }
   .sign{
       line-height: 4;
   }
   .flex{
     display: flex;
   }
-}
+  // th,td{
+  //   vertical-align: baseline !important;
+  // }
 
+  // tr th.colon{
+  //   position: relative;
+  // }
+
+  // tr th.colon::after{
+  //   position: absolute;
+  //   content: ':';
+  //   right: 10px;
+  // }
+}

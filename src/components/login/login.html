@@ -3,7 +3,7 @@
         <ion-list>
             <ion-item class="language-list">
                 <ion-label class="language-icon"><img src="assets/imgs/icon.png" alt="" /></ion-label>
-                <ion-select placeholder="English" (ngModelChange)="select($event)" [(ngModel)]="selected">
+                <ion-select (ngModelChange)="select($event)" [(ngModel)]="selected">
                     <ion-option *ngFor="let lng of languages" value="{{lng.value}}">{{lng.text}}</ion-option>
                 </ion-select>
             </ion-item>
@@ -46,7 +46,7 @@
 </div>
 <ion-footer text-center>
     <div>
-        <b>{{ "Copyright" | translate }} © {{ currentYear }} EfkonIndia.</b>
+        <b>{{ "Copyright" | translate }} © {{ currentYear }} Efkon India.</b>
     </div>
     <div>
         <b>{{ "All rights reserved" | translate }}</b>

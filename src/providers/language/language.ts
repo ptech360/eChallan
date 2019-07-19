@@ -27,17 +27,17 @@ export class LanguageProvider {
 
   setInitialAppLanguage() {
     let language = this.translate.getBrowserLang();
-    this.translate.setDefaultLang(language);
-    this.selectedLanguage.next(language);
+    // this.translate.setDefaultLang(language);
+    // this.selectedLanguage.next(language);
     localForage.getItem(LNG_KEY).then(val => {
       if (val) {
         this.setLanguage(val);
         this.selected = val;
       }
-      // else {
-      //   this.setLanguage(language);
-      //   this.selected = language;
-      // }
+      else {
+        this.setLanguage(language);
+        this.selected = language;
+      }
     })
   }
 
