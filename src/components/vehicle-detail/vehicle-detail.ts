@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, AfterContentInit, AfterViewInit } from "@angular/core";
 import {
   NavController,
   NavParams,
@@ -22,9 +22,14 @@ import { AddViolationComponent } from "../add-violation/add-violation";
   selector: "vehicle-detail",
   templateUrl: "vehicle-detail.html"
 })
-export class VehicleDetailComponent {
+export class VehicleDetailComponent implements AfterViewInit{
   text: string;
   violenter: any = {};
+
+  collpases={
+    c1:false,
+    c2:false
+  };
 
   violationForm: FormGroup;
   constructor(
@@ -62,10 +67,22 @@ export class VehicleDetailComponent {
     this.violenter = this.navParam.get("data");
     this.violationForm.patchValue(this.violenter);
   }
+  
+  ngAfterViewInit(){
+    
+  }
 
   addViolation() {
     this.navCtrl.push(AddViolationComponent, {
       data: this.violationForm.value
     });
+  }
+
+  onCollapse(div:HTMLElement){
+    console.log(div);
+    div.classList.toggle('collapse_hide');
+    
+    //this.collpases[c]= !this.collpases[c];
+    // div.classList.toggle('collapse_in_out');
   }
 }

@@ -6,20 +6,40 @@ vehicle-detail {
   .error {
     border-bottom: 1px solid red !important;
   }
-}
-ion-label{
-  font-size: 18px !important;
-  font-weight: 500 !important;
-  display: inline-block !important;
+  .collapse_main{
+    .collapse{
+      border: 1px solid #00786b;
+      ion-item{
+        ion-label{
+          display: inline-block;
+          font-weight: 400;
+          code{
+            color: red; 
+          }
+        }
+        ion-icon{
+          float: right;
+          color: #00786b;
+        }
+      }
+    }
+    .collapse_in_out{
+      &.collapse_in_out2{
+        height: 620px;
+      }
+      border: 1px solid #00786b;
+      padding-bottom: 10px;
+      transition:  height 0.5s;
+      height: 300px;
+    }
 
-  code {
-    color: red;
-}
-}
-ion-card{
-  padding-bottom: 10px;
-}
-.collapse_main{
-  display: inline-block;
-    width: 100%;
+    .collapse_in_out{
+      &.collapse_hide{
+        height: 0px;
+        overflow: hidden;
+        transition: height 0.5s;
+        padding-bottom: 0;
+      }
+    }
+  }
 }

@@ -32,7 +32,7 @@ export class GenerateChallanComponent {
   vc: string;
   violenter: any;
   needManualDetails: boolean = false;
-  vehicleNo: string = "UP14FT4253";
+  vehicleNo: string = "UP14FT4252";
   loading: Loading;
   online: boolean = true;
 
