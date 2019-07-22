@@ -6,20 +6,14 @@ vehicle-detail {
   .error {
     border-bottom: 1px solid red !important;
   }
-}
-ion-label{
-  font-size: 18px !important;
-  font-weight: 500 !important;
-  display: inline-block !important;
-
-  code {
-    color: red;
-}
+  ion-label{
+    display: inline-block !important;
+  
+    code {
+      color: red;
+  }
 }
 ion-card{
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
-.collapse_main{
-  display: inline-block;
-    width: 100%;
 }

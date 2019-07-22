@@ -137,6 +137,8 @@ export class AddViolationComponent {
 
   ionViewDidLoad() {
     this.violenter = this.navParam.get("data");
+    console.log(this.violenter);
+
     this.challanForm = this.getChallanForm();
     this.geolocation
       .getCurrentPosition()
@@ -181,7 +183,10 @@ export class AddViolationComponent {
     });
   }
 
-  subTotal() {
+  subTotal(event) {
+    console.log(event);
+    this.currentViolents = this.violentsList.filter(v => event.findIndex(e => e.ViolationId === v.ViolationId) > -1);
+    this.totalCharge = 0;
     let repeatedViolents = [];
     let createdDate: any = 0;
     let currentDate: any = 0;
@@ -203,13 +208,20 @@ export class AddViolationComponent {
       let repeatedViolentNames: string = "";
       repeatedViolents.forEach((element: any, index: number) => {
         repeatedViolentNames += index + 1 + ". " + element.ViolationName + "\n";
-        this.currentViolents.splice(this.currentViolents.indexOf(element), 1);
+        // this.currentViolents.splice(this.currentViolents.indexOf(element), 1);
+        this.currentViolents = this.currentViolents.filter(v => v.ViolationId !== element.ViolationId);
       });
       this.showError(repeatedViolentNames);
     }
     for (let i = 0; i < this.currentViolents.length; i++) {
       this.totalCharge += Number(this.currentViolents[i].ViolationFine);
     }
+  }
+
+  removeViolation(violation) {
+    this.currentViolents = this.currentViolents.filter(v => v.ViolationId !== violation.ViolationId);
+    this.totalCharge -= Number(violation.ViolationFine);
+    // this.subTotal(this.currentViolents);
   }
 
   payment() {

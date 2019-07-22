@@ -61,9 +61,26 @@ export class VehicleDetailComponent {
   ionViewDidLoad() {
     this.violenter = this.navParam.get("data");
     this.violationForm.patchValue(this.violenter);
+    this.violationForm.controls['RegnDate'].patchValue(this.getRegnDate());
+  }
+
+  getRegnDate() {
+    if (this.violenter.RegnDate) {
+      let today: any = new Date(this.violenter.RegnDate);
+      today.setHours(today.getHours());
+      // today.setHours(5);
+      // today.setMinutes(0);
+      // today.setSeconds(0);
+      let tzoffset = new Date(this.violenter.RegnDate).getTimezoneOffset() * 60000; //offset in milliseconds
+      return new Date(today - tzoffset).toISOString().slice(0, -5) + "Z";
+    } else {
+      return "";
+    }
   }
 
   addViolation() {
+    this.violationForm.value['RegnDate'] = this.violationForm.value['RegnDate'].slice(0, -1).slice(0, 10) +
+      " " + this.violationForm.value['RegnDate'].slice(0, -1).slice(11);
     this.navCtrl.push(AddViolationComponent, {
       data: this.violationForm.value
     });

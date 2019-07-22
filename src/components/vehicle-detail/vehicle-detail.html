@@ -11,25 +11,29 @@
     <ion-card>
       <div class="collapse_main">
 
-        <ion-item [ngClass]="violationForm.controls.VehicleNo.invalid ? 'error' : ''">
+        <ion-item>
           <ion-label stacked>{{'Vehicle No' | translate}}<code>*</code></ion-label>
-          <ion-input type="text" formControlName="VehicleNo"></ion-input>
+          <ion-input [ngClass]="violationForm.controls.VehicleNo.invalid ? 'error' : ''" type="text"
+            formControlName="VehicleNo"></ion-input>
         </ion-item>
 
-        <ion-item [ngClass]="violationForm.controls.MobileNumber.invalid ? 'error' : ''">
+        <ion-item>
           <ion-label stacked>{{'Mobile Number' | translate}}<code>*</code></ion-label>
-          <ion-input type="number" maxlength="10" formControlName="MobileNumber" name="MobileNumber">
+          <ion-input [ngClass]="violationForm.controls.MobileNumber.invalid ? 'error' : ''" type="number" maxlength="10"
+            formControlName="MobileNumber" name="MobileNumber">
           </ion-input>
         </ion-item>
 
-        <ion-item [ngClass]="violationForm.controls.OwnerName.invalid ? 'error' : ''">
+        <ion-item>
           <ion-label stacked>{{'Owner Name' | translate}}<code>*</code></ion-label>
-          <ion-input type="text" formControlName="OwnerName"></ion-input>
+          <ion-input [ngClass]="violationForm.controls.OwnerName.invalid ? 'error' : ''" type="text"
+            formControlName="OwnerName"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label stacked>{{'Owner Address' | translate}}<code>*</code></ion-label>
-          <ion-input type="text" formControlName="OwnerAddress"></ion-input>
+          <ion-input [ngClass]="violationForm.controls.OwnerAddress.invalid ? 'error' : ''" type="text"
+            formControlName="OwnerAddress"></ion-input>
         </ion-item>
 
       </div>
@@ -37,29 +41,34 @@
         <ion-label stacked>{{'Body Type'| translate}}</ion-label>
         <ion-input type="text" formControlName="BodyType"></ion-input>
       </ion-item>
-      <ion-item [ngClass]="violationForm.controls.ChassisNo.invalid ? 'error' : ''">
+      <ion-item>
         <ion-label stacked>{{'Chassis Number'| translate}}</ion-label>
-        <ion-input type="text" formControlName="ChassisNo"></ion-input>
+        <ion-input [ngClass]="violationForm.controls.ChassisNo.invalid ? 'error' : ''" type="text"
+          formControlName="ChassisNo"></ion-input>
       </ion-item>
-      <ion-item [ngClass]="violationForm.controls.Colour.invalid ? 'error' : ''">
+      <ion-item>
         <ion-label stacked>{{'Color' | translate}}</ion-label>
-        <ion-input type="text" formControlName="Colour"></ion-input>
+        <ion-input [ngClass]="violationForm.controls.Colour.invalid ? 'error' : ''" type="text"
+          formControlName="Colour"></ion-input>
       </ion-item>
-      <ion-item [ngClass]="violationForm.controls.EngNo.invalid ? 'error' : ''">
+      <ion-item>
         <ion-label stacked>{{'Engine Number' | translate}}</ion-label>
-        <ion-input type="text" formControlName="EngNo"></ion-input>
+        <ion-input [ngClass]="violationForm.controls.EngNo.invalid ? 'error' : ''" type="text" formControlName="EngNo">
+        </ion-input>
       </ion-item>
-      <ion-item [ngClass]="violationForm.controls.FatherName.invalid ? 'error' : ''">
+      <ion-item>
         <ion-label stacked>{{'Father Name' | translate}}</ion-label>
-        <ion-input type="text" formControlName="FatherName"></ion-input>
+        <ion-input [ngClass]="violationForm.controls.FatherName.invalid ? 'error' : ''" type="text"
+          formControlName="FatherName"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label stacked>{{'Maker Model'|translate}}</ion-label>
         <ion-input type="text" formControlName="MakerModel"></ion-input>
       </ion-item>
-      <ion-item [ngClass]="violationForm.controls.EmailId.invalid ? 'error' : ''">
+      <ion-item>
         <ion-label stacked>{{'Email' | translate}}</ion-label>
-        <ion-input type="email" formControlName="EmailId"></ion-input>
+        <ion-input [ngClass]="violationForm.controls.EmailId.invalid ? 'error' : ''" type="email"
+          formControlName="EmailId"></ion-input>
       </ion-item>
 
 
@@ -67,7 +76,8 @@
 
       <ion-item>
         <ion-label stacked>{{'Registration Date' | translate}}</ion-label>
-        <ion-input type="text" formControlName="RegnDate"></ion-input>
+        <ion-datetime pickerFormat="DD-MM-YYYYTHH:mm" displayFormat="DD-MM-YYYY HH:mm" formControlName="RegnDate">
+        </ion-datetime>
       </ion-item>
 
       <ion-item>

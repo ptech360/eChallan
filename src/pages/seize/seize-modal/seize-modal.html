@@ -28,7 +28,8 @@
         <div formArrayName="docs">
           <ion-item *ngFor="let doc of selectedDocs; let i = index">
             <ion-label stacked color="primary">{{ doc.DocumentName }}</ion-label>
-            <ion-input formControlName="{{i}}" placeholder="{{ 'Enter' + doc.DocumentName }}"[(ngModel)]="docsInputIds[i]">
+            <ion-input formControlName="{{i}}" placeholder="{{ 'Enter ' + doc.DocumentName }}"
+              [(ngModel)]="docsInputIds[i]">
             </ion-input>
           </ion-item>
         </div>

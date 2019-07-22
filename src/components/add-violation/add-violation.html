@@ -18,18 +18,21 @@
   <ion-card>
     <ion-item>
       <ion-label>{{'Select Violation' | translate}}</ion-label>
-      <ion-select [(ngModel)]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok"
-        (ionChange)="subTotal()">
+      <ion-select [ngModel]="currentViolents" multiple="true" cancelText="Cancel" okText="Ok"
+        (ngModelChange)="subTotal($event)">
         <ion-option class="preline" *ngFor="let violent of violentsList" [value]="violent">{{ violent.ViolationName }}
         </ion-option>
       </ion-select>
     </ion-item>
   </ion-card>
 
-  <ion-card class="violation_details">
-    <ion-item *ngFor="let violation of currentViolents" style="white-space:pre-line;">
+  <ion-card class="violation_details" *ngIf="currentViolents.length">
+    <ion-item *ngFor="let violation of currentViolents; let i = index">
+      <button color="primary" clear ion-button icon-only item-start (click)="removeViolation(violation)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
       {{ violation.ViolationName }}
-      <div item-right>₹ {{ violation.ViolationFine }}</div>
+      <ion-note item-end>₹ {{ violation.ViolationFine }}</ion-note>
     </ion-item>
   </ion-card>
 
