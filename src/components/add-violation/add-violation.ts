@@ -82,9 +82,29 @@ export class AddViolationComponent {
   ) {
     this.toastService.showLoader("Loading Violations...");
     this.violent.getViolents().subscribe(
-      response => {
+      (response: any[]) => {
         this.toastService.hideLoader();
-        this.violentsList = response;
+        const responseArray = response;
+        localForage
+          .getItem("Sorting")
+          .then((violationIds: any[]) => {
+            for (let i = 0, length1 = responseArray.length; i < length1; i++) {
+              for (let j = 0, length2 = violationIds.length; j < length2; j++) {
+                if (violationIds[j] === responseArray[i].ViolationId) {
+                  const tmp = responseArray[j]
+                  responseArray[j] = responseArray[i];
+                  responseArray[i] = tmp;
+
+                }
+              }
+
+            }
+            // we got our value
+          })
+          .catch(err => {
+            // we got an error
+          });
+        this.violentsList = responseArray;
         localForage
           .setItem("TrafficVioList", response)
           .then(() => {
@@ -113,6 +133,30 @@ export class AddViolationComponent {
         this.toastService.hideLoader();
       }
     );
+  }
+
+  cacheFrequentViolation(violationId) {
+    localForage
+      .getItem("Sorting")
+      .then((violationIds: any[]) => {
+        debugger
+        if (violationIds.length) {
+          if (violationIds.indexOf(violationId) >= 0) {
+            violationIds.splice(violationIds.indexOf(violationId), 1);
+            violationIds.unshift(violationId);
+          } else if (violationIds.indexOf(violationId) == -1) {
+            violationIds.unshift(violationId);
+          }
+          localForage.setItem("Sorting", [violationIds]);
+        } else {
+          localForage.setItem("Sorting", [violationId]);
+        }
+        // we got our value
+      })
+      .catch(err => {
+        localForage.setItem("Sorting", [violationId]);
+        // we got an error
+      });
   }
 
   getGeoLoacation(latitude, longitude) {
@@ -273,6 +317,9 @@ export class AddViolationComponent {
         this.challanForm.value["VehicleClass"] = response.VehicleClass;
         this.challanForm.value["PaymentStatus"] = "P";
         this.challanForm.value["DutyOfficer"] = response.DutyOfficer;
+        this.violationIds.forEach(id => {
+          this.cacheFrequentViolation(id);
+        });
         this.sendSMSAndEmail(this.challanForm.value);
         this.navCtrl.push(PrintReceiptPage, {
           data: this.challanForm.value,

@@ -107,10 +107,8 @@ export class MyApp extends Activity {
       document.getElementsByTagName("head")[0].appendChild(scr);
     }
     var scr1 = document.createElement("script");
-    scr1.src =
-      "https://mdm.digitsecure.com/plugin/Idpay/IdPayInvokev1_0.js" +
-      "?ts=" +
-      new Date().getTime();
+    // scr1.src = "https://mdm.digitsecure.com/plugin/Idpay/IdPayInvokev1_0.js" + "?ts=" + new Date().getTime();
+    scr1.src = "https://mdm.digitsecure.com/plugin/idpay.invoke.js"
     document.getElementsByTagName("head")[0].appendChild(scr1);
   }
 

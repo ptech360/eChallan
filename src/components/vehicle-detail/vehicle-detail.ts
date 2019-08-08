@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, AfterContentInit, AfterViewInit } from "@angular/core";
 import {
   NavController,
   NavParams,
@@ -22,7 +22,7 @@ import { AddViolationComponent } from "../add-violation/add-violation";
   selector: "vehicle-detail",
   templateUrl: "vehicle-detail.html"
 })
-export class VehicleDetailComponent {
+export class VehicleDetailComponent implements AfterViewInit {
   text: string;
   violenter: any = {};
 
@@ -78,11 +78,19 @@ export class VehicleDetailComponent {
     }
   }
 
+  ngAfterViewInit() {
+
+  }
+
   addViolation() {
     this.violationForm.value['RegnDate'] = this.violationForm.value['RegnDate'].slice(0, -1).slice(0, 10) +
       " " + this.violationForm.value['RegnDate'].slice(0, -1).slice(11);
     this.navCtrl.push(AddViolationComponent, {
       data: this.violationForm.value
     });
+  }
+
+  onCollapse(div: HTMLElement) {
+    div.classList.toggle('collapse_hide');
   }
 }
